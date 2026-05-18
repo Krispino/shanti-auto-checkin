@@ -422,3 +422,20 @@ function CodeRow({
     </div>
   );
 }
+
+function FAQItem({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="p-5">
+      <div className="font-medium text-sm">{title}</div>
+      <div className="mt-2 text-sm text-muted-foreground leading-relaxed">
+        {children}
+      </div>
+    </div>
+  );
+}

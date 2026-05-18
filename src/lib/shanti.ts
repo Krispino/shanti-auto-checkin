@@ -31,14 +31,14 @@ export const rooms: Record<RoomKey, Room> = {
       "Solteiro — uso individual (1 pessoa)",
     ],
     note: "A Suíte Mangaba acomoda casal, 2 solteiros ou uso individual.",
-    codigoCofrinho: "A_DEFINIR",
+    codigoCofrinho: "0200",
   },
   caninde: {
     label: "Duplex Caninde",
     article: "o",
     configs: ["Casal (2 pessoas)", "Solteiro — uso individual (1 pessoa)"],
     note: "O Duplex Caninde acomoda apenas casal ou uso individual.",
-    codigoCofrinho: "A_DEFINIR",
+    codigoCofrinho: "0004",
   },
   seriema: {
     label: "Duplex Seriema",
@@ -53,7 +53,7 @@ export const rooms: Record<RoomKey, Room> = {
       "Solteiro — uso individual (1 pessoa)",
     ],
     note: "O Duplex Seriema acomoda até 4 pessoas — diversas configurações disponíveis.",
-    codigoCofrinho: "A_DEFINIR",
+    codigoCofrinho: "0030",
   },
   maytreia: {
     label: "Chalé Maytreia",
@@ -66,14 +66,14 @@ export const rooms: Record<RoomKey, Room> = {
       "Solteiro — uso individual (1 pessoa)",
     ],
     note: "O Chalé Maytreia acomoda até 3 pessoas — casal, casal+solteiro, 3 solteiros ou uso individual.",
-    codigoCofrinho: "A_DEFINIR",
+    codigoCofrinho: "0006",
   },
   mantra: {
     label: "Chalé Mantra",
     article: "o",
     configs: ["Casal (2 pessoas)", "Solteiro — uso individual (1 pessoa)"],
     note: "O Chalé Mantra acomoda apenas casal ou uso individual.",
-    codigoCofrinho: "A_DEFINIR",
+    codigoCofrinho: "0005",
   },
 };
 

@@ -101,8 +101,7 @@ function Chegada() {
                 Liberado para auto check-in ✓
               </div>
               <p className="mt-3 text-sm text-muted-foreground max-w-md mx-auto">
-                Check-in disponível a partir das 14h. Genilda está no espaço
-                caso precise.
+                Check-in disponível a partir das 14h.
               </p>
             </>
           ) : (
@@ -156,12 +155,12 @@ function Chegada() {
         {/* Vídeo */}
         <SectionTitle>Vídeo de acesso</SectionTitle>
         {liberado ? (
-          <div className="rounded-lg overflow-hidden border border-border bg-card">
+          <div className="rounded-lg overflow-hidden border border-border bg-card mx-auto" style={{ maxWidth: 360 }}>
             <div
               className="relative flex items-center justify-center"
               style={{
                 backgroundColor: "#1a1a1a",
-                aspectRatio: "16 / 9",
+                aspectRatio: "9 / 16",
               }}
             >
               <video

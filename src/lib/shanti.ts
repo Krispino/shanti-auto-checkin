@@ -20,7 +20,7 @@ export const rooms: Record<RoomKey, Room> = {
     article: "a",
     configs: ["Casal (2 pessoas)", "Solteiro — uso individual (1 pessoa)"],
     note: "A Suíte Caliandra acomoda apenas casal ou uso individual.",
-    codigoCofrinho: "0004",
+    codigoCofrinho: "1000",
   },
   mangaba: {
     label: "Suíte Mangaba",
@@ -66,14 +66,14 @@ export const rooms: Record<RoomKey, Room> = {
       "Solteiro — uso individual (1 pessoa)",
     ],
     note: "O Chalé Maytreia acomoda até 3 pessoas — casal, casal+solteiro, 3 solteiros ou uso individual.",
-    codigoCofrinho: "0006",
+    codigoCofrinho: "0005",
   },
   mantra: {
     label: "Chalé Mantra",
     article: "o",
     configs: ["Casal (2 pessoas)", "Solteiro — uso individual (1 pessoa)"],
     note: "O Chalé Mantra acomoda apenas casal ou uso individual.",
-    codigoCofrinho: "0005",
+    codigoCofrinho: "0006",
   },
 };
 

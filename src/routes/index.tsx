@@ -100,8 +100,7 @@ function Index() {
             Vila de São Jorge, Alto Paraíso de Goiás
           </InfoCard>
           <InfoCard title="Como funciona">
-            Auto check-in (sem recepção). Genilda no espaço para apoio
-            presencial.
+            Instruções e senhas enviadas por WA. Auto check-in (sem recepção)
           </InfoCard>
         </div>
       </div>

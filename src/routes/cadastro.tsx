@@ -214,7 +214,7 @@ function Cadastro() {
           )}
 
           {step === 1 && (
-            <Section title={ondeUsar} last>
+            <Section title="Acomodação" last>
               <Field label="Configuração">
                 <select
                   value={config}

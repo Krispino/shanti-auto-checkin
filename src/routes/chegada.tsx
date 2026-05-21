@@ -8,6 +8,7 @@ import {
   getReservaFromSearch,
   type ReservaParams,
 } from "@/lib/shanti";
+import { ShantiLogo } from "@/components/shanti-logo";
 
 export const Route = createFileRoute("/chegada")({
   head: () => ({ meta: [{ title: "Sua chegada — Shanti Pousada" }] }),
@@ -62,6 +63,7 @@ function Chegada() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <div className="mx-auto px-5 py-10 md:py-14" style={{ maxWidth: 760 }}>
+        <ShantiLogo />
         {/* Header card */}
         <div className="rounded-lg border border-border bg-card p-6">
           <div className="flex items-start justify-between gap-4 flex-wrap">

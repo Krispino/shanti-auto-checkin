@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { formatDateShort, getReservaFromSearch } from "@/lib/shanti";
+import { ShantiLogo } from "@/components/shanti-logo";
 
 export const Route = createFileRoute("/confirmado")({
   head: () => ({ meta: [{ title: "Pré-check-in confirmado — Shanti Pousada" }] }),
@@ -26,6 +27,7 @@ function Confirmado() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <div className="mx-auto px-5 py-12 md:py-16" style={{ maxWidth: 760 }}>
+        <ShantiLogo />
         <div className="text-center">
           <div
             className="mx-auto flex items-center justify-center rounded-full"

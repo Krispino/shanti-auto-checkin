@@ -169,7 +169,7 @@ function Chegada() {
                 className="w-full h-full"
                 poster=""
               >
-                <source src="/arquivos/acesso.mp4" type="video/mp4" />
+                <source src={`/arquivos/CHECKIN.${reserva.quartoKey.toUpperCase()}.V2.MP4`} type="video/mp4" />
               </video>
             </div>
             <div className="p-5">

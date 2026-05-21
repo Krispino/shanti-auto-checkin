@@ -204,6 +204,7 @@ function Cadastro() {
                   required
                   placeholder="UF (ex: GO)"
                   maxLength={2}
+                  minLength={2}
                   value={estado}
                   onChange={(e) => setEstado(e.target.value.toUpperCase())}
                   className={inputCls}

@@ -1,12 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import {
-  WHATSAPP_PAULA,
-  daysUntil,
-  formatDateShort,
-  getReservaFromSearch,
-  preserveSearch,
-} from "@/lib/shanti";
+import { WHATSAPP_PAULA } from "@/lib/shanti";
 import { ShantiLogo } from "@/components/shanti-logo";
 
 export const Route = createFileRoute("/")({
@@ -24,21 +18,11 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const [reserva, setReserva] = useState(() =>
-    getReservaFromSearch(new URLSearchParams()),
-  );
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    const sp = new URLSearchParams(window.location.search);
-    setReserva(getReservaFromSearch(sp));
     setSearch(window.location.search);
   }, []);
-
-  const dias = daysUntil(reserva.checkin);
-  const nomeBemVindo = reserva.rawNome
-    ? `Bem-vindo(a), ${reserva.rawNome.split(" ")[0]}.`
-    : "Bem-vindo à Shanti Pousada";
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -52,24 +36,16 @@ function Index() {
             SHANTI POUSADA
           </div>
           <h1 className="mt-8 text-3xl md:text-4xl font-medium tracking-tight">
-            {nomeBemVindo}
+            Bem-vindo à Shanti Pousada
           </h1>
           <p className="mt-4 text-muted-foreground max-w-xl mx-auto leading-relaxed">
-            {reserva.rawNome ? (
-              <>
-                Sua estadia em São Jorge começa em{" "}
-                <span className="text-foreground">{dias} dias</span>. Vamos
-                organizar o check-in com calma, antes da chegada.
-              </>
-            ) : (
-              <>Auto check-in em São Jorge, Chapada dos Veadeiros.</>
-            )}
+            Auto check-in em São Jorge, Chapada dos Veadeiros.
           </p>
 
           <div className="mt-10 mx-auto flex flex-col gap-3" style={{ maxWidth: 340 }}>
             <Link
               to="/cadastro"
-              search={{ ...Object.fromEntries(new URLSearchParams(search)), acomodacao: reserva.quartoKey }}
+              search={Object.fromEntries(new URLSearchParams(search))}
               className="w-full rounded-md bg-primary px-6 py-3 text-primary-foreground font-medium hover:bg-primary-hover transition-colors"
             >
               Fazer pré-check-in (2 min)
@@ -85,15 +61,7 @@ function Index() {
           </div>
         </div>
 
-        <div className="mt-16 grid gap-4 md:grid-cols-3">
-          <InfoCard title="Sua reserva">
-            {reserva.room.label} · {reserva.noites} noite
-            {reserva.noites > 1 ? "s" : ""}
-            <br />
-            Check-in {formatDateShort(reserva.checkin)} a partir das 14h
-            <br />
-            Check-out {formatDateShort(reserva.checkout)} até 12h
-          </InfoCard>
+        <div className="mt-16 grid gap-4 md:grid-cols-2">
           <InfoCard title="Onde fica">
             Rua dos Ipês, lote 1
             <br />

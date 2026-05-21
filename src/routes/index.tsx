@@ -69,7 +69,7 @@ function Index() {
           <div className="mt-10 mx-auto flex flex-col gap-3" style={{ maxWidth: 340 }}>
             <Link
               to="/cadastro"
-              search={Object.fromEntries(new URLSearchParams(search))}
+              search={{ ...Object.fromEntries(new URLSearchParams(search)), acomodacao: reserva.quartoKey }}
               className="w-full rounded-md bg-primary px-6 py-3 text-primary-foreground font-medium hover:bg-primary-hover transition-colors"
             >
               Fazer pré-check-in (2 min)

@@ -100,7 +100,7 @@ function Index() {
             Vila de São Jorge, Alto Paraíso de Goiás
           </InfoCard>
           <InfoCard title="Como funciona">
-            Instruções e senhas enviadas por WA. Auto check-in (sem recepção)
+            Instruções e senhas enviadas por WhatsApp. Auto check-in (sem recepção)
           </InfoCard>
         </div>
       </div>

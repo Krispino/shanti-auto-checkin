@@ -17,9 +17,7 @@ export const Route = createFileRoute("/chegada")({
 function getStatus(reserva: ReservaParams): "bloqueado" | "liberado" {
   const now = Date.now();
   const liberaEm = reserva.checkin.getTime() - 24 * 60 * 60 * 1000;
-  const checkoutMs = reserva.checkout.getTime();
-  if (now >= liberaEm && now <= checkoutMs) return "liberado";
-  return "bloqueado";
+  return now >= liberaEm ? "liberado" : "bloqueado";
 }
 
 function timeRemaining(target: Date) {
@@ -111,7 +109,7 @@ function Chegada() {
                 Códigos liberam em
               </div>
               <div className="mt-3 text-2xl md:text-3xl font-medium">
-                {remaining.dias} dias · {remaining.horas}h ·{" "}
+                {remaining.dias} {remaining.dias === 1 ? "dia" : "dias"} · {remaining.horas}h ·{" "}
                 {remaining.minutos}min
               </div>
               <p className="mt-3 text-sm text-muted-foreground max-w-md mx-auto">

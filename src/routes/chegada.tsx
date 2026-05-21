@@ -315,7 +315,10 @@ function Chegada() {
             </p>
             <button
               type="button"
-              onClick={() => alert("Obrigada! Avisaremos a Paula.")}
+              onClick={() => {
+                const msg = `Olá Paula! Acabei de chegar na ${reserva.room.label}. ✓`;
+                window.open(`https://wa.me/${WHATSAPP_PAULA}?text=${encodeURIComponent(msg)}`, "_blank");
+              }}
               className="mt-4 rounded-md bg-card text-foreground font-medium px-5 py-2.5 text-sm hover:bg-background transition-colors"
             >
               Confirmar minha chegada

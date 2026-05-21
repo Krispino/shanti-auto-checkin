@@ -7,7 +7,7 @@ import {
 } from "@/lib/shanti";
 
 // Endpoint do Google Apps Script — configurar quando estiver pronto
-const SHEETS_ENDPOINT = "<COLOCAR_AQUI>";
+const SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbyzkbdi8IU7lD3jYk3D9sc8E90YKwGKWiW_-IDGlE2vPY1AczZ5Er4zFc1sHlAw37Vd/exec";
 
 export const Route = createFileRoute("/cadastro")({
   head: () => ({
@@ -37,6 +37,8 @@ function Cadastro() {
   const [horario, setHorario] = useState("");
   const [meio, setMeio] = useState("");
   const [obs, setObs] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [estado, setEstado] = useState("");
   const [regras, setRegras] = useState(true);
   const [submitting, setSubmitting] = useState(false);
 
@@ -62,6 +64,8 @@ function Cadastro() {
       nome,
       documento: doc,
       email,
+      cidade,
+      estado,
       quarto: reserva.room.label,
       quartoKey: reserva.quartoKey,
       checkin: reserva.checkin.toISOString(),
@@ -93,6 +97,7 @@ function Cadastro() {
       "",
       `• Acomodação: ${reserva.room.label}`,
       `• Chegada: ${formatDateShort(reserva.checkin)} — ${horario || "horário a definir"}`,
+      cidade && estado ? `• Cidade/Estado: ${cidade} — ${estado}` : null,
       `• Configuração: ${config}`,
       acompanhante ? `• Acompanhante: ${acompanhante}` : null,
       `• Como vou chegar: ${meio || "a definir"}`,
@@ -176,6 +181,29 @@ function Cadastro() {
                   placeholder="seu@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  className={inputCls}
+                />
+              </Field>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              <Field label="Cidade" required>
+                <input
+                  type="text"
+                  required
+                  placeholder="Sua cidade"
+                  value={cidade}
+                  onChange={(e) => setCidade(e.target.value)}
+                  className={inputCls}
+                />
+              </Field>
+              <Field label="Estado" required>
+                <input
+                  type="text"
+                  required
+                  placeholder="UF (ex: GO)"
+                  maxLength={2}
+                  value={estado}
+                  onChange={(e) => setEstado(e.target.value.toUpperCase())}
                   className={inputCls}
                 />
               </Field>

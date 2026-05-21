@@ -5,6 +5,7 @@ import {
   formatDateShort,
   getReservaFromSearch,
 } from "@/lib/shanti";
+import { ShantiLogo } from "@/components/shanti-logo";
 
 // Endpoint do Google Apps Script — configurar quando estiver pronto
 const SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbyzkbdi8IU7lD3jYk3D9sc8E90YKwGKWiW_-IDGlE2vPY1AczZ5Er4zFc1sHlAw37Vd/exec";
@@ -122,6 +123,7 @@ function Cadastro() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <div className="mx-auto px-5 py-12" style={{ maxWidth: 760 }}>
+        <ShantiLogo />
         <div
           className="text-xs text-muted-foreground"
           style={{ letterSpacing: "3px" }}

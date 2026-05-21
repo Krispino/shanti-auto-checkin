@@ -4,7 +4,7 @@ export function ShantiLogo() {
       <img
         src="/arquivos/logooficial1.jpg"
         alt="Shanti Pousada"
-        style={{ height: 64, width: "auto", objectFit: "contain" }}
+        style={{ height: "auto", width: "100%", maxWidth: 200, objectFit: "contain" }}
       />
     </div>
   );

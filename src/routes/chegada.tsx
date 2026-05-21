@@ -35,6 +35,7 @@ function Chegada() {
     getReservaFromSearch(new URLSearchParams()),
   );
   const [, setTick] = useState(0);
+  const [videoDuration, setVideoDuration] = useState<number | null>(null);
 
   useEffect(() => {
     const sp = new URLSearchParams(window.location.search);
@@ -168,13 +169,14 @@ function Chegada() {
                 preload="metadata"
                 className="w-full h-full"
                 poster=""
+                onLoadedMetadata={(e) => setVideoDuration(Math.round(e.currentTarget.duration))}
               >
                 <source src={`/arquivos/CHECKIN.${reserva.quartoKey.toUpperCase()}.V2.MP4`} type="video/mp4" />
               </video>
             </div>
             <div className="p-5">
               <div className="text-xs text-muted-foreground">
-                Vídeo de acesso · 15s
+                Vídeo de acesso{videoDuration !== null ? ` · ${videoDuration}s` : ""}
               </div>
               <div className="mt-2 font-medium">Como chegar ao seu quarto</div>
               <p className="text-sm text-muted-foreground mt-1">

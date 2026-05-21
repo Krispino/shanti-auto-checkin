@@ -7,6 +7,7 @@ import {
   getReservaFromSearch,
   preserveSearch,
 } from "@/lib/shanti";
+import { ShantiLogo } from "@/components/shanti-logo";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -42,6 +43,7 @@ function Index() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <div className="mx-auto max-w-3xl px-5 py-16 md:py-24">
+        <ShantiLogo />
         <div className="text-center">
           <div
             className="text-xs text-muted-foreground"

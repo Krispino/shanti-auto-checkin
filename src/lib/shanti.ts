@@ -107,7 +107,7 @@ function parseDateLocal(s: string | null | undefined, fallback: Date): Date {
 
 export function getReservaFromSearch(search: URLSearchParams): ReservaParams {
   const rawNome = search.get("nome") || "";
-  const quartoParam = search.get("quarto") || "caliandra";
+  const quartoParam = search.get("quarto") || search.get("acomodacao") || "caliandra";
   const quartoKey: RoomKey = isRoomKey(quartoParam) ? quartoParam : "caliandra";
   const now = new Date();
   const defCheckin = new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000);

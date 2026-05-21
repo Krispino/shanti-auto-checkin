@@ -45,12 +45,7 @@ function Cadastro() {
 
   useEffect(() => {
     if (reserva.rawNome) setNome(reserva.rawNome);
-    const acomodacao = new URLSearchParams(window.location.search).get("acomodacao");
-    if (acomodacao && reserva.room.configs.includes(acomodacao)) {
-      setConfig(acomodacao);
-    } else if (reserva.room.configs[0]) {
-      setConfig(reserva.room.configs[0]);
-    }
+    if (reserva.room.configs[0]) setConfig(reserva.room.configs[0]);
   }, [reserva]);
 
   const ondeUsar = useMemo(

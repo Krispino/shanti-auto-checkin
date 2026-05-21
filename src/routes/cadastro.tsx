@@ -53,7 +53,7 @@ function Cadastro() {
     [reserva],
   );
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!regras) {
       alert("É necessário aceitar as regras da casa para continuar.");
@@ -61,63 +61,61 @@ function Cadastro() {
     }
     setSubmitting(true);
 
-    const payload = {
-      nome,
-      documento: doc,
-      email,
-      cidade,
-      estado,
-      quarto: reserva.room.label,
-      quartoKey: reserva.quartoKey,
-      checkin: reserva.checkin.toISOString(),
-      checkout: reserva.checkout.toISOString(),
-      configuracao: config,
-      acompanhante,
-      horario,
-      meio,
-      observacao: obs,
-      regrasAceitas: regras,
-    };
+    try {
+      const payload = {
+        nome,
+        documento: doc,
+        email,
+        cidade,
+        estado,
+        quarto: reserva.room.label,
+        quartoKey: reserva.quartoKey,
+        checkin: reserva.checkin.toISOString(),
+        checkout: reserva.checkout.toISOString(),
+        configuracao: config,
+        acompanhante,
+        horario,
+        meio,
+        observacao: obs,
+        regrasAceitas: regras,
+      };
 
-    if (SHEETS_ENDPOINT && !SHEETS_ENDPOINT.startsWith("<")) {
-      try {
-        await fetch(SHEETS_ENDPOINT, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-      } catch (err) {
-        console.error("Falha ao enviar para Sheets", err);
-      }
+      // Fire-and-forget: no-cors nunca retorna body legível
+      fetch(SHEETS_ENDPOINT, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }).catch(() => {});
+
+      const linhas = [
+        `Olá Paula, aqui é ${nome}.`,
+        "Acabei de fazer o pré-check-in pelo site da Shanti:",
+        "",
+        `• Acomodação: ${reserva.room.label}`,
+        `• Chegada: ${formatDateShort(reserva.checkin)} — ${horario || "horário a definir"}`,
+        cidade && estado ? `• Cidade/Estado: ${cidade} — ${estado}` : null,
+        `• Configuração: ${config}`,
+        acompanhante ? `• Acompanhante: ${acompanhante}` : null,
+        `• Como vou chegar: ${meio || "a definir"}`,
+        email ? `• E-mail: ${email}` : null,
+        "",
+        obs ? `Observação: ${obs}` : null,
+        "",
+        "Aguardo as instruções de acesso. Obrigada!",
+      ]
+        .filter(Boolean)
+        .join("\n");
+
+      window.open(`https://wa.me/${WHATSAPP_PAULA}?text=${encodeURIComponent(linhas)}`, "_blank");
+
+      navigate({
+        to: "/confirmado",
+        search: Object.fromEntries(new URLSearchParams(search)),
+      });
+    } finally {
+      setSubmitting(false);
     }
-
-    const linhas = [
-      `Olá Paula, aqui é ${nome}.`,
-      "Acabei de fazer o pré-check-in pelo site da Shanti:",
-      "",
-      `• Acomodação: ${reserva.room.label}`,
-      `• Chegada: ${formatDateShort(reserva.checkin)} — ${horario || "horário a definir"}`,
-      cidade && estado ? `• Cidade/Estado: ${cidade} — ${estado}` : null,
-      `• Configuração: ${config}`,
-      acompanhante ? `• Acompanhante: ${acompanhante}` : null,
-      `• Como vou chegar: ${meio || "a definir"}`,
-      email ? `• E-mail: ${email}` : null,
-      "",
-      obs ? `Observação: ${obs}` : null,
-      "",
-      "Aguardo as instruções de acesso. Obrigada!",
-    ]
-      .filter(Boolean)
-      .join("\n");
-
-    const url = `https://wa.me/${WHATSAPP_PAULA}?text=${encodeURIComponent(linhas)}`;
-    window.open(url, "_blank");
-
-    navigate({
-      to: "/confirmado",
-      search: Object.fromEntries(new URLSearchParams(search)),
-    });
   }
 
   return (

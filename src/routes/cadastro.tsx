@@ -42,6 +42,7 @@ function Cadastro() {
   const [estado, setEstado] = useState("");
   const [regras, setRegras] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [step, setStep] = useState(0);
 
   useEffect(() => {
     if (reserva.rawNome) setNome(reserva.rawNome);
@@ -148,164 +149,195 @@ function Cadastro() {
                 key={i}
                 className="h-1 flex-1 rounded-full"
                 style={{
-                  backgroundColor:
-                    i < 2 ? "var(--primary)" : "var(--border)",
+                  backgroundColor: i <= step ? "var(--primary)" : "var(--border)",
                 }}
               />
             ))}
           </div>
 
-          <Section title="Hóspede principal">
-            <Field label="Nome completo" required>
-              <input
-                type="text"
-                required
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
-                className={inputCls}
-              />
-            </Field>
-            <div className="grid gap-4 md:grid-cols-2">
-              <Field label="CPF ou documento">
-                <input
-                  type="text"
-                  placeholder="000.000.000-00"
-                  value={doc}
-                  onChange={(e) => setDoc(e.target.value)}
-                  className={inputCls}
-                />
-              </Field>
-              <Field label="E-mail">
-                <input
-                  type="email"
-                  placeholder="seu@email.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className={inputCls}
-                />
-              </Field>
-            </div>
-            <div className="grid gap-4 md:grid-cols-2">
-              <Field label="Cidade" required>
+          {step === 0 && (
+            <Section title="Hóspede principal" last>
+              <Field label="Nome completo" required>
                 <input
                   type="text"
                   required
-                  placeholder="Sua cidade"
-                  value={cidade}
-                  onChange={(e) => setCidade(e.target.value)}
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
                   className={inputCls}
                 />
               </Field>
-              <Field label="Estado" required>
-                <input
-                  type="text"
-                  required
-                  placeholder="UF (ex: GO)"
-                  maxLength={2}
-                  minLength={2}
-                  value={estado}
-                  onChange={(e) => setEstado(e.target.value.toUpperCase())}
-                  className={inputCls}
-                />
-              </Field>
-            </div>
-          </Section>
+              <div className="grid gap-4 md:grid-cols-2">
+                <Field label="CPF ou documento">
+                  <input
+                    type="text"
+                    placeholder="000.000.000-00"
+                    value={doc}
+                    onChange={(e) => setDoc(e.target.value)}
+                    className={inputCls}
+                  />
+                </Field>
+                <Field label="E-mail">
+                  <input
+                    type="email"
+                    placeholder="seu@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className={inputCls}
+                  />
+                </Field>
+              </div>
+              <div className="grid gap-4 md:grid-cols-2">
+                <Field label="Cidade" required>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Sua cidade"
+                    value={cidade}
+                    onChange={(e) => setCidade(e.target.value)}
+                    className={inputCls}
+                  />
+                </Field>
+                <Field label="Estado" required>
+                  <input
+                    type="text"
+                    required
+                    placeholder="UF (ex: GO)"
+                    maxLength={2}
+                    minLength={2}
+                    value={estado}
+                    onChange={(e) => setEstado(e.target.value.toUpperCase())}
+                    className={inputCls}
+                  />
+                </Field>
+              </div>
+            </Section>
+          )}
 
-          <Section title={ondeUsar}>
-            <Field label="Configuração">
-              <select
-                value={config}
-                onChange={(e) => setConfig(e.target.value)}
-                className={inputCls}
+          {step === 1 && (
+            <Section title={ondeUsar} last>
+              <Field label="Configuração">
+                <select
+                  value={config}
+                  onChange={(e) => setConfig(e.target.value)}
+                  className={inputCls}
+                >
+                  {reserva.room.configs.map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
+                </select>
+                <p className="mt-2 text-xs text-muted-foreground">
+                  {reserva.room.note}
+                </p>
+              </Field>
+              <Field label="Nome do(s) acompanhante(s)">
+                <input
+                  type="text"
+                  placeholder="Nome completo de quem vem com você"
+                  value={acompanhante}
+                  onChange={(e) => setAcompanhante(e.target.value)}
+                  className={inputCls}
+                />
+              </Field>
+            </Section>
+          )}
+
+          {step === 2 && (
+            <Section title="Chegada" last>
+              <div className="grid gap-4 md:grid-cols-2">
+                <Field label="Horário previsto">
+                  <select
+                    value={horario}
+                    onChange={(e) => setHorario(e.target.value)}
+                    className={inputCls}
+                  >
+                    <option value="">Selecione</option>
+                    <option>Entre 14h e 16h</option>
+                    <option>Entre 16h e 18h</option>
+                    <option>Depois das 18h</option>
+                    <option>Não sei ainda</option>
+                  </select>
+                </Field>
+                <Field label="Como vai chegar">
+                  <select
+                    value={meio}
+                    onChange={(e) => setMeio(e.target.value)}
+                    className={inputCls}
+                  >
+                    <option value="">Selecione</option>
+                    <option>Carro próprio</option>
+                    <option>Van/transfer</option>
+                    <option>Carona</option>
+                  </select>
+                </Field>
+              </div>
+            </Section>
+          )}
+
+          {step === 3 && (
+            <Section title="Antes de fechar" last>
+              <Field label="Pedido especial">
+                <textarea
+                  rows={3}
+                  placeholder="Alergia, preferência, qualquer coisa que devemos saber..."
+                  value={obs}
+                  onChange={(e) => setObs(e.target.value)}
+                  className={inputCls}
+                />
+              </Field>
+              <label className="flex items-start gap-2 mt-2 text-sm">
+                <input
+                  type="checkbox"
+                  checked={regras}
+                  onChange={(e) => setRegras(e.target.checked)}
+                  className="mt-1"
+                />
+                <span>
+                  Li e aceito as regras da casa (silêncio 22h-8h, não-fumantes
+                  nas áreas internas, sem festas).
+                </span>
+              </label>
+            </Section>
+          )}
+
+          <div className="mt-8 flex items-center justify-between gap-4">
+            {step > 0 ? (
+              <button
+                type="button"
+                onClick={() => setStep((s) => s - 1)}
+                className="rounded-md border border-border bg-background px-5 py-2.5 text-sm font-medium hover:bg-accent transition-colors"
               >
-                {reserva.room.configs.map((c) => (
-                  <option key={c} value={c}>
-                    {c}
-                  </option>
-                ))}
-              </select>
-              <p className="mt-2 text-xs text-muted-foreground">
-                {reserva.room.note}
-              </p>
-            </Field>
-            <Field label="Nome do(s) acompanhante(s)">
-              <input
-                type="text"
-                placeholder="Nome completo de quem vem com você"
-                value={acompanhante}
-                onChange={(e) => setAcompanhante(e.target.value)}
-                className={inputCls}
-              />
-            </Field>
-          </Section>
+                Voltar
+              </button>
+            ) : (
+              <span />
+            )}
 
-          <Section title="Chegada">
-            <div className="grid gap-4 md:grid-cols-2">
-              <Field label="Horário previsto">
-                <select
-                  value={horario}
-                  onChange={(e) => setHorario(e.target.value)}
-                  className={inputCls}
+            {step < 3 ? (
+              <button
+                type="button"
+                onClick={() => setStep((s) => s + 1)}
+                className="rounded-md bg-primary text-primary-foreground font-medium px-6 py-2.5 text-sm hover:bg-primary-hover transition-colors"
+              >
+                Próximo
+              </button>
+            ) : (
+              <div className="text-center flex-1">
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="rounded-md bg-primary text-primary-foreground font-medium hover:bg-primary-hover transition-colors disabled:opacity-60"
+                  style={{ padding: "14px 32px" }}
                 >
-                  <option value="">Selecione</option>
-                  <option>Entre 14h e 16h</option>
-                  <option>Entre 16h e 18h</option>
-                  <option>Depois das 18h</option>
-                  <option>Não sei ainda</option>
-                </select>
-              </Field>
-              <Field label="Como vai chegar">
-                <select
-                  value={meio}
-                  onChange={(e) => setMeio(e.target.value)}
-                  className={inputCls}
-                >
-                  <option value="">Selecione</option>
-                  <option>Carro próprio</option>
-                  <option>Van/transfer</option>
-                  <option>Carona</option>
-                </select>
-              </Field>
-            </div>
-          </Section>
-
-          <Section title="Antes de fechar" last>
-            <Field label="Pedido especial">
-              <textarea
-                rows={3}
-                placeholder="Alergia, preferência, qualquer coisa que devemos saber..."
-                value={obs}
-                onChange={(e) => setObs(e.target.value)}
-                className={inputCls}
-              />
-            </Field>
-            <label className="flex items-start gap-2 mt-2 text-sm">
-              <input
-                type="checkbox"
-                checked={regras}
-                onChange={(e) => setRegras(e.target.checked)}
-                className="mt-1"
-              />
-              <span>
-                Li e aceito as regras da casa (silêncio 22h-8h, não-fumantes
-                nas áreas internas, sem festas).
-              </span>
-            </label>
-          </Section>
-
-          <div className="mt-8 text-center">
-            <button
-              type="submit"
-              disabled={submitting}
-              className="inline-block rounded-md bg-primary text-primary-foreground font-medium hover:bg-primary-hover transition-colors disabled:opacity-60"
-              style={{ padding: "14px 32px" }}
-            >
-              {submitting ? "Enviando..." : "Confirmar e abrir WhatsApp"}
-            </button>
-            <p className="mt-3 text-xs text-muted-foreground">
-              Vamos abrir o WhatsApp com sua mensagem pronta. Você só precisa
-              tocar em 'Enviar'.
-            </p>
+                  {submitting ? "Enviando..." : "Confirmar e abrir WhatsApp"}
+                </button>
+                <p className="mt-3 text-xs text-muted-foreground">
+                  Vamos abrir o WhatsApp com sua mensagem pronta. Você só precisa
+                  tocar em 'Enviar'.
+                </p>
+              </div>
+            )}
           </div>
         </form>
       </div>

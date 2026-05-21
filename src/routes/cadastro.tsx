@@ -109,10 +109,9 @@ function Cadastro() {
 
       window.open(`https://wa.me/${WHATSAPP_PAULA}?text=${encodeURIComponent(linhas)}`, "_blank");
 
-      navigate({
-        to: "/confirmado",
-        search: Object.fromEntries(new URLSearchParams(search)),
-      });
+      const sp = new URLSearchParams(search);
+      sp.delete("acomodacao");
+      navigate({ to: "/chegada", search: Object.fromEntries(sp) });
     } finally {
       setSubmitting(false);
     }

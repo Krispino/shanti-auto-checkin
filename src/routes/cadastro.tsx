@@ -35,23 +35,39 @@ function Cadastro() {
   const [email, setEmail] = useState("");
   const [config, setConfig] = useState("");
   const [acompanhante, setAcompanhante] = useState("");
+  const [acompanhantes, setAcompanhantes] = useState<string[]>([]);
+
+  const numAcompanhantes = (() => {
+    if (config.startsWith("Solteiro")) return 0;
+    if (config.startsWith("Casal + 2")) return 3;
+    if (config.startsWith("Casal + 1")) return 2;
+    if (config.startsWith("Casal")) return 1;
+    if (config.startsWith("4 sol")) return 3;
+    if (config.startsWith("3 sol")) return 2;
+    if (config.startsWith("2 sol")) return 1;
+    return 0;
+  })();
   const [horario, setHorario] = useState("");
+  const [dataEntrada, setDataEntrada] = useState("");
+  const [dataSaida, setDataSaida] = useState("");
   const [meio, setMeio] = useState("");
+  const [plataforma, setPlataforma] = useState("");
+  const [acomodacaoNome, setAcomodacaoNome] = useState("");
   const [obs, setObs] = useState("");
+  const [criancas, setCriancas] = useState<{ idade: string }[]>([]);
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
   const [regras, setRegras] = useState(true);
+  const [marketing, setMarketing] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     if (reserva.rawNome) setNome(reserva.rawNome);
     if (reserva.room.configs[0]) setConfig(reserva.room.configs[0]);
+
   }, [reserva]);
 
-  const ondeUsar = useMemo(
-    () => `Quem vai usar ${reserva.room.article} ${reserva.room.label}`,
-    [reserva],
-  );
+  const ondeUsar = "Quem vai usar a acomodação";
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -68,16 +84,20 @@ function Cadastro() {
         email,
         cidade,
         estado,
-        quarto: reserva.room.label,
-        quartoKey: reserva.quartoKey,
-        checkin: reserva.checkin.toISOString(),
-        checkout: reserva.checkout.toISOString(),
+        quarto: acomodacaoNome === "nao-sei" ? "" : (acomodacaoNome || reserva.room.label),
+        quartoKey: acomodacaoNome === "nao-sei" ? "" : (acomodacaoNome && ["caliandra","mangaba","caninde","seriema","maytreia","mantra"].includes(acomodacaoNome) ? acomodacaoNome : reserva.quartoKey),
+        plataforma,
+        acomodacaoNome,
+        checkin: dataEntrada || reserva.checkin.toISOString(),
+        checkout: dataSaida || reserva.checkout.toISOString(),
         configuracao: config,
-        acompanhante,
+        acompanhante: acompanhantes.filter(Boolean).join(", "),
         horario,
         meio,
         observacao: obs,
+        criancas: criancas.filter(c => c.idade !== "").map(c => `${c.idade} anos`).join(", ") || null,
         regrasAceitas: regras,
+        marketingAceito: marketing,
       };
 
       // Fire-and-forget: no-cors nunca retorna body legível
@@ -90,19 +110,17 @@ function Cadastro() {
 
       const linhas = [
         `Olá Paula, aqui é ${nome}.`,
-        "Acabei de fazer o pré-check-in pelo site da Shanti:",
-        "",
-        `• Acomodação: ${reserva.room.label}`,
-        `• Chegada: ${formatDateShort(reserva.checkin)} — ${horario || "horário a definir"}`,
+        acomodacaoNome && acomodacaoNome ? `• Acomodação: ${acomodacaoNome === "nao-sei" ? "Não sei / não lembro" : acomodacaoNome}` : null,
+        dataEntrada ? `• Data de entrada: ${dataEntrada.split("-").reverse().join("/")}` : null,
+        dataSaida ? `• Data de saída: ${dataSaida.split("-").reverse().join("/")}` : null,
+        horario ? `• Horário: ${horario}` : null,
         cidade && estado ? `• Cidade/Estado: ${cidade} — ${estado}` : null,
         `• Configuração: ${config}`,
-        acompanhante ? `• Acompanhante: ${acompanhante}` : null,
+        acompanhantes.filter(Boolean).length > 0 ? `• Acompanhantes: ${acompanhantes.filter(Boolean).join(", ")}` : null,
+        criancas.filter(c => c.idade !== "").length > 0 ? `• Crianças: ${criancas.filter(c => c.idade !== "").map((c, i) => `criança ${i+1}: ${c.idade} anos`).join(", ")}` : null,
+        plataforma ? `• Reservado via: ${plataforma}` : null,
         `• Como vou chegar: ${meio || "a definir"}`,
-        email ? `• E-mail: ${email}` : null,
-        "",
-        obs ? `Observação: ${obs}` : null,
-        "",
-        "Aguardo as instruções de acesso. Obrigada!",
+        "Aguardo as instruções de acesso. Obrigado(a)!",
       ]
         .filter(Boolean)
         .join("\n");
@@ -111,8 +129,8 @@ function Cadastro() {
 
       const sp = new URLSearchParams(search);
       sp.delete("acomodacao");
-      navigate({ to: "/chegada", search: Object.fromEntries(sp) });
-    } finally {
+      sessionStorage.setItem("checkin_nome", nome);
+      navigate({ to: "/confirmado" });    } finally {
       setSubmitting(false);
     }
   }
@@ -122,15 +140,15 @@ function Cadastro() {
       <div className="mx-auto px-5 py-12" style={{ maxWidth: 760 }}>
         <ShantiLogo />
         <div
-          className="text-xs text-muted-foreground"
+          className="text-xs text-muted-foreground text-center"
           style={{ letterSpacing: "3px" }}
         >
           SHANTI POUSADA · PRÉ-CHECK-IN
         </div>
-        <h1 className="mt-4 text-2xl md:text-3xl font-medium tracking-tight">
+        <h1 className="mt-4 text-2xl md:text-3xl font-medium tracking-tight text-center">
           Conta pra gente sobre sua chegada
         </h1>
-        <p className="mt-2 text-muted-foreground">
+        <p className="mt-2 text-muted-foreground text-center">
           Leva 2 minutos. Tudo isso fica registrado para você não precisar
           repetir na chegada.
         </p>
@@ -165,17 +183,19 @@ function Cadastro() {
               />
             </Field>
             <div className="grid gap-4 md:grid-cols-2">
-              <Field label="CPF ou documento">
+              <Field label="CPF ou Passaporte" required>
                 <input
+                  required
                   type="text"
-                  placeholder="000.000.000-00"
+                  placeholder="CPF ou número do passaporte"
                   value={doc}
                   onChange={(e) => setDoc(e.target.value)}
                   className={inputCls}
                 />
               </Field>
-              <Field label="E-mail">
+              <Field label="E-mail" required>
                 <input
+                  required
                   type="email"
                   placeholder="seu@email.com"
                   value={email}
@@ -210,38 +230,164 @@ function Cadastro() {
             </div>
           </Section>
 
+          <Section title="Datas da estadia">
+            <div className="grid gap-4 md:grid-cols-2">
+              <Field label="Data de entrada" required>
+                <input
+                  type="date"
+                  required
+                  value={dataEntrada}
+                  onChange={(e) => setDataEntrada(e.target.value)}
+                  className={inputCls}
+                />
+              </Field>
+              <Field label="Data de saída" required>
+                <input
+                  type="date"
+                  required
+                  value={dataSaida}
+                  onChange={(e) => setDataSaida(e.target.value)}
+                  className={inputCls}
+                />
+              </Field>
+            </div>
+          </Section>
+
           <Section title={ondeUsar}>
             <Field label="Configuração">
               <select
+                required
                 value={config}
                 onChange={(e) => setConfig(e.target.value)}
                 className={inputCls}
               >
-                {reserva.room.configs.map((c) => (
-                  <option key={c} value={c}>
-                    {c}
-                  </option>
-                ))}
+                <option value="">Selecione</option>
+                <option>Solteiro — uso individual (1 pessoa)</option>
+                <option>Casal (2 pessoas)</option>
+                <option>2 solteiros (2 pessoas)</option>
+                <option>Casal + 1 solteiro (3 pessoas)</option>
+                <option>3 solteiros (3 pessoas)</option>
+                <option>Casal + 2 solteiros (4 pessoas)</option>
+                <option>4 solteiros (4 pessoas)</option>
               </select>
-              <p className="mt-2 text-xs text-muted-foreground">
-                {reserva.room.note}
-              </p>
+
             </Field>
-            <Field label="Nome do(s) acompanhante(s)">
-              <input
-                type="text"
-                placeholder="Nome completo de quem vem com você"
-                value={acompanhante}
-                onChange={(e) => setAcompanhante(e.target.value)}
+            {numAcompanhantes > 0 && (
+              <Field label="Acompanhantes">
+                <div className="space-y-2">
+                  {Array.from({ length: numAcompanhantes }).map((_, i) => (
+                    <input
+                      key={i}
+                      type="text"
+                      placeholder={`Acompanhante ${i + 1}`}
+                      value={acompanhantes[i] || ""}
+                      onChange={(e) => {
+                        const nova = [...acompanhantes];
+                        nova[i] = e.target.value;
+                        setAcompanhantes(nova);
+                      }}
+                      className={inputCls}
+                    />
+                  ))}
+                </div>
+              </Field>
+            )}
+
+            <Field label="Crianças">
+              <div className="space-y-2">
+                {criancas.map((c, i) => (
+                  <div key={i} className="flex gap-2 items-center">
+                    <input
+                      type="number"
+                      min={0}
+                      max={12}
+                      placeholder={`Idade da criança ${i + 1}`}
+                      value={c.idade}
+                      onChange={(e) => {
+                        const nova = [...criancas];
+                        nova[i] = { idade: e.target.value };
+                        setCriancas(nova);
+                      }}
+                      className={inputCls}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setCriancas(criancas.filter((_, j) => j !== i))}
+                      className="text-muted-foreground hover:text-destructive text-sm px-2"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+                {criancas.length < 3 && (
+                  <button
+                    type="button"
+                    onClick={() => setCriancas([...criancas, { idade: "" }])}
+                    className="text-sm text-primary hover:underline"
+                  >
+                    + Adicionar criança
+                  </button>
+                )}
+              </div>
+              <p className="mt-1 text-xs text-muted-foreground">Até 3 crianças. Informe a idade de cada uma.</p>
+            </Field>
+          </Section>
+
+          <Section title="Reserva">
+            <Field label="Onde você reservou" required>
+              <select
+                required
+                value={plataforma}
+                onChange={(e) => { setPlataforma(e.target.value); setAcomodacaoNome(""); }}
                 className={inputCls}
-              />
+              >
+                <option value="">Selecione</option>
+                <option>Reserva direta</option>
+                <option>Booking.com</option>
+                <option>Airbnb</option>
+                <option>Expedia</option>
+                <option>Decolar</option>
+              </select>
             </Field>
+            {plataforma && (
+              <Field label="Acomodação" required>
+                <select
+                  required
+                  value={acomodacaoNome}
+                  onChange={(e) => setAcomodacaoNome(e.target.value)}
+                  className={inputCls}
+                >
+                  <option value="">Selecione</option>
+                  <option value="nao-sei">Não sei / não lembro</option>
+                  {plataforma === "Booking.com" ? (
+                    <>
+                <option value="caliandra">Quarto Duplo Deluxe com Varanda (Caliandra)</option>
+                <option value="mangaba">Quarto Deluxe com Cama de Casal ou 2 de Solteiro e Varanda (Mangaba)</option>
+                <option value="caninde">Apartamento Duplex (Caninde)</option>
+                <option value="seriema">Quarto Quadruplo Duplex (Seriema)</option>
+                <option value="maytreia">Quarto Família Deluxe (Maytreia)</option>
+                <option value="mantra">Chalé Superior (Mantra)</option>
+                    </>
+                  ) : (
+                    <>
+                <option value="caliandra">Suíte Caliandra</option>
+                <option value="mangaba">Suíte Mangaba</option>
+                <option value="caninde">Duplex Caninde</option>
+                <option value="seriema">Duplex Seriema</option>
+                <option value="maytreia">Chalé Maytreia</option>
+                <option value="mantra">Chalé Mantra</option>
+                    </>
+                  )}
+                </select>
+              </Field>
+            )}
           </Section>
 
           <Section title="Chegada">
             <div className="grid gap-4 md:grid-cols-2">
               <Field label="Horário previsto">
                 <select
+                  required
                   value={horario}
                   onChange={(e) => setHorario(e.target.value)}
                   className={inputCls}
@@ -255,6 +401,7 @@ function Cadastro() {
               </Field>
               <Field label="Como vai chegar">
                 <select
+                  required
                   value={meio}
                   onChange={(e) => setMeio(e.target.value)}
                   className={inputCls}
@@ -288,6 +435,17 @@ function Cadastro() {
               <span>
                 Li e aceito as regras da casa (silêncio 22h-8h, não-fumantes
                 nas áreas internas, sem festas).
+              </span>
+            </label>
+            <label className="flex items-start gap-2 mt-3 text-sm">
+              <input
+                type="checkbox"
+                checked={marketing}
+                onChange={(e) => setMarketing(e.target.checked)}
+                className="mt-1"
+              />
+              <span>
+                Quero receber dicas da Chapada dos Veadeiros e novidades da Shanti Pousada.
               </span>
             </label>
           </Section>

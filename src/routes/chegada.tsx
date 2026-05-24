@@ -210,6 +210,26 @@ function Chegada() {
           </div>
         )}
 
+
+        {/* Confirmar chegada */}
+        {liberado && (
+          <div className="mt-8 rounded-lg p-6 bg-primary text-primary-foreground">
+            <div className="text-lg font-medium">Já chegou?</div>
+            <p className="mt-1 text-sm opacity-90">
+              Toque abaixo para nos avisar que você entrou na acomodação.
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                const msg = `Olá Paula! Acabei de chegar na ${reserva.room.label}. ✓`;
+                window.open(`https://wa.me/${WHATSAPP_PAULA}?text=${encodeURIComponent(msg)}`, "_blank");
+              }}
+              className="mt-4 rounded-md bg-card text-foreground font-medium px-5 py-2.5 text-sm hover:bg-background transition-colors"
+            >
+              Confirmar minha chegada
+            </button>
+          </div>
+        )}
         {/* PDF */}
         <SectionTitle>Documentos</SectionTitle>
         <div className="rounded-lg border border-border bg-card p-5 flex items-center gap-4">
@@ -258,6 +278,14 @@ function Chegada() {
               </a>
             </div>
           </FAQItem>
+          <FAQItem title="Horários">
+            <strong>Check-in:</strong> a partir das 14h
+            <br />
+            <strong>Check-out:</strong> até meio-dia (12h) — atraso sujeito a multa automática
+            <div className="mt-2 text-xs text-muted-foreground">
+              Check-in antecipado sujeito à disponibilidade do quarto no dia — fale com a Paula pelo WhatsApp para verificar.
+            </div>
+          </FAQItem>
           <FAQItem title="Wi-Fi">
             Rede <strong>Shanti</strong>
             <br />
@@ -280,11 +308,6 @@ function Chegada() {
             segurança, é muito tranquilo. Recomendamos ir a pé para o centrinho
             e aproveitar a Vila assim — é tudo bem próximo.
           </FAQItem>
-          <FAQItem title="Check-in antecipado (sob disponibilidade)">
-            Nosso horário padrão é a partir das 14h. Entrada antes está sujeita
-            à disponibilidade do quarto no dia. Para verificar, fale com a
-            Paula pelo WhatsApp.
-          </FAQItem>
         </div>
 
         {/* Antes de ir */}
@@ -306,26 +329,6 @@ function Chegada() {
           </div>
         </div>
 
-        {/* Confirmar chegada */}
-        {liberado && (
-          <div className="mt-8 rounded-lg p-6 bg-primary text-primary-foreground">
-            <div className="text-lg font-medium">Já chegou?</div>
-            <p className="mt-1 text-sm opacity-90">
-              Toque abaixo para nos avisar que você entrou na acomodação.
-            </p>
-            <button
-              type="button"
-              onClick={() => {
-                const msg = `Olá Paula! Acabei de chegar na ${reserva.room.label}. ✓`;
-                window.open(`https://wa.me/${WHATSAPP_PAULA}?text=${encodeURIComponent(msg)}`, "_blank");
-              }}
-              className="mt-4 rounded-md bg-card text-foreground font-medium px-5 py-2.5 text-sm hover:bg-background transition-colors"
-            >
-              Confirmar minha chegada
-            </button>
-          </div>
-        )}
-
         {/* Suporte */}
         <div className="mt-8 rounded-lg border border-border bg-card p-5 text-sm">
           <div>
@@ -342,7 +345,7 @@ function Chegada() {
           <div className="mt-2">
             Apoio presencial na pousada: Genilda —{" "}
             <a
-              href={`https://wa.me/${WHATSAPP_GENILDA}`}
+              href={`https://wa.me/${WHATSAPP_GENILDA}?text=${encodeURIComponent(`Olá Genilda! Sou ${firstName}, hóspede ${reserva.room.article === "a" ? "da" : "do"} ${reserva.room.label}. Preciso de ajuda.`)}`}
               target="_blank"
               rel="noreferrer"
               className="text-primary hover:underline"

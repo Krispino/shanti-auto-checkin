@@ -23,7 +23,10 @@ function Paula() {
   const [buscando, setBuscando] = useState(false);
   const [linkGerado, setLinkGerado] = useState("");
   const [genildaEnviado, setGenildaEnviado] = useState(false);
-  const [resultado, setResultado] = useState<{quarto: string; quartoKey: string; checkin: string; checkout: string; plataforma: string} | null>(null);
+  const [reservaDireta, setReservaDireta] = useState(false);
+  const [valorPendente, setValorPendente] = useState("");
+  const [resultado, setResultado] = useState<{quarto: string; quartoKey: string; checkin: string; checkout: string; plataforma: string; configuracao: string; horario: string} | null>(null);
+  const [listaResultados, setListaResultados] = useState<{nome: string; quarto: string; quartoKey: string; checkin: string; checkout: string; plataforma: string; configuracao: string; horario: string}[]>([]);
   const [plataforma, setPlataforma] = useState("");
 
   function handleSenha(e: React.FormEvent) {
@@ -44,11 +47,15 @@ function Paula() {
         const res = await fetch(`${SHEETS_ENDPOINT}?nome=${encodeURIComponent(nome)}`);
         const data = await res.json();
         if (data.resultados && data.resultados.length > 0) {
-          const r = data.resultados[0];
-          if (r.quartoKey) setQuarto(r.quartoKey as any);
-          if (r.checkin) setCheckin(r.checkin);
-          if (r.checkout) setCheckout(r.checkout);
-          setResultado(r);
+          if (data.resultados.length === 1) {
+            const r = data.resultados[0];
+            if (r.quartoKey) setQuarto(r.quartoKey as any);
+            if (r.checkin) setCheckin(r.checkin);
+            if (r.checkout) setCheckout(r.checkout);
+            setResultado(r);
+          } else {
+            setListaResultados(data.resultados);
+          }
           found = true;
         }
       }
@@ -56,12 +63,16 @@ function Paula() {
         const res = await fetch(`${SHEETS_ENDPOINT}?checkin=${checkin}`);
         const data = await res.json();
         if (data.resultados && data.resultados.length > 0) {
-          const r = data.resultados[0];
-          if (!nome) setNome(r.nome || "");
-          if (r.quartoKey) setQuarto(r.quartoKey as any);
-          if (r.checkin) setCheckin(r.checkin);
-          if (r.checkout) setCheckout(r.checkout);
-          setResultado(r);
+          if (data.resultados.length === 1) {
+            const r = data.resultados[0];
+            if (!nome) setNome(r.nome || "");
+            if (r.quartoKey) setQuarto(r.quartoKey as any);
+            if (r.checkin) setCheckin(r.checkin);
+            if (r.checkout) setCheckout(r.checkout);
+            setResultado(r);
+          } else {
+            setListaResultados(data.resultados);
+          }
         }
       }
     } catch {
@@ -78,6 +89,8 @@ function Paula() {
       checkin,
       checkout,
       ...(nome ? { nome } : {}),
+      ...(reservaDireta ? { reserva: "direta" } : {}),
+      ...(reservaDireta && valorPendente ? { valor: valorPendente } : {}),
     });
     const link = `${base}?${params.toString()}`;
     setLinkGerado(link);
@@ -94,19 +107,55 @@ function Paula() {
   function abrirCalendar() {
     if (!checkin || !checkout) return;
     const room = rooms[quarto];
-    const title = encodeURIComponent(`${nome ? nome + " — " : ""}${room.label}`);
+    const config = resultado?.configuracao || "";
+    const plat = resultado?.plataforma || "";
+    const firstName = nome ? nome.split(" ")[0] : null;
+    const titleParts = [firstName, room.label, config || null, plat || null].filter(Boolean);
+    const title = encodeURIComponent(titleParts.join(" · "));
     const start = checkin.replace(/-/g, "");
-    const end = checkout.replace(/-/g, "");
-    const details = encodeURIComponent(`Hóspede: ${nome || "—"}\nAcomodação: ${room.label}`);
-    window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}`, "_blank");
+    const endDate = new Date(checkout);
+    endDate.setDate(endDate.getDate() + 1);
+    const end = endDate.toISOString().split("T")[0].replace(/-/g, "");
+    const detailsRaw = `Hóspede: ${nome || "—"}\nAcomodação: ${room.label}${config ? `\nConfiguração: ${config}` : ""}${plat ? `\nPlataforma: ${plat}` : ""}${reservaDireta && valorPendente ? `\nPagamento pendente: R$ ${valorPendente}` : ""}`;
+    window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${encodeURIComponent(detailsRaw)}&src=shantipousada%40gmail.com`, "_blank");
   }
 
   function enviarGenilda() {
     setGenildaEnviado(true);
     const link = linkGerado;
     const room = rooms[quarto];
-    const msg = `Olá! Informações da próxima chegada:\n\nHóspede: ${nome || "—"}\nAcomodação: ${room.label}\nCheck-in: ${checkin}\nCheck-out: ${checkout}${link ? `\n\nLink de acesso do hóspede:\n${link}` : ""}`;
-    window.open(`https://wa.me/${WHATSAPP_GENILDA}?text=${encodeURIComponent(msg)}`, "_blank");
+    const config = resultado?.configuracao || "";
+    const plat = resultado?.plataforma || "";
+    const firstName = nome ? nome.split(" ")[0] : null;
+    const titleParts = [firstName, room.label, config || null, plat || null].filter(Boolean);
+    const calTitle = encodeURIComponent(titleParts.join(" · "));
+    const start = checkin.replace(/-/g, "");
+    const endDate = new Date(checkout);
+    endDate.setDate(endDate.getDate() + 1);
+    const end = endDate.toISOString().split("T")[0].replace(/-/g, "");
+    const calDetailsRaw = `Hóspede: ${nome || "—"}
+Acomodação: ${room.label}${config ? `
+Configuração: ${config}` : ""}${plat ? `
+Plataforma: ${plat}` : ""}`;
+    const calLink = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${calTitle}&dates=${start}/${end}&details=${encodeURIComponent(calDetailsRaw)}`;
+    const linhasMsg = [
+      "Olá! Informações da próxima chegada:",
+      "",
+      `Hóspede: ${nome || "—"}`,
+      `Acomodação: ${room.label}`,
+      config ? `Configuração: ${config}` : null,
+      config ? `Configuração: ${config}` : null,
+      plat ? `Plataforma: ${plat}` : null,
+      resultado?.horario ? `Horário de chegada: ${resultado.horario}` : null,
+      reservaDireta && valorPendente ? `Pagamento pendente na chegada: R$ ${valorPendente}` : null,
+      `Check-in: ${checkin}`,
+      `Check-out: ${checkout}`,
+      link ? `
+Link do hóspede:
+${link}` : null,
+      `\nSalvar no Calendar:\n${calLink}`,
+    ].filter(Boolean).join("\n");
+    window.open(`https://wa.me/${WHATSAPP_GENILDA}?text=${encodeURIComponent(linhasMsg)}`, "_blank");
   }
 
   if (!auth) {
@@ -172,6 +221,29 @@ function Paula() {
             {buscando ? "Buscando..." : "Buscar hóspede no cadastro"}
           </button>
 
+          {listaResultados.length > 1 && (
+            <div className="space-y-2">
+              <div className="text-xs text-muted-foreground">{listaResultados.length} cadastros encontrados — selecione:</div>
+              {listaResultados.map((r, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => {
+                    setNome(r.nome || "");
+                    if (r.quartoKey) setQuarto(r.quartoKey as any);
+                    if (r.checkin) setCheckin(r.checkin);
+                    if (r.checkout) setCheckout(r.checkout);
+                    setResultado(r);
+                    setListaResultados([]);
+                  }}
+                  className="w-full text-left rounded-md border border-border p-3 text-sm hover:bg-accent transition-colors"
+                >
+                  <strong>{r.nome}</strong> · {r.quartoKey} · {r.checkin} · {r.plataforma || "—"}
+                </button>
+              ))}
+            </div>
+          )}
+
           <div>
             <label className="block text-xs font-medium text-muted-foreground mb-1">Nome do hóspede</label>
             <input
@@ -187,6 +259,7 @@ function Paula() {
             <div className="rounded-md p-3 text-sm space-y-1" style={{ backgroundColor: "var(--primary-soft)" }}>
               <div><strong>{resultado.quartoKey === "nao-sei" || !resultado.quartoKey ? "Não identificado — verificar na plataforma" : resultado.quarto}</strong></div>
               <div className="text-xs text-muted-foreground">Check-in: {resultado.checkin} · Check-out: {resultado.checkout}</div>
+              {resultado.configuracao && <div className="text-xs text-muted-foreground">Configuração: {resultado.configuracao}</div>}
               {resultado.plataforma && <div className="text-xs text-muted-foreground">Plataforma: {resultado.plataforma}</div>}
             </div>
           )}
@@ -206,6 +279,29 @@ function Paula() {
             </div>
           )}
         </div>
+
+        <div className="flex items-center gap-2 mt-2">
+          <input
+            type="checkbox"
+            id="reservaDireta"
+            checked={reservaDireta}
+            onChange={(e) => setReservaDireta(e.target.checked)}
+          />
+          <label htmlFor="reservaDireta" className="text-sm text-muted-foreground">Reserva direta (pagamento pendente na chegada)</label>
+        </div>
+
+        {reservaDireta && (
+          <div>
+            <label className="block text-xs font-medium text-muted-foreground mb-1">Valor pendente (R$)</label>
+            <input
+              type="text"
+              placeholder="Ex: 450,00"
+              value={valorPendente}
+              onChange={(e) => setValorPendente(e.target.value)}
+              className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:border-primary"
+            />
+          </div>
+        )}
 
         {checkin && checkout && (
           <div className="mt-4 space-y-3">

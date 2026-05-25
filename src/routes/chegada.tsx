@@ -36,10 +36,14 @@ function Chegada() {
   );
   const [, setTick] = useState(0);
   const [videoDuration, setVideoDuration] = useState<number | null>(null);
+  const [reservaDireta, setReservaDireta] = useState(false);
+  const [valorPendente, setValorPendente] = useState("");
 
   useEffect(() => {
     const sp = new URLSearchParams(window.location.search);
     setReserva(getReservaFromSearch(sp));
+    setReservaDireta(sp.get("reserva") === "direta");
+    setValorPendente(sp.get("valor") || "");
     const id = setInterval(() => setTick((t) => t + 1), 60_000);
     return () => clearInterval(id);
   }, []);
@@ -87,6 +91,16 @@ function Chegada() {
             <StatusBadge liberado={liberado} />
           </div>
         </div>
+
+        {/* Pagamento pendente */}
+        {reservaDireta && (
+          <div className="mt-4 rounded-lg p-4" style={{ backgroundColor: "var(--warning-bg)", border: "1px solid var(--warning-border)" }}>
+            <div className="text-sm font-medium">Pagamento pendente</div>
+            <p className="text-sm mt-1">
+              O saldo restante de 50% da reserva deve ser pago assim que você chegar.{valorPendente ? ` Valor pendente: R$ ${valorPendente}.` : ""} Aceitamos Pix, cartão de crédito/débito e dinheiro.
+            </p>
+          </div>
+        )}
 
         {/* Countdown / status */}
         <div className="mt-4 rounded-lg border border-border bg-card p-8 text-center">
@@ -171,7 +185,7 @@ function Chegada() {
                 poster=""
                 onLoadedMetadata={(e) => setVideoDuration(Math.round(e.currentTarget.duration))}
               >
-                <source src={`/arquivos/CHECKIN.${reserva.quartoKey.toUpperCase()}.V2.MP4`} type="video/mp4" />
+                <source src={`/arquivos/CHECKIN.${reserva.quartoKey.toUpperCase()}.MP4`} type="video/mp4" />
               </video>
             </div>
             <div className="p-5">

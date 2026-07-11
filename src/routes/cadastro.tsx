@@ -1,9 +1,10 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   WHATSAPP_PAULA,
-  formatDateShort,
   getReservaFromSearch,
+  isRoomKey,
+  rooms,
 } from "@/lib/shanti";
 import { ShantiLogo } from "@/components/shanti-logo";
 
@@ -17,17 +18,24 @@ export const Route = createFileRoute("/cadastro")({
   component: Cadastro,
 });
 
+const todasConfigs = [
+  "Solteiro — uso individual (1 pessoa)",
+  "Casal (2 pessoas)",
+  "2 solteiros (2 pessoas)",
+  "Casal + 1 solteiro (3 pessoas)",
+  "3 solteiros (3 pessoas)",
+  "Casal + 2 solteiros (4 pessoas)",
+  "4 solteiros (4 pessoas)",
+];
+
 function Cadastro() {
   const navigate = useNavigate();
   const [reserva, setReserva] = useState(() =>
     getReservaFromSearch(new URLSearchParams()),
   );
-  const [search, setSearch] = useState("");
-
   useEffect(() => {
     const sp = new URLSearchParams(window.location.search);
     setReserva(getReservaFromSearch(sp));
-    setSearch(window.location.search);
   }, []);
 
   const [nome, setNome] = useState("");
@@ -69,27 +77,51 @@ function Cadastro() {
 
   const ondeUsar = "Quem vai usar a acomodação";
 
+  // Quarto efetivo: o que o hóspede selecionou no formulário, senão o da URL
+  const quartoEfetivoKey = isRoomKey(acomodacaoNome) ? acomodacaoNome : null;
+  const quartoEfetivo = quartoEfetivoKey ? rooms[quartoEfetivoKey] : reserva.room;
+
+  // Se o quarto mudar e a configuração escolhida não for válida nele, limpa
+  useEffect(() => {
+    if (
+      acomodacaoNome !== "nao-sei" &&
+      config &&
+      !quartoEfetivo.configs.includes(config)
+    ) {
+      setConfig("");
+    }
+  }, [quartoEfetivo, acomodacaoNome, config]);
+
+  function toISODate(d: Date): string {
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  }
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!regras) {
       alert("É necessário aceitar as regras da casa para continuar.");
       return;
     }
+    if (dataEntrada && dataSaida && dataSaida <= dataEntrada) {
+      alert("A data de saída deve ser depois da data de entrada.");
+      return;
+    }
     setSubmitting(true);
 
     try {
+      const payloadKey = acomodacaoNome === "nao-sei" ? "" : (quartoEfetivoKey || reserva.quartoKey);
       const payload = {
         nome,
         documento: doc,
         email,
         cidade,
         estado,
-        quarto: acomodacaoNome === "nao-sei" ? "" : (acomodacaoNome || reserva.room.label),
-        quartoKey: acomodacaoNome === "nao-sei" ? "" : (acomodacaoNome && ["caliandra","mangaba","caninde","seriema","maytreia","mantra"].includes(acomodacaoNome) ? acomodacaoNome : reserva.quartoKey),
+        quarto: payloadKey ? rooms[payloadKey as keyof typeof rooms].label : "",
+        quartoKey: payloadKey,
         plataforma,
         acomodacaoNome,
-        checkin: dataEntrada || reserva.checkin.toISOString(),
-        checkout: dataSaida || reserva.checkout.toISOString(),
+        checkin: dataEntrada || toISODate(reserva.checkin),
+        checkout: dataSaida || toISODate(reserva.checkout),
         configuracao: config,
         acompanhante: acompanhantes.filter(Boolean).join(", "),
         horario,
@@ -127,10 +159,9 @@ function Cadastro() {
 
       window.open(`https://wa.me/${WHATSAPP_PAULA}?text=${encodeURIComponent(linhas)}`, "_blank");
 
-      const sp = new URLSearchParams(search);
-      sp.delete("acomodacao");
       sessionStorage.setItem("checkin_nome", nome);
-      navigate({ to: "/confirmado" });    } finally {
+      navigate({ to: "/confirmado" });
+    } finally {
       setSubmitting(false);
     }
   }
@@ -245,6 +276,7 @@ function Cadastro() {
                 <input
                   type="date"
                   required
+                  min={dataEntrada || undefined}
                   value={dataSaida}
                   onChange={(e) => setDataSaida(e.target.value)}
                   className={inputCls}
@@ -262,13 +294,12 @@ function Cadastro() {
                 className={inputCls}
               >
                 <option value="">Selecione</option>
-                <option>Solteiro — uso individual (1 pessoa)</option>
-                <option>Casal (2 pessoas)</option>
-                <option>2 solteiros (2 pessoas)</option>
-                <option>Casal + 1 solteiro (3 pessoas)</option>
-                <option>3 solteiros (3 pessoas)</option>
-                <option>Casal + 2 solteiros (4 pessoas)</option>
-                <option>4 solteiros (4 pessoas)</option>
+                {(acomodacaoNome === "nao-sei"
+                  ? todasConfigs
+                  : quartoEfetivo.configs
+                ).map((c) => (
+                  <option key={c}>{c}</option>
+                ))}
               </select>
 
             </Field>

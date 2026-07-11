@@ -66,9 +66,45 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
   return brandedErrorResponse();
 }
 
+const SHEETS_ENDPOINT =
+  "https://script.google.com/macros/s/AKfycbyzkbdi8IU7lD3jYk3D9sc8E90YKwGKWiW_-IDGlE2vPY1AczZ5Er4zFc1sHlAw37Vd/exec";
+
+// Proxy protegido: o navegador chama /api/buscar sem token; aqui adicionamos o
+// token secreto (env.SHEETS_TOKEN) e repassamos ao Apps Script. O token nunca
+// chega ao cliente.
+async function handleBuscar(request: Request, env: Record<string, unknown>): Promise<Response> {
+  const url = new URL(request.url);
+  const nome = url.searchParams.get("nome");
+  const checkin = url.searchParams.get("checkin");
+  const token = typeof env.SHEETS_TOKEN === "string" ? env.SHEETS_TOKEN : "";
+
+  const upstream = new URL(SHEETS_ENDPOINT);
+  upstream.searchParams.set("token", token);
+  if (nome) upstream.searchParams.set("nome", nome);
+  if (checkin) upstream.searchParams.set("checkin", checkin);
+
+  try {
+    const res = await fetch(upstream.toString());
+    const body = await res.text();
+    return new Response(body, {
+      status: res.status,
+      headers: { "content-type": "application/json; charset=utf-8" },
+    });
+  } catch {
+    return new Response(JSON.stringify({ resultados: [] }), {
+      status: 502,
+      headers: { "content-type": "application/json; charset=utf-8" },
+    });
+  }
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const url = new URL(request.url);
+      if (url.pathname === "/api/buscar") {
+        return await handleBuscar(request, (env ?? {}) as Record<string, unknown>);
+      }
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return await normalizeCatastrophicSsrResponse(response);

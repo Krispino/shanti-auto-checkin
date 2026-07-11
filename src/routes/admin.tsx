@@ -4,7 +4,9 @@ import { ShantiLogo } from "@/components/shanti-logo";
 import { rooms, type RoomKey } from "@/lib/shanti";
 
 const SENHA = "20shanti22";
-const SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbyzkbdi8IU7lD3jYk3D9sc8E90YKwGKWiW_-IDGlE2vPY1AczZ5Er4zFc1sHlAw37Vd/exec";
+// Rota protegida no Worker (src/server.ts) — o token secreto é adicionado no
+// servidor, nunca no navegador.
+const BUSCA_ENDPOINT = "/api/buscar";
 const WHATSAPP_GENILDA = "5562998546284";
 
 export const Route = createFileRoute("/admin")({
@@ -24,6 +26,7 @@ function Paula() {
   const [linkGerado, setLinkGerado] = useState("");
   const [genildaEnviado, setGenildaEnviado] = useState(false);
   const [reservaDireta, setReservaDireta] = useState(false);
+  const [buscaVazia, setBuscaVazia] = useState(false);
   const [valorPendente, setValorPendente] = useState("");
   const [resultado, setResultado] = useState<{quarto: string; quartoKey: string; checkin: string; checkout: string; plataforma: string; configuracao: string; horario: string} | null>(null);
   const [listaResultados, setListaResultados] = useState<{nome: string; quarto: string; quartoKey: string; checkin: string; checkout: string; plataforma: string; configuracao: string; horario: string}[]>([]);
@@ -41,10 +44,13 @@ function Paula() {
   async function buscarNome() {
     if (!nome && !checkin) return;
     setBuscando(true);
+    setResultado(null);
+    setListaResultados([]);
+    setBuscaVazia(false);
+    let found = false;
     try {
-      let found = false;
       if (nome) {
-        const res = await fetch(`${SHEETS_ENDPOINT}?nome=${encodeURIComponent(nome)}`);
+        const res = await fetch(`${BUSCA_ENDPOINT}?nome=${encodeURIComponent(nome)}`);
         const data = await res.json();
         if (data.resultados && data.resultados.length > 0) {
           if (data.resultados.length === 1) {
@@ -60,7 +66,7 @@ function Paula() {
         }
       }
       if (!found && checkin) {
-        const res = await fetch(`${SHEETS_ENDPOINT}?checkin=${checkin}`);
+        const res = await fetch(`${BUSCA_ENDPOINT}?checkin=${encodeURIComponent(checkin)}`);
         const data = await res.json();
         if (data.resultados && data.resultados.length > 0) {
           if (data.resultados.length === 1) {
@@ -73,10 +79,12 @@ function Paula() {
           } else {
             setListaResultados(data.resultados);
           }
+          found = true;
         }
       }
+      if (!found) setBuscaVazia(true);
     } catch {
-      // silencioso
+      setBuscaVazia(true);
     } finally {
       setBuscando(false);
     }
@@ -143,7 +151,6 @@ Plataforma: ${plat}` : ""}`;
       "",
       `Hóspede: ${nome || "—"}`,
       `Acomodação: ${room.label}`,
-      config ? `Configuração: ${config}` : null,
       config ? `Configuração: ${config}` : null,
       plat ? `Plataforma: ${plat}` : null,
       resultado?.horario ? `Horário de chegada: ${resultado.horario}` : null,
@@ -220,6 +227,12 @@ ${link}` : null,
           >
             {buscando ? "Buscando..." : "Buscar hóspede no cadastro"}
           </button>
+
+          {buscaVazia && (
+            <p className="text-xs text-destructive">
+              Nenhum cadastro encontrado. Verifique o nome ou a data, ou preencha manualmente abaixo.
+            </p>
+          )}
 
           {listaResultados.length > 1 && (
             <div className="space-y-2">

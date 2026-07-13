@@ -18,15 +18,9 @@ export const Route = createFileRoute("/cadastro")({
   component: Cadastro,
 });
 
-const todasConfigs = [
-  "Solteiro — uso individual (1 pessoa)",
-  "Casal (2 pessoas)",
-  "2 solteiros (2 pessoas)",
-  "Casal + 1 solteiro (3 pessoas)",
-  "3 solteiros (3 pessoas)",
-  "Casal + 2 solteiros (4 pessoas)",
-  "4 solteiros (4 pessoas)",
-];
+const todasConfigs = Array.from(
+  new Set(Object.values(rooms).flatMap((room) => room.configs)),
+);
 
 function Cadastro() {
   const navigate = useNavigate();
@@ -47,8 +41,8 @@ function Cadastro() {
 
   const numAcompanhantes = (() => {
     if (config.startsWith("Solteiro")) return 0;
-    if (config.startsWith("Casal + 2")) return 3;
-    if (config.startsWith("Casal + 1")) return 2;
+    if (config.includes("+ 2")) return 3;
+    if (config.includes("+ 1")) return 2;
     if (config.startsWith("Casal")) return 1;
     if (config.startsWith("4 sol")) return 3;
     if (config.startsWith("3 sol")) return 2;
@@ -68,11 +62,11 @@ function Cadastro() {
   const [regras, setRegras] = useState(true);
   const [marketing, setMarketing] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [duplicado, setDuplicado] = useState<{ checkin: string } | null>(null);
+  const [jaConfirmado, setJaConfirmado] = useState(false);
 
   useEffect(() => {
     if (reserva.rawNome) setNome(reserva.rawNome);
-    if (reserva.room.configs[0]) setConfig(reserva.room.configs[0]);
-
   }, [reserva]);
 
   const ondeUsar = "Quem vai usar a acomodação";
@@ -81,31 +75,33 @@ function Cadastro() {
   const quartoEfetivoKey = isRoomKey(acomodacaoNome) ? acomodacaoNome : null;
   const quartoEfetivo = quartoEfetivoKey ? rooms[quartoEfetivoKey] : reserva.room;
 
-  // Se o quarto mudar e a configuração escolhida não for válida nele, limpa
+  // Mantém a configuração escolhida se ainda for válida para o quarto atual;
+  // senão, cai para o padrão do quarto (ou de todasConfigs, se "não sei").
   useEffect(() => {
-    if (
-      acomodacaoNome !== "nao-sei" &&
-      config &&
-      !quartoEfetivo.configs.includes(config)
-    ) {
-      setConfig("");
-    }
-  }, [quartoEfetivo, acomodacaoNome, config]);
+    const configsValidas = acomodacaoNome === "nao-sei" ? todasConfigs : quartoEfetivo.configs;
+    setConfig((atual) =>
+      atual && configsValidas.includes(atual) ? atual : configsValidas[0] ?? "",
+    );
+  }, [reserva, quartoEfetivo, acomodacaoNome]);
 
   function toISODate(d: Date): string {
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
   }
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!regras) {
-      alert("É necessário aceitar as regras da casa para continuar.");
-      return;
+  async function jaExisteCadastro(): Promise<boolean> {
+    if (!nome || !dataEntrada) return false;
+    try {
+      const res = await fetch(`/api/buscar?nome=${encodeURIComponent(nome)}`);
+      const data = await res.json();
+      const resultados: { checkin?: string }[] = data.resultados || [];
+      return resultados.some((r) => r.checkin === dataEntrada);
+    } catch {
+      // se a checagem falhar, não bloqueia o hóspede
+      return false;
     }
-    if (dataEntrada && dataSaida && dataSaida <= dataEntrada) {
-      alert("A data de saída deve ser depois da data de entrada.");
-      return;
-    }
+  }
+
+  async function enviarCadastro() {
     setSubmitting(true);
 
     try {
@@ -164,6 +160,68 @@ function Cadastro() {
     } finally {
       setSubmitting(false);
     }
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!regras) {
+      alert("É necessário aceitar as regras da casa para continuar.");
+      return;
+    }
+    if (dataEntrada && dataSaida && dataSaida <= dataEntrada) {
+      alert("A data de saída deve ser depois da data de entrada.");
+      return;
+    }
+
+    setSubmitting(true);
+    const existe = await jaExisteCadastro();
+    setSubmitting(false);
+    if (existe) {
+      setDuplicado({ checkin: dataEntrada });
+      return;
+    }
+    await enviarCadastro();
+  }
+
+  function confirmarRefazer() {
+    setDuplicado(null);
+    enviarCadastro();
+  }
+
+  function confirmarJaEstaCerto() {
+    setDuplicado(null);
+    setJaConfirmado(true);
+  }
+
+  if (jaConfirmado) {
+    return (
+      <main className="min-h-screen bg-background text-foreground">
+        <div className="mx-auto px-5 py-12 text-center" style={{ maxWidth: 560 }}>
+          <ShantiLogo />
+          <div
+            className="mx-auto mt-6 flex items-center justify-center rounded-full"
+            style={{ width: 72, height: 72, backgroundColor: "var(--primary-soft)", color: "var(--primary)", fontSize: 32, fontWeight: 600 }}
+          >
+            ✓
+          </div>
+          <h1 className="mt-6 text-2xl md:text-3xl font-medium tracking-tight">
+            Tudo certo, {nome.split(" ")[0] || "viajante"}.
+          </h1>
+          <p className="mt-3 text-muted-foreground">
+            Seu pré-check-in já está registrado. Você vai receber as
+            informações de acesso pelo WhatsApp em breve.
+          </p>
+          <a
+            href={`https://wa.me/${WHATSAPP_PAULA}`}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-6 inline-block rounded-md border border-border bg-card px-5 py-2.5 text-sm font-medium hover:bg-accent transition-colors"
+          >
+            Falar com a Shanti no WhatsApp
+          </a>
+        </div>
+      </main>
+    );
   }
 
   return (
@@ -481,20 +539,51 @@ function Cadastro() {
             </label>
           </Section>
 
-          <div className="mt-8 text-center">
-            <button
-              type="submit"
-              disabled={submitting}
-              className="inline-block rounded-md bg-primary text-primary-foreground font-medium hover:bg-primary-hover transition-colors disabled:opacity-60"
-              style={{ padding: "14px 32px" }}
-            >
-              {submitting ? "Enviando..." : "Confirmar e abrir WhatsApp"}
-            </button>
-            <p className="mt-3 text-xs text-muted-foreground">
-              Vamos abrir o WhatsApp com sua mensagem pronta. Você só precisa
-              tocar em 'Enviar'.
-            </p>
-          </div>
+          {duplicado ? (
+            <div className="mt-8 rounded-lg border border-border bg-card p-6 text-center">
+              <div className="font-medium">
+                Já encontramos um cadastro seu
+              </div>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Vimos um pré-check-in de {nome.split(" ")[0] || "você"} com
+                chegada em {duplicado.checkin.split("-").reverse().join("/")}.
+                Você precisa refazer o cadastro, por exemplo para corrigir
+                alguma informação?
+              </p>
+              <div className="mt-4 flex flex-col sm:flex-row gap-3 justify-center">
+                <button
+                  type="button"
+                  onClick={confirmarJaEstaCerto}
+                  className="rounded-md border border-border px-5 py-2.5 text-sm font-medium hover:bg-accent transition-colors"
+                >
+                  Não, já está tudo certo
+                </button>
+                <button
+                  type="button"
+                  onClick={confirmarRefazer}
+                  disabled={submitting}
+                  className="rounded-md bg-primary text-primary-foreground px-5 py-2.5 text-sm font-medium hover:bg-primary-hover transition-colors disabled:opacity-60"
+                >
+                  {submitting ? "Enviando..." : "Sim, quero refazer"}
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="mt-8 text-center">
+              <button
+                type="submit"
+                disabled={submitting}
+                className="inline-block rounded-md bg-primary text-primary-foreground font-medium hover:bg-primary-hover transition-colors disabled:opacity-60"
+                style={{ padding: "14px 32px" }}
+              >
+                {submitting ? "Enviando..." : "Confirmar e abrir WhatsApp"}
+              </button>
+              <p className="mt-3 text-xs text-muted-foreground">
+                Vamos abrir o WhatsApp com sua mensagem pronta. Você só precisa
+                tocar em 'Enviar'.
+              </p>
+            </div>
+          )}
         </form>
       </div>
     </main>

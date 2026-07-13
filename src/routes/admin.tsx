@@ -18,7 +18,7 @@ function Paula() {
   const [auth, setAuth] = useState(false);
   const [senha, setSenha] = useState("");
   const [senhaErro, setSenhaErro] = useState(false);
-  const [quarto, setQuarto] = useState<RoomKey>("caliandra");
+  const [quarto, setQuarto] = useState<RoomKey | "">("");
   const [checkin, setCheckin] = useState("");
   const [checkout, setCheckout] = useState("");
   const [nome, setNome] = useState("");
@@ -91,6 +91,10 @@ function Paula() {
   }
 
   function gerarLink() {
+    if (!quarto) {
+      alert("Selecione a acomodação antes de gerar o link.");
+      return "";
+    }
     const base = "https://tanstack-start-app.shanti-checkin.workers.dev/chegada";
     const params = new URLSearchParams({
       quarto,
@@ -106,14 +110,16 @@ function Paula() {
   }
 
   function abrirWhatsApp() {
+    if (!quarto) return;
     const link = linkGerado || gerarLink();
+    if (!link) return;
     const room = rooms[quarto];
     const msg = `Olá! Aqui estão as informações de acesso para sua estadia na Shanti Pousada.\n\n${nome ? `${nome}, a` : "A"}cesse sua página de chegada pelo link abaixo:\n${link}`;
     window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, "_blank");
   }
 
   function abrirCalendar() {
-    if (!checkin || !checkout) return;
+    if (!checkin || !checkout || !quarto) return;
     const room = rooms[quarto];
     const config = resultado?.configuracao || "";
     const plat = resultado?.plataforma || "";
@@ -129,6 +135,7 @@ function Paula() {
   }
 
   function enviarGenilda() {
+    if (!quarto) return;
     setGenildaEnviado(true);
     const link = linkGerado;
     const room = rooms[quarto];
@@ -204,7 +211,7 @@ ${link}` : null,
               <input
                 type="date"
                 value={checkin}
-                onChange={(e) => { setCheckin(e.target.value); setNome(""); setLinkGerado(""); }}
+                onChange={(e) => { setCheckin(e.target.value); setNome(""); setLinkGerado(""); setQuarto(""); setResultado(null); }}
                 className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:border-primary"
               />
             </div>
@@ -277,20 +284,21 @@ ${link}` : null,
             </div>
           )}
 
-          {resultado && (!resultado.quartoKey || resultado.quartoKey === "nao-sei") && (
-            <div className="space-y-2">
-              <p className="text-xs text-muted-foreground">Acomodação não identificada. Verifique na plataforma e selecione abaixo para gerar o link.</p>
-              <select
-                value={quarto}
-                onChange={(e) => setQuarto(e.target.value as RoomKey)}
-                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:border-primary"
-              >
-                {Object.entries(rooms).map(([key, room]) => (
-                  <option key={key} value={key}>{room.label}</option>
-                ))}
-              </select>
-            </div>
-          )}
+          <div className="space-y-2">
+            <label className="block text-xs font-medium text-muted-foreground">
+              Acomodação {!quarto && <span className="text-destructive">— confirme antes de gerar o link</span>}
+            </label>
+            <select
+              value={quarto}
+              onChange={(e) => setQuarto(e.target.value as RoomKey)}
+              className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:border-primary"
+            >
+              <option value="">Selecione a acomodação</option>
+              {Object.entries(rooms).map(([key, room]) => (
+                <option key={key} value={key}>{room.label}</option>
+              ))}
+            </select>
+          </div>
         </div>
 
         <div className="flex items-center gap-2 mt-2">
@@ -321,7 +329,8 @@ ${link}` : null,
             <button
               type="button"
               onClick={gerarLink}
-              className="w-full rounded-md bg-primary px-4 py-3 text-sm text-primary-foreground font-medium hover:bg-primary-hover transition-colors"
+              disabled={!quarto}
+              className="w-full rounded-md bg-primary px-4 py-3 text-sm text-primary-foreground font-medium hover:bg-primary-hover transition-colors disabled:opacity-50"
             >
               Gerar link de chegada
             </button>

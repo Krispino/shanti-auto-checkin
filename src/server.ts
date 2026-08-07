@@ -69,41 +69,116 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
 const SHEETS_ENDPOINT =
   "https://script.google.com/macros/s/AKfycbyzkbdi8IU7lD3jYk3D9sc8E90YKwGKWiW_-IDGlE2vPY1AczZ5Er4zFc1sHlAw37Vd/exec";
 
-// Proxy protegido: o navegador chama /api/buscar sem token; aqui adicionamos o
-// token secreto (env.SHEETS_TOKEN) e repassamos ao Apps Script. O token nunca
-// chega ao cliente.
+// Senha usada enquanto o secret ADMIN_SENHA não estiver configurado.
+// Fica só no código do servidor — nunca é enviada ao navegador.
+const ADMIN_SENHA_PADRAO = "20shanti22";
+
+const JSON_HEADERS = { "content-type": "application/json; charset=utf-8" };
+
+function json(data: unknown, status = 200): Response {
+  return new Response(JSON.stringify(data), { status, headers: JSON_HEADERS });
+}
+
+function adminSenha(env: Record<string, unknown>): string {
+  return typeof env.ADMIN_SENHA === "string" && env.ADMIN_SENHA
+    ? env.ADMIN_SENHA
+    : ADMIN_SENHA_PADRAO;
+}
+
+function senhaConfere(request: Request, env: Record<string, unknown>): boolean {
+  return request.headers.get("x-admin-senha") === adminSenha(env);
+}
+
+interface Cadastro {
+  nome?: string;
+  checkin?: string;
+  [k: string]: unknown;
+}
+
+// Consulta o Apps Script com o token secreto (env.SHEETS_TOKEN). O token nunca
+// chega ao cliente — só este Worker o conhece.
+async function consultarSheets(
+  env: Record<string, unknown>,
+  params: { nome?: string | null; checkin?: string | null },
+): Promise<Cadastro[]> {
+  const token = typeof env.SHEETS_TOKEN === "string" ? env.SHEETS_TOKEN : "";
+  const upstream = new URL(SHEETS_ENDPOINT);
+  upstream.searchParams.set("token", token);
+  if (params.nome) upstream.searchParams.set("nome", params.nome);
+  if (params.checkin) upstream.searchParams.set("checkin", params.checkin);
+
+  const res = await fetch(upstream.toString());
+  const data = (await res.json()) as { resultados?: Cadastro[] };
+  return data.resultados ?? [];
+}
+
+// Busca completa — devolve dados pessoais de hóspedes, então exige a senha
+// do admin. Sem ela, responde 401 sem consultar nada.
 async function handleBuscar(request: Request, env: Record<string, unknown>): Promise<Response> {
+  if (!senhaConfere(request, env)) {
+    return json({ resultados: [], erro: "nao autorizado" }, 401);
+  }
+  const url = new URL(request.url);
+  try {
+    const resultados = await consultarSheets(env, {
+      nome: url.searchParams.get("nome"),
+      checkin: url.searchParams.get("checkin"),
+    });
+    return json({ resultados });
+  } catch {
+    return json({ resultados: [] }, 502);
+  }
+}
+
+function normalizarNome(s: string): string {
+  return s.trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+// Checagem de duplicata usada pelo formulário público. Responde apenas
+// {existe: boolean} — nunca devolve dados de hóspede. A busca do Apps Script
+// casa por trecho do nome ("ana" acha "Mariana"), então o nome é comparado
+// por igualdade exata aqui antes de responder.
+async function handleChecarDuplicata(
+  request: Request,
+  env: Record<string, unknown>,
+): Promise<Response> {
   const url = new URL(request.url);
   const nome = url.searchParams.get("nome");
   const checkin = url.searchParams.get("checkin");
-  const token = typeof env.SHEETS_TOKEN === "string" ? env.SHEETS_TOKEN : "";
-
-  const upstream = new URL(SHEETS_ENDPOINT);
-  upstream.searchParams.set("token", token);
-  if (nome) upstream.searchParams.set("nome", nome);
-  if (checkin) upstream.searchParams.set("checkin", checkin);
+  if (!nome || !checkin) return json({ existe: false });
 
   try {
-    const res = await fetch(upstream.toString());
-    const body = await res.text();
-    return new Response(body, {
-      status: res.status,
-      headers: { "content-type": "application/json; charset=utf-8" },
-    });
+    const resultados = await consultarSheets(env, { nome });
+    const alvo = normalizarNome(nome);
+    const existe = resultados.some(
+      (r) => normalizarNome(String(r.nome ?? "")) === alvo && r.checkin === checkin,
+    );
+    return json({ existe });
   } catch {
-    return new Response(JSON.stringify({ resultados: [] }), {
-      status: 502,
-      headers: { "content-type": "application/json; charset=utf-8" },
-    });
+    // Se a checagem falhar, não bloqueia o hóspede.
+    return json({ existe: false });
   }
+}
+
+function handleLogin(request: Request, env: Record<string, unknown>): Response {
+  return senhaConfere(request, env)
+    ? json({ ok: true })
+    : json({ ok: false }, 401);
 }
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
       const url = new URL(request.url);
+      const environment = (env ?? {}) as Record<string, unknown>;
       if (url.pathname === "/api/buscar") {
-        return await handleBuscar(request, (env ?? {}) as Record<string, unknown>);
+        return await handleBuscar(request, environment);
+      }
+      if (url.pathname === "/api/checar-duplicata") {
+        return await handleChecarDuplicata(request, environment);
+      }
+      if (url.pathname === "/api/login") {
+        return handleLogin(request, environment);
       }
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);

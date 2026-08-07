@@ -3,10 +3,10 @@ import { useState } from "react";
 import { ShantiLogo } from "@/components/shanti-logo";
 import { rooms, type RoomKey } from "@/lib/shanti";
 
-const SENHA = "20shanti22";
-// Rota protegida no Worker (src/server.ts) — o token secreto é adicionado no
-// servidor, nunca no navegador.
+// Rotas protegidas no Worker (src/server.ts): a senha é validada no servidor e
+// o token do Sheets nunca chega ao navegador.
 const BUSCA_ENDPOINT = "/api/buscar";
+const LOGIN_ENDPOINT = "/api/login";
 const WHATSAPP_GENILDA = "5562998546284";
 
 export const Route = createFileRoute("/admin")({
@@ -24,20 +24,24 @@ function Paula() {
   const [nome, setNome] = useState("");
   const [buscando, setBuscando] = useState(false);
   const [linkGerado, setLinkGerado] = useState("");
-  const [genildaEnviado, setGenildaEnviado] = useState(false);
+  const [entrando, setEntrando] = useState(false);
   const [reservaDireta, setReservaDireta] = useState(false);
   const [buscaVazia, setBuscaVazia] = useState(false);
   const [valorPendente, setValorPendente] = useState("");
   const [resultado, setResultado] = useState<{quarto: string; quartoKey: string; checkin: string; checkout: string; plataforma: string; configuracao: string; horario: string} | null>(null);
   const [listaResultados, setListaResultados] = useState<{nome: string; quarto: string; quartoKey: string; checkin: string; checkout: string; plataforma: string; configuracao: string; horario: string}[]>([]);
-  const [plataforma, setPlataforma] = useState("");
 
-  function handleSenha(e: React.FormEvent) {
+  async function handleSenha(e: React.FormEvent) {
     e.preventDefault();
-    if (senha === SENHA) {
-      setAuth(true);
-    } else {
+    setEntrando(true);
+    try {
+      const res = await fetch(LOGIN_ENDPOINT, { headers: { "x-admin-senha": senha } });
+      if (res.ok) setAuth(true);
+      else setSenhaErro(true);
+    } catch {
       setSenhaErro(true);
+    } finally {
+      setEntrando(false);
     }
   }
 
@@ -50,7 +54,9 @@ function Paula() {
     let found = false;
     try {
       if (nome) {
-        const res = await fetch(`${BUSCA_ENDPOINT}?nome=${encodeURIComponent(nome)}`);
+        const res = await fetch(`${BUSCA_ENDPOINT}?nome=${encodeURIComponent(nome)}`, {
+          headers: { "x-admin-senha": senha },
+        });
         const data = await res.json();
         if (data.resultados && data.resultados.length > 0) {
           if (data.resultados.length === 1) {
@@ -66,7 +72,9 @@ function Paula() {
         }
       }
       if (!found && checkin) {
-        const res = await fetch(`${BUSCA_ENDPOINT}?checkin=${encodeURIComponent(checkin)}`);
+        const res = await fetch(`${BUSCA_ENDPOINT}?checkin=${encodeURIComponent(checkin)}`, {
+          headers: { "x-admin-senha": senha },
+        });
         const data = await res.json();
         if (data.resultados && data.resultados.length > 0) {
           if (data.resultados.length === 1) {
@@ -136,7 +144,6 @@ function Paula() {
 
   function enviarGenilda() {
     if (!quarto) return;
-    setGenildaEnviado(true);
     const link = linkGerado;
     const room = rooms[quarto];
     const config = resultado?.configuracao || "";
@@ -189,8 +196,12 @@ ${link}` : null,
               autoFocus
             />
             {senhaErro && <p className="text-xs text-destructive mb-3">Senha incorreta.</p>}
-            <button type="submit" className="w-full rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground font-medium">
-              Entrar
+            <button
+              type="submit"
+              disabled={entrando || !senha}
+              className="w-full rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground font-medium disabled:opacity-50"
+            >
+              {entrando ? "Entrando..." : "Entrar"}
             </button>
           </form>
         </div>

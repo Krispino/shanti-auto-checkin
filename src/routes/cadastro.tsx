@@ -36,7 +36,6 @@ function Cadastro() {
   const [doc, setDoc] = useState("");
   const [email, setEmail] = useState("");
   const [config, setConfig] = useState("");
-  const [acompanhante, setAcompanhante] = useState("");
   const [acompanhantes, setAcompanhantes] = useState<string[]>([]);
 
   const numAcompanhantes = (() => {
@@ -91,10 +90,11 @@ function Cadastro() {
   async function jaExisteCadastro(): Promise<boolean> {
     if (!nome || !dataEntrada) return false;
     try {
-      const res = await fetch(`/api/buscar?nome=${encodeURIComponent(nome)}`);
+      const res = await fetch(
+        `/api/checar-duplicata?nome=${encodeURIComponent(nome)}&checkin=${encodeURIComponent(dataEntrada)}`,
+      );
       const data = await res.json();
-      const resultados: { checkin?: string }[] = data.resultados || [];
-      return resultados.some((r) => r.checkin === dataEntrada);
+      return data.existe === true;
     } catch {
       // se a checagem falhar, não bloqueia o hóspede
       return false;

@@ -126,32 +126,10 @@ export function getReservaFromSearch(search: URLSearchParams): ReservaParams {
   };
 }
 
-export function formatDateBR(d: Date): string {
-  return d.toLocaleDateString("pt-BR", {
-    day: "2-digit",
-    month: "long",
-  });
-}
-
 export function formatDateShort(d: Date): string {
   return d.toLocaleDateString("pt-BR", {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
   });
-}
-
-export function daysUntil(date: Date): number {
-  const ms = date.getTime() - Date.now();
-  return Math.max(0, Math.ceil(ms / (24 * 60 * 60 * 1000)));
-}
-
-export function useSearchParamsObject(): URLSearchParams {
-  if (typeof window === "undefined") return new URLSearchParams();
-  return new URLSearchParams(window.location.search);
-}
-
-export function preserveSearch(): string {
-  if (typeof window === "undefined") return "";
-  return window.location.search || "";
 }

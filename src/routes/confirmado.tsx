@@ -28,7 +28,7 @@ function Confirmado() {
             Obrigado(a), {firstName}.
           </h1>
           <p className="mt-3 text-muted-foreground max-w-xl mx-auto">
-            Sua conversa com a Paula foi aberta. Toque em Enviar lá no WhatsApp.
+            Sua conversa com a Shanti foi aberta. Toque em Enviar lá no WhatsApp.
           </p>
         </div>
 

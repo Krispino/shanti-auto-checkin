@@ -75,7 +75,7 @@ export const rooms: Record<RoomKey, Room> = {
 };
 
 export const CODIGO_PORTAO = "002";
-export const WHATSAPP_PAULA = "5521964077224";
+export const WHATSAPP_SHANTI = "5562999681569";
 export const WHATSAPP_GENILDA = "5562998546284";
 
 export function isRoomKey(v: string | undefined | null): v is RoomKey {

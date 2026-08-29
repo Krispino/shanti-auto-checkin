@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { WHATSAPP_PAULA } from "@/lib/shanti";
+import { WHATSAPP_SHANTI } from "@/lib/shanti";
 import { ShantiLogo } from "@/components/shanti-logo";
 
 export const Route = createFileRoute("/")({
@@ -77,7 +77,7 @@ function Index() {
             Fazer pré-check-in (2 min)
           </Link>
           <a
-            href={"https://wa.me/" + WHATSAPP_PAULA}
+            href={"https://wa.me/" + WHATSAPP_SHANTI}
             target="_blank"
             rel="noreferrer"
             className="w-full rounded-md border border-border bg-card px-6 py-3 text-foreground font-medium hover:bg-accent transition-colors text-center"

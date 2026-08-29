@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
-  WHATSAPP_PAULA,
+  WHATSAPP_SHANTI,
   getReservaFromSearch,
   isRoomKey,
   rooms,
@@ -137,7 +137,7 @@ function Cadastro() {
       }).catch(() => {});
 
       const linhas = [
-        `Olá Paula, aqui é ${nome}.`,
+        `Olá, aqui é ${nome}.`,
         acomodacaoNome && acomodacaoNome ? `• Acomodação: ${acomodacaoNome === "nao-sei" ? "Não sei / não lembro" : acomodacaoNome}` : null,
         dataEntrada ? `• Data de entrada: ${dataEntrada.split("-").reverse().join("/")}` : null,
         dataSaida ? `• Data de saída: ${dataSaida.split("-").reverse().join("/")}` : null,
@@ -153,7 +153,7 @@ function Cadastro() {
         .filter(Boolean)
         .join("\n");
 
-      window.open(`https://wa.me/${WHATSAPP_PAULA}?text=${encodeURIComponent(linhas)}`, "_blank");
+      window.open(`https://wa.me/${WHATSAPP_SHANTI}?text=${encodeURIComponent(linhas)}`, "_blank");
 
       sessionStorage.setItem("checkin_nome", nome);
       navigate({ to: "/confirmado" });
@@ -212,7 +212,7 @@ function Cadastro() {
             informações de acesso pelo WhatsApp em breve.
           </p>
           <a
-            href={`https://wa.me/${WHATSAPP_PAULA}`}
+            href={`https://wa.me/${WHATSAPP_SHANTI}`}
             target="_blank"
             rel="noreferrer"
             className="mt-6 inline-block rounded-md border border-border bg-card px-5 py-2.5 text-sm font-medium hover:bg-accent transition-colors"

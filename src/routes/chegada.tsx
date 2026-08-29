@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import {
   CODIGO_PORTAO,
   WHATSAPP_GENILDA,
-  WHATSAPP_PAULA,
+  WHATSAPP_SHANTI,
   formatDateShort,
   getReservaFromSearch,
   type ReservaParams,
@@ -235,8 +235,8 @@ function Chegada() {
             <button
               type="button"
               onClick={() => {
-                const msg = `Olá Paula! Acabei de chegar na ${reserva.room.label}. ✓`;
-                window.open(`https://wa.me/${WHATSAPP_PAULA}?text=${encodeURIComponent(msg)}`, "_blank");
+                const msg = `Olá! Acabei de chegar na ${reserva.room.label}. ✓`;
+                window.open(`https://wa.me/${WHATSAPP_SHANTI}?text=${encodeURIComponent(msg)}`, "_blank");
               }}
               className="mt-4 rounded-md bg-card text-foreground font-medium px-5 py-2.5 text-sm hover:bg-background transition-colors"
             >
@@ -297,7 +297,7 @@ function Chegada() {
             <br />
             <strong>Check-out:</strong> até meio-dia (12h) — atraso sujeito a multa automática
             <div className="mt-2 text-xs text-muted-foreground">
-              Check-in antecipado sujeito à disponibilidade do quarto no dia — fale com a Paula pelo WhatsApp para verificar.
+              Check-in antecipado sujeito à disponibilidade do quarto no dia — fale com a gente pelo WhatsApp para verificar.
             </div>
           </FAQItem>
           <FAQItem title="Wi-Fi">
@@ -346,14 +346,14 @@ function Chegada() {
         {/* Suporte */}
         <div className="mt-8 rounded-lg border border-border bg-card p-5 text-sm">
           <div>
-            Dúvidas, informações? Fale com a Paula:{" "}
+            Dúvidas, informações? Fale com a gente:{" "}
             <a
-              href={`https://wa.me/${WHATSAPP_PAULA}`}
+              href={`https://wa.me/${WHATSAPP_SHANTI}`}
               target="_blank"
               rel="noreferrer"
               className="text-primary hover:underline"
             >
-              WhatsApp (21) 96407-7224
+              WhatsApp (62) 99968-1569
             </a>
           </div>
           <div className="mt-2">

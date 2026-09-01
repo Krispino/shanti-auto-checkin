@@ -72,17 +72,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Shanti Pousada Veadeiros" },
+      { title: "Shanti Pousada" },
       {
         name: "description",
         content:
-          "Pré-check-in da Shanti Pousada Veadeiros, na Vila de São Jorge, Chapada dos Veadeiros.",
+          "Pré-check-in da Shanti Pousada, na Vila de São Jorge, Chapada dos Veadeiros.",
       },
-      { name: "author", content: "Shanti Pousada Veadeiros" },
+      { name: "author", content: "Shanti Pousada" },
       // Prévia do link no WhatsApp: sem isto o link chega com a cara do
       // template e passa impressão de golpe para o hóspede.
-      { property: "og:site_name", content: "Shanti Pousada Veadeiros" },
-      { property: "og:title", content: "Shanti Pousada Veadeiros" },
+      { property: "og:site_name", content: "Shanti Pousada" },
+      { property: "og:title", content: "Shanti Pousada" },
       {
         property: "og:description",
         content:
@@ -95,7 +95,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:locale", content: "pt_BR" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Shanti Pousada Veadeiros" },
+      { name: "twitter:title", content: "Shanti Pousada" },
       {
         name: "twitter:image",
         content: "https://checkin.shantipousada.com.br/arquivos/fachada.jpg",

@@ -53,12 +53,12 @@ function Confirmado() {
         </div>
 
         <div className="mt-6 grid grid-cols-2 gap-3">
-          <a href="https://www.instagram.com/shanti_pousada_veadeiros" target="_blank" rel="noreferrer" className="rounded-lg border border-border bg-card p-4 flex flex-col items-center gap-2 text-center hover:bg-accent transition-colors">
+          <a href="https://www.instagram.com/shantipousada" target="_blank" rel="noreferrer" className="rounded-lg border border-border bg-card p-4 flex flex-col items-center gap-2 text-center hover:bg-accent transition-colors">
             <img src="/arquivos/instagram.png" alt="Instagram" style={{ width: 32, height: 32 }} />
             <div className="text-xs font-medium">Instagram</div>
             <div className="text-xs text-muted-foreground">Dicas e informações sobre a Chapada</div>
           </a>
-          <a href="https://www.shantipousada.com.br" target="_blank" rel="noreferrer" className="rounded-lg border border-border bg-card p-4 flex flex-col items-center gap-2 text-center hover:bg-accent transition-colors">
+          <a href="https://shantipousada.com.br" target="_blank" rel="noreferrer" className="rounded-lg border border-border bg-card p-4 flex flex-col items-center gap-2 text-center hover:bg-accent transition-colors">
             <span style={{ fontSize: 24 }}>🌐</span>
             <div className="text-xs font-medium">Site oficial</div>
             <div className="text-xs text-muted-foreground">Reserve direto com desconto</div>

@@ -5,6 +5,7 @@ import {
   getReservaFromSearch,
   isRoomKey,
   rooms,
+  toISODate,
 } from "@/lib/shanti";
 import { ShantiLogo } from "@/components/shanti-logo";
 
@@ -64,28 +65,34 @@ function Cadastro() {
   const [duplicado, setDuplicado] = useState<{ checkin: string } | null>(null);
   const [jaConfirmado, setJaConfirmado] = useState(false);
 
+  // Aproveita o que o link da reserva já informa, para o hóspede não redigitar.
+  // Só usa valores realmente presentes na URL — nunca os padrões inventados.
   useEffect(() => {
     if (reserva.rawNome) setNome(reserva.rawNome);
+    if (reserva.checkinUrl) setDataEntrada(reserva.checkinUrl);
+    if (reserva.checkoutUrl) setDataSaida(reserva.checkoutUrl);
+    if (reserva.quartoKeyUrl) setAcomodacaoNome(reserva.quartoKeyUrl);
   }, [reserva]);
 
   const ondeUsar = "Quem vai usar a acomodação";
 
-  // Quarto efetivo: o que o hóspede selecionou no formulário, senão o da URL
-  const quartoEfetivoKey = isRoomKey(acomodacaoNome) ? acomodacaoNome : null;
-  const quartoEfetivo = quartoEfetivoKey ? rooms[quartoEfetivoKey] : reserva.room;
+  // Quarto efetivo: o que o hóspede selecionou, senão o que veio no link.
+  // Fica null enquanto nenhum dos dois é conhecido — não cair no padrão
+  // "caliandra", que mostraria as opções de um quarto que não é o dele.
+  const quartoEfetivoKey = isRoomKey(acomodacaoNome)
+    ? acomodacaoNome
+    : reserva.quartoKeyUrl;
+  const quartoEfetivo = quartoEfetivoKey ? rooms[quartoEfetivoKey] : null;
+  const configsValidas = quartoEfetivo ? quartoEfetivo.configs : todasConfigs;
 
   // Mantém a configuração escolhida se ainda for válida para o quarto atual;
-  // senão, cai para o padrão do quarto (ou de todasConfigs, se "não sei").
+  // senão, cai para o padrão do quarto (ou para a lista completa, se o quarto
+  // ainda não é conhecido).
   useEffect(() => {
-    const configsValidas = acomodacaoNome === "nao-sei" ? todasConfigs : quartoEfetivo.configs;
     setConfig((atual) =>
       atual && configsValidas.includes(atual) ? atual : configsValidas[0] ?? "",
     );
-  }, [reserva, quartoEfetivo, acomodacaoNome]);
-
-  function toISODate(d: Date): string {
-    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-  }
+  }, [configsValidas]);
 
   async function jaExisteCadastro(): Promise<boolean> {
     if (!nome || !dataEntrada) return false;
@@ -105,7 +112,9 @@ function Cadastro() {
     setSubmitting(true);
 
     try {
-      const payloadKey = acomodacaoNome === "nao-sei" ? "" : (quartoEfetivoKey || reserva.quartoKey);
+      // Quarto desconhecido grava vazio — o /admin sinaliza "não identificado".
+      // Nunca cair no padrão "caliandra", que gravaria o quarto errado em silêncio.
+      const payloadKey = acomodacaoNome === "nao-sei" ? "" : (quartoEfetivoKey ?? "");
       const payload = {
         nome,
         documento: doc,
@@ -352,10 +361,7 @@ function Cadastro() {
                 className={inputCls}
               >
                 <option value="">Selecione</option>
-                {(acomodacaoNome === "nao-sei"
-                  ? todasConfigs
-                  : quartoEfetivo.configs
-                ).map((c) => (
+                {configsValidas.map((c) => (
                   <option key={c}>{c}</option>
                 ))}
               </select>
@@ -427,7 +433,7 @@ function Cadastro() {
               <select
                 required
                 value={plataforma}
-                onChange={(e) => { setPlataforma(e.target.value); setAcomodacaoNome(""); }}
+                onChange={(e) => setPlataforma(e.target.value)}
                 className={inputCls}
               >
                 <option value="">Selecione</option>

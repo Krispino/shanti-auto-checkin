@@ -90,6 +90,12 @@ export interface ReservaParams {
   checkout: Date;
   noites: number;
   rawNome?: string;
+  // O que veio DE FATO na URL. Os campos acima têm valores padrão quando a URL
+  // não informa nada (quarto vira "caliandra", datas viram hoje+3/hoje+7), e
+  // esses padrões nunca podem ser pré-preenchidos no formulário do hóspede.
+  quartoKeyUrl: RoomKey | null;
+  checkinUrl: string | null;
+  checkoutUrl: string | null;
 }
 
 function parseDateLocal(s: string | null | undefined, fallback: Date): Date {
@@ -102,9 +108,26 @@ function parseDateLocal(s: string | null | undefined, fallback: Date): Date {
   return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]), 14, 0, 0);
 }
 
+export function toISODate(d: Date): string {
+  const mes = String(d.getMonth() + 1).padStart(2, "0");
+  const dia = String(d.getDate()).padStart(2, "0");
+  return `${d.getFullYear()}-${mes}-${dia}`;
+}
+
+// Data da URL normalizada como YYYY-MM-DD, ou null se ausente/inválida.
+function dateParam(search: URLSearchParams, chave: string): string | null {
+  const v = search.get(chave);
+  if (!v) return null;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(v)) return v;
+  const d = new Date(v);
+  return isNaN(d.getTime()) ? null : toISODate(d);
+}
+
 export function getReservaFromSearch(search: URLSearchParams): ReservaParams {
   const rawNome = search.get("nome") || "";
-  const quartoParam = search.get("quarto") || search.get("acomodacao") || "caliandra";
+  const quartoUrl = search.get("quarto") || search.get("acomodacao");
+  const quartoKeyUrl = isRoomKey(quartoUrl) ? quartoUrl : null;
+  const quartoParam = quartoUrl || "caliandra";
   const quartoKey: RoomKey = isRoomKey(quartoParam) ? quartoParam : "caliandra";
   const now = new Date();
   const defCheckin = new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000);
@@ -123,6 +146,9 @@ export function getReservaFromSearch(search: URLSearchParams): ReservaParams {
     checkin,
     checkout,
     noites,
+    quartoKeyUrl,
+    checkinUrl: dateParam(search, "checkin"),
+    checkoutUrl: dateParam(search, "checkout"),
   };
 }
 

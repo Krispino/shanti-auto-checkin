@@ -10,6 +10,16 @@ App de auto check-in para hóspedes da Shanti Pousada.
 - Repo: Krispino/shanti-auto-checkin
 - Captura de dados: Google Sheets via Google Apps Script
 
+### Contas (confirmar antes de deploy)
+
+- **Cloudflare: `shantipousada@gmail.com`** — NÃO é a conta pessoal
+  `crispimfabio@gmail.com`. O Worker, o subdomínio `shanti-checkin.workers.dev`
+  e a zona `shantipousada.com.br` estão todos nessa conta. Logar com a conta
+  errada faz o deploy criar um Worker paralelo e inútil. Conferir com
+  `bunx wrangler whoami` antes de publicar.
+- Segredos no Worker (via `wrangler secret put`): `SHEETS_TOKEN` (token do Apps
+  Script) e `ADMIN_SENHA` (senha do /admin, com fallback em `src/server.ts`).
+
 ## Rotas
 
 - `/` — entrada

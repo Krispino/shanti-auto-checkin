@@ -5,7 +5,8 @@ App de auto check-in para hóspedes da Shanti Pousada Veadeiros.
 ## Stack
 
 - TanStack Start + TypeScript
-- Deploy: Cloudflare Workers → tanstack-start-app.shanti-checkin.workers.dev
+- Deploy: Cloudflare Workers → checkin.shantipousada.com.br (domínio dos hóspedes)
+  - tanstack-start-app.shanti-checkin.workers.dev segue ativo: links antigos já enviados apontam para ele
 - Repo: Krispino/shanti-auto-checkin
 - Captura de dados: Google Sheets via Google Apps Script
 

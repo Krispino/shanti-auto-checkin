@@ -103,7 +103,7 @@ function Paula() {
       alert("Selecione a acomodação antes de gerar o link.");
       return "";
     }
-    const base = "https://tanstack-start-app.shanti-checkin.workers.dev/chegada";
+    const base = "https://checkin.shantipousada.com.br/chegada";
     const params = new URLSearchParams({
       quarto,
       checkin,

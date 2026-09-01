@@ -1,6 +1,6 @@
 # CLAUDE.md — shanti-auto-checkin
 
-App de auto check-in para hóspedes da Shanti Pousada Veadeiros.
+App de auto check-in para hóspedes da Shanti Pousada.
 
 ## Stack
 

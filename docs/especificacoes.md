@@ -2,7 +2,7 @@
 
 ## Visão Geral
 
-Web app de pré-check-in e auto check-in para a Shanti Pousada Veadeiros.
+Web app de pré-check-in e auto check-in para a Shanti Pousada.
 URL: https://tanstack-start-app.shanti-checkin.workers.dev
 Stack: TanStack Start + TypeScript + Cloudflare Workers
 
@@ -76,7 +76,7 @@ Calendar: shantipousada@gmail.com
 ### Genilda
 1. Recebe email automático do cadastro
 2. Recebe WA da Paula com dados + link do Calendar
-3. Salva evento no calendário Shanti Pousada Veadeiros
+3. Salva evento no calendário Shanti Pousada
 
 ## Regras de Negócio
 

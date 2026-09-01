@@ -10,11 +10,11 @@ const LOGIN_ENDPOINT = "/api/login";
 const WHATSAPP_GENILDA = "5562998546284";
 
 export const Route = createFileRoute("/admin")({
-  head: () => ({ meta: [{ title: "Ferramenta Paula — Shanti" }] }),
-  component: Paula,
+  head: () => ({ meta: [{ title: "Ferramenta de chegada — Shanti" }] }),
+  component: Admin,
 });
 
-function Paula() {
+function Admin() {
   const [auth, setAuth] = useState(false);
   const [senha, setSenha] = useState("");
   const [senhaErro, setSenhaErro] = useState(false);

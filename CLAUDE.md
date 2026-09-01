@@ -31,7 +31,9 @@ App de auto check-in para hóspedes da Shanti Pousada.
 ## Regras invioláveis
 
 1. O formulário `/cadastro` é UMA página única com scroll. Nunca multi-step.
-2. O nome da Paula NUNCA aparece em conteúdo voltado a hóspedes. Links de WhatsApp existem para Paula (reservas) e Genilda (local), mas sem expor o nome da Paula ao hóspede.
+2. Conteúdo voltado a hóspedes NUNCA traz nome próprio de quem atende. Os links
+   de WhatsApp são `WHATSAPP_SHANTI` (reservas — desde set/2026 é o Fabio, não
+   mais a Paula, que saiu) e `WHATSAPP_GENILDA` (apoio local na pousada).
 3. Toda mudança no código do Google Apps Script exige REPUBLICAR como nova versão. Sem republicar, a mudança não vale. Lembrar o Fabio disso em toda alteração.
 4. Códigos de lockbox dos 6 quartos já foram corrigidos uma vez — antes de alterar qualquer código, confirmar com o Fabio o valor atual. Nunca inventar.
 5. Vídeos das acomodações foram recomprimidos via ffmpeg — manter o padrão de compressão se novos vídeos entrarem.

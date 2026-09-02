@@ -1,0 +1,8 @@
+# A raiz e o /cadastro podem ser indexados: é por onde o hóspede entra.
+# O resto não — /chegada mostra códigos de portão e de cofre, /admin é
+# ferramenta interna e /confirmado é fim de fluxo.
+User-agent: *
+Disallow: /chegada
+Disallow: /admin
+Disallow: /confirmado
+Disallow: /api/

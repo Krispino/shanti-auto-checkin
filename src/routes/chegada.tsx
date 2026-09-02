@@ -11,7 +11,15 @@ import {
 import { ShantiLogo } from "@/components/shanti-logo";
 
 export const Route = createFileRoute("/chegada")({
-  head: () => ({ meta: [{ title: "Sua chegada — Shanti Pousada" }] }),
+  head: () => ({
+    // A prévia de marketing continua (o hóspede recebe este link e precisa
+    // reconhecer a pousada), mas a página mostra códigos de acesso e nunca
+    // pode ser indexada.
+    meta: [
+      { title: "Sua chegada — Shanti Pousada" },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+  }),
   component: Chegada,
 });
 

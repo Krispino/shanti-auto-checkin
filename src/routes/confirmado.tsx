@@ -4,7 +4,12 @@ import { useEffect, useState } from "react";
 import { getReservaFromSearch } from "@/lib/shanti";
 
 export const Route = createFileRoute("/confirmado")({
-  head: () => ({ meta: [{ title: "Pre-check-in confirmado - Shanti Pousada" }] }),
+  head: () => ({
+    meta: [
+      { title: "Pré-check-in confirmado — Shanti Pousada" },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+  }),
   component: Confirmado,
 });
 

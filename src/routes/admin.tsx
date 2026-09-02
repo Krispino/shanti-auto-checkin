@@ -10,7 +10,26 @@ const LOGIN_ENDPOINT = "/api/login";
 const WHATSAPP_GENILDA = "5562998546284";
 
 export const Route = createFileRoute("/admin")({
-  head: () => ({ meta: [{ title: "Ferramenta de chegada — Shanti" }] }),
+  head: () => ({
+    // Prévia própria: sem a foto da fachada nem o texto de marketing, para o
+    // link interno não se confundir com o que vai para o hóspede. E fora dos
+    // buscadores — é ferramenta de uso interno.
+    meta: [
+      { title: "Ferramenta interna — Shanti" },
+      { name: "robots", content: "noindex, nofollow" },
+      { name: "description", content: "Uso interno da pousada. Acesso restrito." },
+      { property: "og:title", content: "Ferramenta interna — Shanti" },
+      { property: "og:description", content: "Uso interno da pousada. Acesso restrito." },
+      {
+        property: "og:image",
+        content: "https://checkin.shantipousada.com.br/arquivos/logo.alfa.png",
+      },
+      {
+        name: "twitter:image",
+        content: "https://checkin.shantipousada.com.br/arquivos/logo.alfa.png",
+      },
+    ],
+  }),
   component: Admin,
 });
 

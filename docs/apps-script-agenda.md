@@ -19,6 +19,18 @@ disso. Com o evento vindo do formulário, o padrão passa a ser um só.
 // ===== Agenda =====
 var AGENDA_ID = 'shantipousada@gmail.com';
 
+// Cada acomodação tem sua cor na agenda. Mapeamento levantado dos eventos
+// lançados à mão até ago/2026 — o Canindé não tem cor própria, fica na cor
+// padrão do calendário.
+var CORES_QUARTO = {
+  caliandra: CalendarApp.EventColor.RED,        // Tomate
+  mangaba:   CalendarApp.EventColor.GREEN,      // Manjericão
+  seriema:   CalendarApp.EventColor.ORANGE,     // Tangerina
+  maytreia:  CalendarApp.EventColor.YELLOW,     // Banana
+  mantra:    CalendarApp.EventColor.MAUVE,      // Uva
+  caninde:   null                               // sem cor (padrão)
+};
+
 // "2026-09-15" -> Date local (evita o deslocamento de fuso do new Date(string))
 function dataLocal_(s) {
   var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s || ''));
@@ -64,6 +76,8 @@ function criarEventoAgenda(data) {
     String(data.plataforma || '').trim()
   ].filter(String).join(' · ');
 
+  var cor = CORES_QUARTO[String(data.quartoKey || '').toLowerCase()];
+
   // Se o hóspede reenviar o formulário, atualiza o evento em vez de duplicar.
   if (nome) {
     var doDia = cal.getEventsForDay(inicio);
@@ -71,6 +85,7 @@ function criarEventoAgenda(data) {
       if (doDia[i].getTitle().indexOf(nome) === 0) {
         doDia[i].setTitle(titulo);
         doDia[i].setDescription(descricaoEvento_(data));
+        if (cor) doDia[i].setColor(cor);
         return;
       }
     }
@@ -78,7 +93,9 @@ function criarEventoAgenda(data) {
 
   // Em evento de dia inteiro a data final é exclusiva: passar o check-out puro
   // pinta as noites de fato dormidas, que é como a agenda já vinha sendo usada.
-  cal.createAllDayEvent(titulo, inicio, fim).setDescription(descricaoEvento_(data));
+  var evento = cal.createAllDayEvent(titulo, inicio, fim);
+  evento.setDescription(descricaoEvento_(data));
+  if (cor) evento.setColor(cor);
 }
 ```
 
@@ -111,3 +128,19 @@ Mariana Silva · Duplex Seriema · Booking.com
 Quando o hóspede marca "Não sei / não lembro" na acomodação, o app envia o
 quarto vazio e o título sai como `Nome · QUARTO A CONFIRMAR · Plataforma` —
 propositalmente chamativo, para aparecer na agenda como pendência.
+
+## Cores por acomodação
+
+| Acomodação | Cor na agenda | Constante |
+|---|---|---|
+| Caliandra | Tomate (vermelho) | `RED` |
+| Mangaba | Manjericão (verde) | `GREEN` |
+| Seriema | Tangerina (laranja) | `ORANGE` |
+| Maytreia | Banana (amarelo) | `YELLOW` |
+| Mantra | Uva (roxo) | `MAUVE` |
+| Canindé | sem cor (padrão do calendário) | — |
+
+O mapeamento foi levantado dos eventos lançados à mão entre maio e agosto de
+2026 e é consistente ao longo de todos eles. Quando o hóspede não informa a
+acomodação, o evento fica sem cor — junto com o `QUARTO A CONFIRMAR` no título,
+serve de sinal de que falta conferir na plataforma.

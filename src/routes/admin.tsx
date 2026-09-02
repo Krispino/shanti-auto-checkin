@@ -136,12 +136,44 @@ function Admin() {
     return link;
   }
 
+  // Faltam menos de 24h para a chegada? Nesse caso os códigos já aparecem na
+  // página, e a mensagem muda de "vai liberar" para "está tudo aí".
+  function codigosJaLiberados(): boolean {
+    if (!checkin) return false;
+    const [a, m, d] = checkin.split("-").map(Number);
+    if (!a || !m || !d) return false;
+    const entrada = new Date(a, m - 1, d, 14, 0, 0);
+    return Date.now() >= entrada.getTime() - 24 * 60 * 60 * 1000;
+  }
+
   function abrirWhatsApp() {
     if (!quarto) return;
     const link = linkGerado || gerarLink();
     if (!link) return;
     const room = rooms[quarto];
-    const msg = `Olá! Aqui estão as informações de acesso para sua estadia na Shanti Pousada.\n\n${nome ? `${nome}, a` : "A"}cesse sua página de chegada pelo link abaixo:\n${link}`;
+    const primeiroNome = nome ? nome.split(" ")[0] : "";
+    const saudacao = primeiroNome ? `Olá, ${primeiroNome}!` : "Olá!";
+    const msg = codigosJaLiberados()
+      ? [
+          `${saudacao} Recebemos o seu pré-check-in, obrigado.`,
+          "",
+          "Esta é a sua página de chegada:",
+          link,
+          "",
+          `Nela estão o código do portão, o código do cofrinho com a chave ${room.article === "a" ? "da" : "do"} ${room.label} e um vídeo curto mostrando o caminho até o quarto. O check-in é a partir das 14h.`,
+          "",
+          "Boa viagem, e qualquer coisa é só chamar por aqui.",
+        ].join("\n")
+      : [
+          `${saudacao} Recebemos o seu pré-check-in, obrigado. Está tudo anotado aqui.`,
+          "",
+          "Esta é a sua página de chegada:",
+          link,
+          "",
+          `Nela você encontra o endereço, o vídeo do caminho até ${room.article === "a" ? "a" : "o"} ${room.label} e as orientações da casa. Por segurança, o código do portão e o do cofrinho com a chave aparecem nessa mesma página no dia anterior à sua chegada.`,
+          "",
+          "Qualquer dúvida até lá, é só chamar por aqui.",
+        ].join("\n");
     window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, "_blank");
   }
 

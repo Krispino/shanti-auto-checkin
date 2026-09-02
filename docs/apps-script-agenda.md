@@ -1,4 +1,4 @@
-# Criar o evento da reserva no Google Agenda automaticamente
+# Apps Script: evento na agenda + aviso de cadastro novo
 
 Cole este código no fim do `Código.gs` do Apps Script e adicione a chamada no
 `doPost`, conforme a última seção. **Depois é obrigatório republicar como nova
@@ -144,3 +144,54 @@ O mapeamento foi levantado dos eventos lançados à mão entre maio e agosto de
 2026 e é consistente ao longo de todos eles. Quando o hóspede não informa a
 acomodação, o evento fica sem cor — junto com o `QUARTO A CONFIRMAR` no título,
 serve de sinal de que falta conferir na plataforma.
+
+---
+
+# Aviso de cadastro novo por e-mail
+
+Este é um problema separado da agenda, mas se resolve na mesma edição.
+
+## Por que
+
+O `doPost` já manda um e-mail a cada cadastro, mas só para
+`genildinhapopozuda@gmail.com`. O Fabio só fica sabendo se o hóspede tocar em
+Enviar na conversa do WhatsApp que o app abre — e isso falha na prática: em
+02/09 dois hóspedes preencheram e nenhum aviso chegou. Um fechou a aba antes de
+enviar; a outra caiu na checagem de duplicata, que na época não abria o
+WhatsApp.
+
+Enquanto o aviso depender de uma ação do hóspede, vai continuar falhando. O
+e-mail sai do servidor e não depende de ninguém.
+
+## O que mudar
+
+Procure no `doPost` a linha:
+
+```javascript
+MailApp.sendEmail("genildinhapopozuda@gmail.com", assunto, corpo);
+```
+
+E troque por:
+
+```javascript
+// Vírgula separa os destinatários. O aviso precisa chegar a quem cuida das
+// reservas — não pode depender de o hóspede enviar a mensagem no WhatsApp.
+MailApp.sendEmail("shantipousada@gmail.com,genildinhapopozuda@gmail.com", assunto, corpo);
+```
+
+Trocar `shantipousada@gmail.com` pelo endereço em que você realmente lê e-mail,
+se for outro. Vale deixar a notificação do Gmail ligada no celular para esse
+endereço — é o que substitui o WhatsApp como aviso garantido.
+
+---
+
+# Depois de colar tudo
+
+1. Salvar o projeto no editor do Apps Script.
+2. **Republicar como nova versão**: Implementar → Gerenciar implementações →
+   ícone de editar → Versão: **Nova versão** → Implementar. Sem esse passo,
+   nada do que está aqui passa a valer.
+3. Na primeira execução o Google pede autorização nova, porque o script passa a
+   acessar a Agenda além da planilha. Aceitar.
+4. Testar enviando um pré-check-in de teste pelo próprio app e conferir se o
+   evento apareceu na agenda, com a cor certa, e se o e-mail chegou.

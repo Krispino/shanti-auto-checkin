@@ -199,19 +199,12 @@ serve de sinal de que falta conferir na plataforma.
 
 ## Por que
 
-Na página `/chegada` tem um botão "Confirmar minha chegada". Ele abre o
-WhatsApp do Fabio com uma mensagem pronta — e o hóspede raramente toca em
-Enviar lá. Sem esse toque, ninguém fica sabendo que ele chegou. O app agora
-chama `/api/avisar-chegada` no momento do clique (antes de abrir o WhatsApp),
-que cai aqui no Apps Script e manda um e-mail. Não depende do hóspede
-completar nada no WhatsApp depois.
-
-Por enquanto o e-mail vai só para a Genilda — ela fica sabendo que alguém
-chegou, sem que isso vire uma mensagem de WhatsApp pra ela a cada hóspede
-(quem continua atendendo no WhatsApp é o Fabio). Quando o atendimento de
-chegada passar de fato pra ela, é só trocar o destinatário do e-mail e o
-número do botão (hoje é `WHATSAPP_SHANTI`, ver `src/routes/chegada.tsx`) para
-`WHATSAPP_GENILDA`.
+Na página `/chegada` tem um botão "Confirmar minha chegada". Hoje ele só abre
+o WhatsApp com uma mensagem pronta — e o hóspede raramente toca em Enviar lá.
+Sem esse toque, ninguém fica sabendo que ele chegou. O app agora chama
+`/api/avisar-chegada` no momento do clique (antes de abrir o WhatsApp), que
+cai aqui no Apps Script e manda o e-mail. Não depende do hóspede completar
+nada no WhatsApp depois.
 
 ## Código
 
@@ -245,9 +238,7 @@ function avisarChegada_(nome, quarto, plataforma) {
     '',
     'Confirmado em ' + new Date().toLocaleString('pt-BR')
   ].join('\n');
-  // Só a Genilda por enquanto — o Fabio já sabe pelo WhatsApp que o botão
-  // abre com ele. Ver nota acima sobre trocar isso quando ela assumir.
-  MailApp.sendEmail('genildinhapopozuda@gmail.com', assunto, corpo);
+  MailApp.sendEmail('shantipousada@gmail.com,genildinhapopozuda@gmail.com', assunto, corpo);
 }
 ```
 

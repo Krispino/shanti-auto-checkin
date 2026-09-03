@@ -212,23 +212,24 @@ Opcional, mas é onde aparecem os pedidos que evitam problema na chegada.
 
 ---
 
-## 8. Já chegou, mas mandou "cheguei" direto no WhatsApp `/chegou`
+## 8. Já chegou `/chegou`
 
-Acontece com frequência: o hóspede avisa por aqui em vez de tocar no botão
-"Confirmar minha chegada" da página de chegada. Direcionar para o botão em vez
-de só responder "que bom" — é ele que libera as dicas para o hóspede, e é o
-sinal que a Genilda recebe do lado dela.
+O "Confirmar minha chegada" da página de chegada abre esta conversa com uma
+mensagem pronta, e o hóspede sai da página de chegada ao tocar em Enviar — o
+mesmo acontece quando ele avisa "cheguei" solto, sem passar pelo botão. Nos
+dois casos a resposta é esta, com os links direto na mensagem: assim ele
+recebe o essencial mesmo que não volte para a página depois.
 
 > Que bom que chegou bem, [Nome]! Fica à vontade.
 >
-> Só um detalhe: na sua página de chegada tem um botão "Confirmar minha
-> chegada" — [link]. Toca nele para fecharmos o processo de check-in e você
-> receber ali mesmo alguns links muito úteis, com dicas práticas para uma
-> experiência perfeita na sua viagem.
+> No nosso site tem tudo o que você precisa para começar agora: onde comer em
+> São Jorge, roteiros personalizados, infos sobre trilhas e cachoeiras e muito
+> mais.
+> https://shantipousada.com.br/chapada-dos-veadeiros/?utm_source=whatsapp&utm_medium=chegada&utm_content=dicas#dicas
 >
-> Além disso, libera um botão para falar diretamente com a Genilda, nossa
-> funcionária. Qualquer coisa que precisar durante a estadia é só falar com
-> ela.
+> Qualquer coisa que precisar durante a estadia, quem cuida do dia a dia aqui
+> na pousada é a Genilda, nossa funcionária. Fala com ela direto por aqui:
+> https://wa.me/5562998546284
 
 ---
 

@@ -167,9 +167,9 @@ function handleLogin(request: Request, env: Record<string, unknown>): Response {
 }
 
 // Avisa a Genilda por e-mail que o hóspede apertou "Confirmar minha chegada"
-// em /chegada — o WhatsApp que o botão abre em seguida já é com ela mesma.
-// Não depende de o hóspede tocar em Enviar lá: o e-mail sai do servidor,
-// então chega mesmo que ele feche a aba antes.
+// em /chegada — o WhatsApp que o botão abre em seguida vai para o Fabio, que
+// continua sendo quem atende. Não depende de o hóspede tocar em Enviar lá: o
+// e-mail sai do servidor mesmo que ele feche a aba antes.
 async function handleAvisarChegada(
   request: Request,
   env: Record<string, unknown>,

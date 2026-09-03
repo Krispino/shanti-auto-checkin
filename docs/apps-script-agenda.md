@@ -200,11 +200,12 @@ serve de sinal de que falta conferir na plataforma.
 ## Por que
 
 Na página `/chegada` tem um botão "Confirmar minha chegada". Ele abre o
-WhatsApp da Genilda com uma mensagem pronta — e o hóspede raramente toca em
-Enviar lá. Sem esse toque, ela não fica sabendo que ele chegou. O app agora
+WhatsApp do Fabio com uma mensagem pronta — e o hóspede raramente toca em
+Enviar lá. Sem esse toque, ninguém fica sabendo que ele chegou. O app agora
 chama `/api/avisar-chegada` no momento do clique (antes de abrir o WhatsApp),
-que cai aqui no Apps Script e manda um e-mail pra ela. Não depende do hóspede
-completar nada no WhatsApp depois.
+que cai aqui no Apps Script e manda um e-mail pra Genilda, como aviso de
+bastidor — quem segue a conversa com o hóspede continua sendo o Fabio, pelo
+WhatsApp. Não depende do hóspede completar nada lá.
 
 ## Código
 

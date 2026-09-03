@@ -248,8 +248,8 @@ function Chegada() {
                 </p>
                 <p className="mt-3 text-sm opacity-90">
                   No nosso site tem tudo o que você precisa para começar agora:
-                  onde comer em São Jorge, roteiros de trilhas e cachoeiras e o
-                  que dá para fazer hoje mesmo.
+                  onde comer em São Jorge, roteiros personalizados, infos sobre
+                  trilhas e cachoeiras e muito mais.
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   <a
@@ -308,8 +308,8 @@ function Chegada() {
                       plataforma: new URLSearchParams(window.location.search).get("plataforma") || "",
                     });
                     fetch(`/api/avisar-chegada?${params.toString()}`).catch(() => {});
-                    const msg = `Olá Genilda! Acabei de chegar na ${reserva.room.label}. ✓`;
-                    window.open(`https://wa.me/${WHATSAPP_GENILDA}?text=${encodeURIComponent(msg)}`, "_blank");
+                    const msg = `Olá! Acabei de chegar na ${reserva.room.label}. ✓`;
+                    window.open(`https://wa.me/${WHATSAPP_SHANTI}?text=${encodeURIComponent(msg)}`, "_blank");
                   }}
                   className="mt-4 rounded-md bg-card text-foreground font-medium px-5 py-2.5 text-sm hover:bg-background transition-colors"
                 >

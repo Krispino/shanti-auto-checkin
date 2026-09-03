@@ -88,8 +88,8 @@
   --destructive-foreground: oklch(0.990 0.008 85);
   --terracota: oklch(0.560 0.115 40);           /* #b85838 destaque do site */
   --terracota-soft: oklch(0.930 0.030 45);      /* fundo suave terracota */
-  --warning-bg: oklch(0.965 0.060 95);
-  --warning-border: oklch(0.870 0.110 95);
+  --warning-bg: oklch(0.930 0.030 45);          /* mesma paleta terracota do site */
+  --warning-border: oklch(0.780 0.075 42);
   --border: oklch(0.870 0.014 80);              /* #d9d3c6 */
   --input: oklch(0.870 0.014 80);
   --ring: oklch(0.473 0.052 240);
@@ -127,6 +127,8 @@
   --destructive-foreground: oklch(0.984 0.003 247.858);
   --terracota: oklch(0.640 0.120 40);           /* terracota mais clara no escuro */
   --terracota-soft: oklch(0.300 0.050 40);
+  --warning-bg: oklch(0.300 0.050 40);
+  --warning-border: oklch(0.500 0.090 42);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.551 0.027 264.364);

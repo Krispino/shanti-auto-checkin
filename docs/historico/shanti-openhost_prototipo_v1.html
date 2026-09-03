@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shanti Pousada — Protótipo Openhost</title>
+<style>
+  :root{
+    --bg:#f5f1ea;
+    --ink:#2b2a26;
+    --muted:#7a766e;
+    --line:#d9d3c6;
+    --accent:#3a5b78;
+    --accent-soft:#dde6ed;
+    --card:#fffdf8;
+    --warn:#a0522d;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,system-ui,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+  .demo-bar{position:sticky;top:0;background:var(--ink);color:#f5f1ea;padding:10px 20px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;z-index:100;font-size:13px}
+  .demo-bar strong{margin-right:12px;opacity:.8}
+  .demo-bar button{background:transparent;color:#f5f1ea;border:1px solid #555;padding:6px 12px;border-radius:4px;cursor:pointer;font-size:12px;font-family:inherit}
+  .demo-bar button:hover{background:#3a3934}
+  .demo-bar button.active{background:#f5f1ea;color:var(--ink);border-color:#f5f1ea}
+  .view{display:none;animation:fade .25s}
+  .view.active{display:block}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  .container{max-width:760px;margin:0 auto;padding:40px 24px}
+  .container-wide{max-width:1100px;margin:0 auto;padding:32px 24px}
+  h1{font-size:32px;font-weight:500;letter-spacing:-.5px;margin-bottom:8px}
+  h2{font-size:22px;font-weight:500;margin-bottom:16px;letter-spacing:-.3px}
+  h3{font-size:15px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:12px}
+  p{color:#444;margin-bottom:12px}
+  .muted{color:var(--muted);font-size:14px}
+  .hero{text-align:center;padding:60px 24px 40px;border-bottom:1px solid var(--line)}
+  .logo{font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);margin-bottom:30px}
+  .hero h1{font-size:42px;margin-bottom:14px}
+  .hero p{font-size:17px;max-width:520px;margin:0 auto 28px}
+  .cta-stack{display:flex;flex-direction:column;gap:10px;max-width:340px;margin:0 auto}
+  .btn{display:block;padding:14px 24px;border-radius:6px;text-decoration:none;font-weight:500;text-align:center;border:none;cursor:pointer;font-family:inherit;font-size:15px;transition:all .15s}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-primary:hover{background:#2c4a64}
+  .btn-secondary{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+  .btn-secondary:hover{border-color:var(--ink)}
+  .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;padding:40px 0}
+  .info-card .icon{font-size:20px;margin-bottom:8px}
+  .info-card strong{display:block;margin-bottom:4px;font-weight:600}
+  .form-wrap{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:36px}
+  .progress{display:flex;gap:6px;margin-bottom:24px}
+  .progress span{flex:1;height:3px;background:var(--line);border-radius:2px}
+  .progress span.done{background:var(--accent)}
+  .field{margin-bottom:18px}
+  .field label{display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:#555}
+  .field input,.field select,.field textarea{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:6px;font-size:15px;font-family:inherit;background:#fff;color:var(--ink)}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent)}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .check-row{display:flex;align-items:flex-start;gap:10px;padding:14px;background:#faf7f0;border-radius:6px;margin-bottom:14px}
+  .check-row input{margin-top:3px}
+  .check-row label{font-size:14px;color:#555}
+  .ty-hero{text-align:center;padding:30px 0 24px}
+  .ty-check{width:48px;height:48px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 14px}
+  .section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:24px;margin-bottom:16px}
+  .faq-item{border-bottom:1px solid var(--line);padding:12px 0}
+  .faq-item:last-child{border-bottom:none}
+  .faq-item strong{display:block;margin-bottom:4px}
+  .faq-item p{font-size:14px;color:#555;margin:0}
+  .offer{display:flex;justify-content:space-between;align-items:center;padding:16px;background:var(--accent-soft);border-radius:8px;margin-bottom:10px;gap:12px}
+  .offer-text strong{display:block;color:var(--accent);margin-bottom:2px}
+  .offer-text span{font-size:13px;color:#555}
+  .dash{background:#fff}
+  .dash-header{background:var(--card);border-bottom:1px solid var(--line);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  .dash-header h2{margin:0;font-size:18px}
+  .pill{padding:4px 10px;border-radius:12px;font-size:12px;background:var(--accent-soft);color:var(--accent);font-weight:500}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:24px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px}
+  .kpi-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+  .kpi-value{font-size:26px;font-weight:500;letter-spacing:-.5px}
+  .kpi-sub{font-size:12px;color:var(--muted);margin-top:4px}
+  .kpi-sub.pos{color:var(--accent)}
+  .kpi-sub.neg{color:var(--warn)}
+  .row{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-bottom:16px}
+  @media(max-width:760px){.row{grid-template-columns:1fr}}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px}
+  .panel h3{margin-bottom:14px}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  table th{text-align:left;font-weight:500;color:var(--muted);padding:8px 0;border-bottom:1px solid var(--line);font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+  table td{padding:10px 0;border-bottom:1px solid var(--line)}
+  table tr:last-child td{border-bottom:none}
+  .channel-bar{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:14px}
+  .channel-bar .name{width:130px;font-size:13px}
+  .channel-bar .track{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+  .channel-bar .fill{height:100%;background:var(--accent);border-radius:4px}
+  .channel-bar .pct{width:50px;text-align:right;font-variant-numeric:tabular-nums}
+  .status-dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:6px}
+  .status-dot.green{background:var(--accent)}
+  .status-dot.orange{background:var(--warn)}
+  .empty-note{font-size:13px;color:var(--muted);font-style:italic;padding:12px;background:#faf7f0;border-radius:6px}
+  /* WHATSAPP PREVIEW */
+  .wa-preview{background:#e7f4e3;border-left:3px solid #25d366;padding:14px 18px;margin:0 auto 16px;max-width:760px;border-radius:0 8px 8px 0;font-size:13px;color:#2b2a26}
+  .wa-preview .wa-label{font-size:11px;color:#5a8054;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;font-weight:600}
+  .wa-preview .wa-msg{background:#fff;border-radius:8px;padding:10px 14px;margin-top:6px;line-height:1.45;box-shadow:0 1px 1px rgba(0,0,0,.04)}
+  .wa-preview .wa-link{color:#1e6f9f;text-decoration:underline;word-break:break-all}
+  /* STATE TOGGLE */
+  .state-toggle{max-width:760px;margin:0 auto 18px;padding:10px 16px;background:#fff5e0;border:1px dashed #d4b870;border-radius:8px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:13px}
+  .state-toggle strong{color:#7a5a1a}
+  .state-toggle button{background:#fff;border:1px solid #d4b870;color:#7a5a1a;padding:5px 12px;border-radius:14px;cursor:pointer;font-family:inherit;font-size:12px}
+  .state-toggle button.on{background:#7a5a1a;color:#fff;border-color:#7a5a1a}
+  /* ARRIVAL */
+  .arrival-header{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+  .arrival-header .who{font-size:13px;color:var(--muted);margin-bottom:2px;letter-spacing:.4px}
+  .arrival-header h1{font-size:24px;margin-bottom:2px}
+  .arrival-header .room{font-size:14px;color:#555}
+  .status-badge{padding:6px 12px;border-radius:14px;font-size:12px;font-weight:500}
+  .status-badge.locked{background:#f0e8d8;color:#7a5a1a}
+  .status-badge.unlocked{background:var(--accent-soft);color:var(--accent)}
+  .countdown{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:24px;text-align:center;margin-bottom:14px}
+  .countdown-label{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+  .countdown-time{font-size:32px;font-weight:500;letter-spacing:-.5px}
+  .countdown-time.live{color:var(--accent)}
+  .codes-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px;margin-bottom:14px}
+  .codes-card.locked{background:#faf7f0;border-style:dashed}
+  .code-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+  .code-row:last-child{border-bottom:none}
+  .code-row .label{font-size:14px}
+  .code-row .label strong{display:block;font-weight:600;margin-bottom:2px}
+  .code-row .label span{color:var(--muted);font-size:12px}
+  .code-value{font-family:'SF Mono','Monaco',monospace;font-size:22px;font-weight:500;letter-spacing:2px;color:var(--accent)}
+  .code-value.lock{color:var(--muted);letter-spacing:1px}
+  .video-card{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:14px}
+  .video-frame{background:#2b2a26;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;color:#888;position:relative}
+  .video-frame.locked{background:#e8e3d4;color:#a89a78}
+  .play-icon{width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;margin-bottom:8px}
+  .video-info{padding:14px 18px}
+  .video-info strong{display:block;margin-bottom:2px}
+  .video-info span{color:var(--muted);font-size:13px}
+  .pdf-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin-bottom:14px;display:flex;align-items:center;gap:14px}
+  .pdf-card.locked{background:#faf7f0;border-style:dashed}
+  .pdf-icon{width:42px;height:42px;background:var(--accent-soft);color:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;flex-shrink:0}
+  .pdf-icon.lock{background:#e8e3d4;color:#a89a78}
+  .pdf-info{flex:1}
+  .pdf-info strong{display:block;margin-bottom:2px}
+  .pdf-info span{font-size:13px;color:var(--muted)}
+  .pdf-btn{background:var(--accent);color:#fff;padding:8px 14px;border-radius:6px;text-decoration:none;font-size:13px;border:none;cursor:pointer}
+  .pdf-btn.disabled{background:#d9d3c6;color:#a89a78;cursor:not-allowed}
+  .confirm-card{background:var(--accent);color:#fff;border-radius:10px;padding:22px;text-align:center;margin-bottom:14px}
+  .confirm-card h3{color:rgba(255,255,255,.85);margin-bottom:8px}
+  .confirm-card p{color:rgba(255,255,255,.85);margin-bottom:14px;font-size:14px}
+  .confirm-btn{background:#fff;color:var(--accent);padding:12px 22px;border-radius:6px;border:none;font-weight:500;cursor:pointer;font-family:inherit;font-size:14px}
+  .support-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin-bottom:14px;font-size:14px;color:#555;text-align:center}
+  .support-card a{color:var(--accent);text-decoration:none;font-weight:500}
+  .arrival .unlocked-only{display:none}
+  .arrival.is-unlocked .locked-only{display:none}
+  .arrival.is-unlocked .unlocked-only{display:block}
+</style>
+</head>
+<body>
+
+<div class="demo-bar">
+  <strong>PROTÓTIPO ·</strong>
+  <button class="active" data-view="landing">1. Landing</button>
+  <button data-view="form">2. Formulário</button>
+  <button data-view="ty">3. Confirmação</button>
+  <button data-view="arrival">4. Página de Chegada</button>
+  <button data-view="dash">5. Dashboard (você)</button>
+</div>
+
+<div class="view active" id="landing">
+  <div class="hero">
+    <div class="logo">SHANTI POUSADA</div>
+    <h1>Bem-vinda, Marina.</h1>
+    <p>Sua estadia em São Jorge começa em <strong>3 dias</strong>. Vamos organizar o check-in com calma, antes da chegada.</p>
+    <div class="cta-stack">
+      <button class="btn btn-primary" onclick="go('form')">Fazer pré-check-in (2 min)</button>
+      <a class="btn btn-secondary" href="#">Falar com a Shanti no WhatsApp</a>
+    </div>
+  </div>
+  <div class="container">
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="icon">⌂</div>
+        <strong>Sua reserva</strong>
+        <span class="muted">Suíte Caliandra · 4 noites<br>Check-in 20/05 a partir das 14h<br>Check-out 24/05 até 12h</span>
+      </div>
+      <div class="info-card">
+        <div class="icon">⊙</div>
+        <strong>Onde fica</strong>
+        <span class="muted">Rua dos Ipês, lote 1<br>Vila de São Jorge, Alto Paraíso de Goiás</span>
+      </div>
+      <div class="info-card">
+        <div class="icon">☆</div>
+        <strong>Como funciona</strong>
+        <span class="muted">Auto check-in (sem recepção). Genilda no espaço para apoio presencial.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="view" id="form">
+  <div class="container">
+    <p class="muted" style="margin-bottom:8px">SHANTI POUSADA · PRÉ-CHECK-IN</p>
+    <h1 style="font-size:26px">Conta pra gente sobre sua chegada</h1>
+    <p class="muted" style="margin-bottom:24px">Leva 2 minutos. Tudo isso fica registrado para você não precisar repetir na chegada.</p>
+
+    <div class="form-wrap">
+      <div class="progress"><span class="done"></span><span class="done"></span><span></span><span></span></div>
+
+      <h3>Hóspede principal</h3>
+      <div class="field">
+        <label>Nome completo</label>
+        <input type="text" id="f-nome" value="Marina Pereira de Souza">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>CPF ou documento</label>
+          <input type="text" id="f-doc" placeholder="000.000.000-00">
+        </div>
+        <div class="field">
+          <label>E-mail</label>
+          <input type="email" id="f-email" placeholder="seu@email.com">
+        </div>
+      </div>
+
+      <div class="state-toggle" style="margin-top:20px">
+        <strong>Demo:</strong>
+        <span>simular reserva de</span>
+        <select id="demo-room" onchange="updateRoom()" style="border:1px solid #d4b870;background:#fff;color:#7a5a1a;padding:5px 10px;border-radius:14px;font-family:inherit;font-size:12px;cursor:pointer">
+          <option value="caliandra">Suíte Caliandra</option>
+          <option value="mangaba">Suíte Mangaba</option>
+          <option value="caninde">Duplex Caninde</option>
+          <option value="seriema">Duplex Seriema</option>
+          <option value="maytreia">Chalé Maytreia</option>
+          <option value="mantra">Chalé Mantra</option>
+        </select>
+      </div>
+
+      <h3 id="quem-vai-h" style="margin-top:20px">Quem vai usar a Suíte Caliandra</h3>
+      <div class="field">
+        <label>Configuração</label>
+        <select id="f-config"></select>
+        <p class="muted" id="config-note" style="font-size:12px;margin-top:6px"></p>
+      </div>
+      <div class="field">
+        <label>Nome do(s) acompanhante(s) (se houver)</label>
+        <input type="text" id="f-acomp" placeholder="Nome completo de quem vem com você">
+      </div>
+
+      <h3 style="margin-top:24px">Chegada</h3>
+      <div class="field-row">
+        <div class="field">
+          <label>Horário previsto</label>
+          <select id="f-hora"><option>Entre 14h e 16h</option><option>Entre 16h e 18h</option><option>Depois das 18h</option><option>Não sei ainda</option></select>
+        </div>
+        <div class="field">
+          <label>Como vai chegar</label>
+          <select id="f-meio"><option>Carro próprio</option><option>Van/transfer</option><option>Carona</option></select>
+        </div>
+      </div>
+
+      <h3 style="margin-top:24px">Antes de fechar</h3>
+      <div class="field">
+        <label>Algum pedido especial? (opcional)</label>
+        <textarea id="f-obs" rows="2" placeholder="Alergia, preferência, qualquer coisa que devemos saber..."></textarea>
+      </div>
+      <div class="check-row">
+        <input type="checkbox" id="r" checked>
+        <label for="r">Li e aceito as <a href="#" style="color:var(--accent)">regras da casa</a> (silêncio 22h-8h, não-fumantes nas áreas internas, sem festas).</label>
+      </div>
+
+      <div style="text-align:center;margin-top:8px">
+        <button class="btn btn-primary" style="display:inline-block;width:auto;padding:14px 32px" onclick="submitForm()">Confirmar e abrir WhatsApp</button>
+      </div>
+      <p class="muted" style="font-size:12px;text-align:center;margin-top:10px;margin-bottom:0">Vamos abrir o WhatsApp com sua mensagem pronta. Você só precisa tocar em "Enviar".</p>
+    </div>
+  </div>
+</div>
+
+<div class="view" id="ty">
+  <div class="container">
+    <div class="ty-hero">
+      <div class="ty-check">✓</div>
+      <h1 style="font-size:26px">Tudo certo, Marina.</h1>
+      <p class="muted">Sua conversa com a Paula foi aberta no WhatsApp. Toque em "Enviar" lá quando quiser — ela responde rápido.</p>
+    </div>
+
+    <div class="pdf-card">
+      <div class="pdf-icon">PDF</div>
+      <div class="pdf-info">
+        <strong>Informes e regras da Shanti</strong>
+        <span>Disponível agora — boa leitura para se preparar</span>
+      </div>
+      <button class="pdf-btn">Baixar</button>
+    </div>
+
+    <div class="section" style="text-align:center">
+      <h3>Sua página de chegada</h3>
+      <p style="margin-bottom:14px">Aqui ficam os códigos do quarto, o vídeo de acesso e tudo que você vai precisar. Os códigos liberam automaticamente <strong>24h antes do dia 20/05</strong>.</p>
+      <button class="btn btn-primary" onclick="go('arrival')" style="display:inline-block;width:auto;padding:12px 28px">Ver minha página de chegada</button>
+      <p class="muted" style="font-size:12px;margin-top:12px;margin-bottom:0">Você pode salvar este link e voltar a qualquer momento.</p>
+    </div>
+  </div>
+</div>
+
+<div class="view" id="arrival">
+  <div class="container">
+    <div class="wa-preview">
+      <div class="wa-label">✓ Esta página abre quando o hóspede clica no link enviado pelo WhatsApp</div>
+      <div class="wa-msg">
+        Oi Marina! 👋 Sua chegada na Shanti está organizada. Tudo aqui: <span class="wa-link">shanti-checkin.com/marina-x9k2</span> — Paula
+      </div>
+    </div>
+
+    <div class="state-toggle">
+      <strong>Demo:</strong>
+      <span>ver no estado</span>
+      <button class="on" id="btn-locked">Bloqueado (faltam &gt;24h)</button>
+      <button id="btn-unlocked">Liberado (≤24h ou check-in hoje)</button>
+    </div>
+
+    <div class="arrival" id="arrivalContent">
+
+      <div class="arrival-header">
+        <div>
+          <div class="who">SHANTI POUSADA · PÁGINA DE CHEGADA</div>
+          <h1>Olá, Marina</h1>
+          <div class="room">Suíte Caliandra · 4 noites · chegada 20/05</div>
+        </div>
+        <div>
+          <span class="status-badge locked locked-only">🔒 Bloqueado</span>
+          <span class="status-badge unlocked unlocked-only">✓ Liberado</span>
+        </div>
+      </div>
+
+      <div class="countdown locked-only">
+        <div class="countdown-label">Códigos liberam em</div>
+        <div class="countdown-time">2 dias · 14h · 23min</div>
+        <p class="muted" style="font-size:13px;margin-top:8px;margin-bottom:0">Por segurança, os códigos do portão e do quarto aparecem aqui 24h antes da chegada.</p>
+      </div>
+
+      <div class="countdown unlocked-only">
+        <div class="countdown-label">Sua chegada é hoje</div>
+        <div class="countdown-time live">Liberado para auto check-in ✓</div>
+        <p class="muted" style="font-size:13px;margin-top:8px;margin-bottom:0">Check-in disponível a partir das 14h. Genilda está no espaço caso precise.</p>
+      </div>
+
+      <div class="codes-card locked locked-only">
+        <h3 style="margin-bottom:14px">Códigos de acesso</h3>
+        <div class="code-row">
+          <div class="label"><strong>Portão da pousada</strong><span>Manter trancado após passar</span></div>
+          <div class="code-value lock">🔒 — — —</div>
+        </div>
+        <div class="code-row">
+          <div class="label"><strong>Cofrinho da Suíte Caliandra</strong><span>Onde fica a chave do seu quarto</span></div>
+          <div class="code-value lock">🔒 — — — —</div>
+        </div>
+      </div>
+
+      <div class="codes-card unlocked-only">
+        <h3 style="margin-bottom:14px">Códigos de acesso</h3>
+        <div class="code-row">
+          <div class="label"><strong>Portão da pousada</strong><span>Manter trancado após passar</span></div>
+          <div class="code-value">002</div>
+        </div>
+        <div class="code-row">
+          <div class="label"><strong>Cofrinho da Suíte Caliandra</strong><span>Onde fica a chave do seu quarto</span></div>
+          <div class="code-value">0004</div>
+        </div>
+      </div>
+
+      <div class="video-card unlocked-only">
+        <div class="video-frame">
+          <div style="text-align:center">
+            <div class="play-icon">▶</div>
+            <div style="font-size:13px">Vídeo de acesso · 15s</div>
+          </div>
+        </div>
+        <div class="video-info">
+          <strong>Como chegar ao seu quarto</strong>
+          <span>Mostra o caminho do portão até a Suíte Caliandra. Assista antes da chegada.</span>
+        </div>
+      </div>
+
+      <div class="video-card locked-only">
+        <div class="video-frame locked">
+          <div style="text-align:center">
+            <div style="font-size:22px;margin-bottom:6px">🔒</div>
+            <div style="font-size:13px">Vídeo de acesso libera 24h antes</div>
+          </div>
+        </div>
+        <div class="video-info">
+          <strong>Como chegar ao seu quarto</strong>
+          <span>Vídeo curto mostrando o caminho do portão até a Suíte Caliandra.</span>
+        </div>
+      </div>
+
+      <div class="pdf-card">
+        <div class="pdf-icon">PDF</div>
+        <div class="pdf-info">
+          <strong>Informes e regras da Shanti</strong>
+          <span>Disponível agora</span>
+        </div>
+        <button class="pdf-btn">Baixar</button>
+      </div>
+
+      <div class="section">
+        <h3>Sua estadia</h3>
+        <div class="faq-item"><strong>Endereço</strong><p>Rua dos Ipês, lote 1 · Vila de São Jorge · Alto Paraíso de Goiás<br><a href="#" style="color:var(--accent);text-decoration:none">Abrir no Google Maps →</a></p></div>
+        <div class="faq-item"><strong>Wi-Fi</strong><p>Rede <strong>Shanti</strong><br>Senha <strong>flordoceu</strong></p></div>
+        <div class="faq-item"><strong>Cozinha coletiva</strong><p>Disponível das 7h30 às 20h. Há um filtro com água gelada no refeitório e as torneiras das cozinhas privativas também têm filtro.</p></div>
+        <div class="faq-item"><strong>Café da manhã</strong><p>Não servimos, mas as cozinhas privativas e a cozinha coletiva têm itens básicos (sal, açúcar, óleo, temperos). Há também uma padaria e diversos outros estabelecimentos a 200m de nós que servem café da manhã.</p></div>
+        <div class="faq-item"><strong>Estacionamento</strong><p>Em São Jorge os estabelecimentos não têm estacionamento interno. A melhor opção é estacionar ao longo do meio-fio. Com relação à segurança, é muito tranquilo. Recomendamos ir a pé para o centrinho e aproveitar a Vila assim — é tudo bem próximo.</p></div>
+        <div class="faq-item"><strong>Check-in antecipado (sob disponibilidade)</strong><p>Nosso horário padrão é a partir das 14h. Entrada antes está sujeita à disponibilidade do quarto no dia. Para verificar, fale com a Paula pelo WhatsApp.</p></div>
+      </div>
+
+      <div class="section" style="background:#fff5e0;border:1px solid #d4b870">
+        <h3 style="color:#7a5a1a">Antes de ir a São Jorge</h3>
+        <div class="faq-item"><strong>Não há caixas eletrônicos em São Jorge</strong><p>Traga dinheiro em espécie.</p></div>
+        <div class="faq-item"><strong>Não há posto de gasolina em São Jorge</strong><p>Abasteça antes.</p></div>
+      </div>
+
+      <div class="confirm-card unlocked-only">
+        <h3 style="color:rgba(255,255,255,.9)">Já chegou?</h3>
+        <p>Toque abaixo para nos avisar que você entrou na acomodação.</p>
+        <button class="confirm-btn">Confirmar minha chegada</button>
+      </div>
+
+      <div class="support-card">
+        Dúvidas, informações? Fale com a Paula: <a href="https://wa.me/5521964077224">WhatsApp (21) 96407-7224</a><br>
+        Apoio presencial na pousada: Genilda — <a href="https://wa.me/5562998546284">(62) 99854-6284</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="view" id="dash">
+  <div class="dash">
+    <div class="dash-header">
+      <div>
+        <h2>Shanti Pousada · Painel do dono</h2>
+        <div class="muted" style="font-size:12px;margin-top:2px">Maio 2026 · atualizado agora</div>
+      </div>
+      <span class="pill">● Operação Ekko</span>
+    </div>
+
+    <div class="container-wide">
+      <div class="kpis">
+        <div class="kpi">
+          <div class="kpi-label">Ocupação 2026 (Jan–Abr)</div>
+          <div class="kpi-value">26,6%</div>
+          <div class="kpi-sub neg">vs. 35,9% média 2025</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Cadastros pré-chegada</div>
+          <div class="kpi-value">14<span style="font-size:14px;color:var(--muted)">/18</span></div>
+          <div class="kpi-sub pos">78% completam</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">ADR Booking (90d)</div>
+          <div class="kpi-value">R$ 224</div>
+          <div class="kpi-sub">Ranking 39/98 cidade</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Nota Booking</div>
+          <div class="kpi-value">8,4</div>
+          <div class="kpi-sub neg">média região 9,0</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="panel">
+          <h3>Próximas chegadas (7 dias)</h3>
+          <table>
+            <thead><tr><th>Hóspede</th><th>Quarto</th><th>Chegada</th><th>Pré-check-in</th></tr></thead>
+            <tbody>
+              <tr><td>Marina Pereira</td><td>Suíte Caliandra</td><td>20/05</td><td><span class="status-dot green"></span>Completo</td></tr>
+              <tr><td>Renato Lima</td><td>Chalé Mantra</td><td>20/05</td><td><span class="status-dot green"></span>Completo</td></tr>
+              <tr><td>Família Costa</td><td>Suíte Mangaba</td><td>21/05</td><td><span class="status-dot orange"></span>Pendente</td></tr>
+              <tr><td>Júlia Andrade</td><td>Duplex Caninde</td><td>22/05</td><td><span class="status-dot green"></span>Completo</td></tr>
+              <tr><td>Pedro Vasques</td><td>Chalé Maytreia</td><td>23/05</td><td><span class="status-dot orange"></span>Pendente</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel">
+          <h3>Canais (2026 parcial)</h3>
+          <div class="channel-bar"><span class="name">Booking</span><span class="track"><span class="fill" style="width:52%"></span></span><span class="pct">52%</span></div>
+          <div class="channel-bar"><span class="name">Airbnb</span><span class="track"><span class="fill" style="width:32%"></span></span><span class="pct">32%</span></div>
+          <div class="channel-bar"><span class="name">Direto</span><span class="track"><span class="fill" style="width:16%"></span></span><span class="pct">16%</span></div>
+          <p class="muted" style="font-size:12px;margin-top:14px">Meta: subir Direto para 25% até dez/2026.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="panel">
+          <h3>Interesse em ofertas (30d)</h3>
+          <table>
+            <thead><tr><th>Item</th><th>Interesse</th><th>Fechadas</th></tr></thead>
+            <tbody>
+              <tr><td>Massagem</td><td>8</td><td>3</td></tr>
+              <tr><td>Passeio guiado</td><td>5</td><td>2</td></tr>
+              <tr><td>Transfer Brasília</td><td>4</td><td>1</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel">
+          <h3>Ocupação por quarto (Jan–Abr)</h3>
+          <div class="channel-bar"><span class="name">Suíte Caliandra</span><span class="track"><span class="fill" style="width:34%"></span></span><span class="pct">34%</span></div>
+          <div class="channel-bar"><span class="name">Duplex Caninde</span><span class="track"><span class="fill" style="width:31%"></span></span><span class="pct">31%</span></div>
+          <div class="channel-bar"><span class="name">Suíte Mangaba</span><span class="track"><span class="fill" style="width:30%"></span></span><span class="pct">30%</span></div>
+          <div class="channel-bar"><span class="name">Chalé Maytreia</span><span class="track"><span class="fill" style="width:23%"></span></span><span class="pct">23%</span></div>
+          <div class="channel-bar"><span class="name">Duplex Seriema</span><span class="track"><span class="fill" style="width:21%"></span></span><span class="pct">21%</span></div>
+          <div class="channel-bar"><span class="name">Chalé Mantra</span><span class="track"><span class="fill" style="width:21%"></span></span><span class="pct">21%</span></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>O que decidir agora</h3>
+        <p class="empty-note">Esta seção vira automática: cruzar cadastros + ocupação + canais e sugerir ações (ex.: "Mantra com 21% — testar preço -10% em junho"). Por enquanto, espaço para alertas manuais.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.demo-bar button').forEach(b=>{
+    b.addEventListener('click',()=>go(b.dataset.view));
+  });
+  function go(id){
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    document.querySelectorAll('.demo-bar button').forEach(b=>b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.querySelector('.demo-bar button[data-view="'+id+'"]').classList.add('active');
+    window.scrollTo(0,0);
+  }
+  // Toggle estado bloqueado/liberado da página de chegada
+  const arrival = document.getElementById('arrivalContent');
+  const btnLocked = document.getElementById('btn-locked');
+  const btnUnlocked = document.getElementById('btn-unlocked');
+  btnLocked.addEventListener('click',()=>{
+    arrival.classList.remove('is-unlocked');
+    btnLocked.classList.add('on');
+    btnUnlocked.classList.remove('on');
+  });
+  btnUnlocked.addEventListener('click',()=>{
+    arrival.classList.add('is-unlocked');
+    btnUnlocked.classList.add('on');
+    btnLocked.classList.remove('on');
+  });
+  // Configurações por quarto (regras de cama)
+  const rooms = {
+    caliandra: {
+      label: 'Suíte Caliandra', article: 'a',
+      configs: ['Casal (2 pessoas)', 'Solteiro — uso individual (1 pessoa)'],
+      note: 'A Suíte Caliandra acomoda apenas casal ou uso individual.'
+    },
+    mangaba: {
+      label: 'Suíte Mangaba', article: 'a',
+      configs: ['Casal (2 pessoas)', '2 solteiros (2 pessoas)', 'Solteiro — uso individual (1 pessoa)'],
+      note: 'A Suíte Mangaba acomoda casal, 2 solteiros ou uso individual.'
+    },
+    caninde: {
+      label: 'Duplex Caninde', article: 'o',
+      configs: ['Casal (2 pessoas)', 'Solteiro — uso individual (1 pessoa)'],
+      note: 'O Duplex Caninde acomoda apenas casal ou uso individual.'
+    },
+    seriema: {
+      label: 'Duplex Seriema', article: 'o',
+      configs: ['Casal (2 pessoas)', 'Casal + 1 solteiro (3 pessoas)', 'Casal + 2 solteiros (4 pessoas)', '2 solteiros (2 pessoas)', '3 solteiros (3 pessoas)', '4 solteiros (4 pessoas)', 'Solteiro — uso individual (1 pessoa)'],
+      note: 'O Duplex Seriema acomoda até 4 pessoas — diversas configurações disponíveis.'
+    },
+    maytreia: {
+      label: 'Chalé Maytreia', article: 'o',
+      configs: ['Casal (2 pessoas)', 'Casal + 1 solteiro (3 pessoas)', '2 solteiros (2 pessoas)', '3 solteiros (3 pessoas)', 'Solteiro — uso individual (1 pessoa)'],
+      note: 'O Chalé Maytreia acomoda até 3 pessoas — casal, casal+solteiro, 3 solteiros ou uso individual.'
+    },
+    mantra: {
+      label: 'Chalé Mantra', article: 'o',
+      configs: ['Casal (2 pessoas)', 'Solteiro — uso individual (1 pessoa)'],
+      note: 'O Chalé Mantra acomoda apenas casal ou uso individual.'
+    }
+  };
+  function updateRoom(){
+    const key = document.getElementById('demo-room').value;
+    const room = rooms[key];
+    document.getElementById('quem-vai-h').textContent = `Quem vai usar ${room.article} ${room.label}`;
+    const sel = document.getElementById('f-config');
+    sel.innerHTML = room.configs.map(c => `<option>${c}</option>`).join('');
+    document.getElementById('config-note').textContent = room.note;
+  }
+  updateRoom();
+  // Submissão do formulário: monta wa.me e abre em nova aba
+  function submitForm(){
+    const nome = document.getElementById('f-nome').value || 'hóspede';
+    const email = document.getElementById('f-email').value;
+    const config = document.getElementById('f-config').value;
+    const acomp = document.getElementById('f-acomp').value;
+    const hora = document.getElementById('f-hora').value;
+    const meio = document.getElementById('f-meio').value;
+    const obs = document.getElementById('f-obs').value;
+    const roomLabel = rooms[document.getElementById('demo-room').value].label;
+    let msg = `Olá Paula, aqui é ${nome}.\n`;
+    msg += `Acabei de fazer o pré-check-in pelo site da Shanti:\n\n`;
+    msg += `• Acomodação: ${roomLabel}\n`;
+    msg += `• Chegada: 20/05 — ${hora}\n`;
+    msg += `• Configuração: ${config}\n`;
+    if(acomp) msg += `• Acompanhante: ${acomp}\n`;
+    msg += `• Como vou chegar: ${meio}\n`;
+    if(email) msg += `• E-mail: ${email}\n`;
+    if(obs) msg += `\nObservação: ${obs}\n`;
+    msg += `\nAguardo as instruções de acesso. Obrigada!`;
+    const url = `https://wa.me/5521964077224?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+    go('ty');
+  }
+</script>
+</body>
+</html>

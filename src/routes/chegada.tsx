@@ -103,8 +103,11 @@ function Chegada() {
 
         {/* Pagamento pendente */}
         {reservaDireta && (
-          <div className="mt-4 rounded-lg p-4" style={{ backgroundColor: "var(--warning-bg)", border: "1px solid var(--warning-border)" }}>
-            <div className="text-sm font-medium">Pagamento pendente</div>
+          <div
+            className="mt-4 rounded-lg p-4 bg-card"
+            style={{ border: "1px solid var(--border)", borderLeftWidth: "4px", borderLeftColor: "var(--terracota)" }}
+          >
+            <div className="text-sm font-medium" style={{ color: "var(--terracota)" }}>Pagamento pendente</div>
             <p className="text-sm mt-1">
               O saldo restante de 50% da reserva deve ser pago assim que você chegar.{valorPendente ? ` Valor pendente: R$ ${valorPendente}.` : ""} Aceitamos Pix, cartão de crédito/débito e dinheiro.
             </p>
@@ -357,18 +360,19 @@ function Chegada() {
         {/* Antes de ir */}
         <SectionTitle>Antes de ir a São Jorge</SectionTitle>
         <div
-          className="rounded-lg p-5"
+          className="rounded-lg p-5 bg-card"
           style={{
-            backgroundColor: "var(--warning-bg)",
-            border: "1px solid var(--warning-border)",
+            border: "1px solid var(--border)",
+            borderLeftWidth: "4px",
+            borderLeftColor: "var(--terracota)",
           }}
         >
           <div className="text-sm">
-            <strong>Não há caixas eletrônicos em São Jorge:</strong> Traga
+            <strong style={{ color: "var(--terracota)" }}>Não há caixas eletrônicos em São Jorge:</strong> Traga
             dinheiro em espécie.
           </div>
           <div className="text-sm mt-3">
-            <strong>Não há posto de gasolina em São Jorge:</strong> Abasteça
+            <strong style={{ color: "var(--terracota)" }}>Não há posto de gasolina em São Jorge:</strong> Abasteça
             antes.
           </div>
         </div>

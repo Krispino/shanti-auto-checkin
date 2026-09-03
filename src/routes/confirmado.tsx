@@ -57,6 +57,19 @@ function Confirmado() {
           </p>
         </div>
 
+        <a
+          href="https://shantipousada.com.br"
+          target="_blank"
+          rel="noreferrer"
+          className="mt-6 block rounded-lg p-5 bg-primary text-primary-foreground hover:bg-primary-hover transition-colors"
+        >
+          <div className="text-xs opacity-90" style={{ letterSpacing: "2px" }}>ENQUANTO A VIAGEM NÃO CHEGA</div>
+          <div className="mt-1 font-medium">Roteiros para a Chapada dos Veadeiros</div>
+          <div className="mt-1 text-sm opacity-90">
+            Trilhas, cachoeiras e passeios para você já ir montando os seus dias. Ver no site →
+          </div>
+        </a>
+
         <div className="mt-6 grid grid-cols-2 gap-3">
           <a href="https://www.instagram.com/shantipousada" target="_blank" rel="noreferrer" className="rounded-lg border border-border bg-card p-4 flex flex-col items-center gap-2 text-center hover:bg-accent transition-colors">
             <img src="/arquivos/instagram.png" alt="Instagram" style={{ width: 32, height: 32 }} />

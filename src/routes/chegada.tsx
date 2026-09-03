@@ -244,8 +244,9 @@ function Chegada() {
                   Recebemos o seu aviso de chegada. Agora é aproveitar.
                 </p>
                 <p className="mt-3 text-sm opacity-90">
-                  Para planejar os dias por aqui, no nosso site tem dicas de
-                  trilhas, cachoeiras e passeios na Chapada:
+                  No nosso site tem tudo o que você precisa para começar agora:
+                  onde comer em São Jorge, roteiros de trilhas e cachoeiras e o
+                  que dá para fazer hoje mesmo.
                 </p>
                 <a
                   href="https://shantipousada.com.br"
@@ -253,7 +254,7 @@ function Chegada() {
                   rel="noreferrer"
                   className="mt-3 inline-block rounded-md bg-card text-foreground font-medium px-5 py-2.5 text-sm hover:bg-background transition-colors"
                 >
-                  Ver dicas da Chapada
+                  Ver roteiros e onde comer
                 </a>
               </>
             ) : (

@@ -46,6 +46,7 @@ function Chegada() {
   const [videoDuration, setVideoDuration] = useState<number | null>(null);
   const [reservaDireta, setReservaDireta] = useState(false);
   const [valorPendente, setValorPendente] = useState("");
+  const [chegadaConfirmada, setChegadaConfirmada] = useState(false);
 
   useEffect(() => {
     const sp = new URLSearchParams(window.location.search);
@@ -236,20 +237,44 @@ function Chegada() {
         {/* Confirmar chegada */}
         {liberado && (
           <div className="mt-8 rounded-lg p-6 bg-primary text-primary-foreground">
-            <div className="text-lg font-medium">Já chegou?</div>
-            <p className="mt-1 text-sm opacity-90">
-              Toque abaixo para nos avisar que você entrou na acomodação.
-            </p>
-            <button
-              type="button"
-              onClick={() => {
-                const msg = `Olá! Acabei de chegar na ${reserva.room.label}. ✓`;
-                window.open(`https://wa.me/${WHATSAPP_SHANTI}?text=${encodeURIComponent(msg)}`, "_blank");
-              }}
-              className="mt-4 rounded-md bg-card text-foreground font-medium px-5 py-2.5 text-sm hover:bg-background transition-colors"
-            >
-              Confirmar minha chegada
-            </button>
+            {chegadaConfirmada ? (
+              <>
+                <div className="text-lg font-medium">Boa estadia, {firstName}! ✓</div>
+                <p className="mt-1 text-sm opacity-90">
+                  Recebemos o seu aviso de chegada. Agora é aproveitar.
+                </p>
+                <p className="mt-3 text-sm opacity-90">
+                  Para planejar os dias por aqui, no nosso site tem dicas de
+                  trilhas, cachoeiras e passeios na Chapada:
+                </p>
+                <a
+                  href="https://shantipousada.com.br"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-3 inline-block rounded-md bg-card text-foreground font-medium px-5 py-2.5 text-sm hover:bg-background transition-colors"
+                >
+                  Ver dicas da Chapada
+                </a>
+              </>
+            ) : (
+              <>
+                <div className="text-lg font-medium">Já chegou?</div>
+                <p className="mt-1 text-sm opacity-90">
+                  Toque abaixo para nos avisar que você entrou na acomodação.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setChegadaConfirmada(true);
+                    const msg = `Olá! Acabei de chegar na ${reserva.room.label}. ✓`;
+                    window.open(`https://wa.me/${WHATSAPP_SHANTI}?text=${encodeURIComponent(msg)}`, "_blank");
+                  }}
+                  className="mt-4 rounded-md bg-card text-foreground font-medium px-5 py-2.5 text-sm hover:bg-background transition-colors"
+                >
+                  Confirmar minha chegada
+                </button>
+              </>
+            )}
           </div>
         )}
         {/* PDF */}
@@ -304,9 +329,6 @@ function Chegada() {
             <strong>Check-in:</strong> a partir das 14h
             <br />
             <strong>Check-out:</strong> até meio-dia (12h) — atraso sujeito a multa automática
-            <div className="mt-2 text-xs text-muted-foreground">
-              Check-in antecipado sujeito à disponibilidade do quarto no dia — fale com a gente pelo WhatsApp para verificar.
-            </div>
           </FAQItem>
           <FAQItem title="Wi-Fi">
             Rede <strong>Shanti</strong>
@@ -319,10 +341,8 @@ function Chegada() {
             filtro.
           </FAQItem>
           <FAQItem title="Café da manhã">
-            Não servimos, mas as cozinhas privativas e a cozinha coletiva têm
-            itens básicos (sal, açúcar, óleo, temperos). Há também uma padaria
-            e diversos outros estabelecimentos a 200m de nós que servem café da
-            manhã.
+            Não servimos, mas há uma padaria e diversos outros
+            estabelecimentos a 200m de nós que servem café da manhã.
           </FAQItem>
           <FAQItem title="Estacionamento">
             Em São Jorge os estabelecimentos não têm estacionamento interno. A

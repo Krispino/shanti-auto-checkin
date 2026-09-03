@@ -252,7 +252,8 @@ function Chegada() {
                   href="https://shantipousada.com.br/chapada-dos-veadeiros/"
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-3 inline-block rounded-md bg-card text-foreground font-medium px-5 py-2.5 text-sm hover:bg-background transition-colors"
+                  className="mt-3 inline-block rounded-md text-white font-medium px-5 py-2.5 text-sm transition-opacity hover:opacity-90"
+                  style={{ backgroundColor: "var(--terracota)" }}
                 >
                   Ver roteiros e onde comer
                 </a>
@@ -405,8 +406,8 @@ function Chegada() {
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <h2
-      className="mt-8 mb-3 text-xs text-muted-foreground"
-      style={{ letterSpacing: 2, textTransform: "uppercase" }}
+      className="mt-8 mb-3 text-xs"
+      style={{ letterSpacing: 2, textTransform: "uppercase", color: "var(--terracota)" }}
     >
       {children}
     </h2>

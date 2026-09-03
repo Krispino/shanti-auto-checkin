@@ -61,11 +61,12 @@ function Confirmado() {
           href="https://shantipousada.com.br/chapada-dos-veadeiros/"
           target="_blank"
           rel="noreferrer"
-          className="mt-6 block rounded-lg p-5 bg-primary text-primary-foreground hover:bg-primary-hover transition-colors"
+          className="mt-6 block rounded-lg p-6 text-center text-white transition-opacity hover:opacity-90"
+          style={{ backgroundColor: "var(--terracota)" }}
         >
           <div className="text-xs opacity-90" style={{ letterSpacing: "2px" }}>ENQUANTO A VIAGEM NÃO CHEGA</div>
           <div className="mt-1 font-medium">Roteiros para a Chapada dos Veadeiros</div>
-          <div className="mt-1 text-sm opacity-90">
+          <div className="mt-1 text-sm opacity-90 max-w-md mx-auto">
             Trilhas, cachoeiras e passeios para você já ir montando os seus dias. Ver no site →
           </div>
         </a>

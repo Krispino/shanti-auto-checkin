@@ -239,10 +239,23 @@ function Chegada() {
 
         {/* Confirmar chegada */}
         {liberado && (
-          <div className="mt-8 rounded-lg p-6 bg-primary text-primary-foreground">
+          <div
+            className={
+              chegadaConfirmada
+                ? "mt-8 rounded-lg p-6 text-white"
+                : "mt-8 rounded-lg p-6 bg-primary text-primary-foreground"
+            }
+            style={chegadaConfirmada ? { backgroundColor: "var(--terracota)" } : undefined}
+          >
             {chegadaConfirmada ? (
               <>
-                <div className="text-lg font-medium">Boa estadia, {firstName}! ✓</div>
+                <span
+                  className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium"
+                  style={{ backgroundColor: "oklch(0.55 0.14 145)", color: "white" }}
+                >
+                  ✓ Check-in concluído
+                </span>
+                <div className="mt-3 text-lg font-medium">Boa estadia, {firstName}!</div>
                 <p className="mt-1 text-sm opacity-90">
                   Recebemos o seu aviso de chegada. Agora é aproveitar.
                 </p>
@@ -256,8 +269,7 @@ function Chegada() {
                     href="https://shantipousada.com.br/chapada-dos-veadeiros/?utm_source=checkin&utm_medium=chegada&utm_content=onde-comer#onde-comer"
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-block rounded-md text-white font-medium px-5 py-2.5 text-sm transition-opacity hover:opacity-90"
-                    style={{ backgroundColor: "var(--terracota)" }}
+                    className="inline-block rounded-md bg-card text-foreground font-medium px-5 py-2.5 text-sm hover:bg-background transition-colors"
                   >
                     Onde comer em São Jorge
                   </a>

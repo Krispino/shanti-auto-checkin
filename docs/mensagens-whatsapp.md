@@ -230,6 +230,8 @@ recebe o essencial mesmo que não volte para a página depois.
 > Qualquer coisa que precisar durante a estadia, quem cuida do dia a dia aqui
 > na pousada é a Genilda, nossa funcionária. Fala com ela direto por aqui:
 > https://wa.me/5562998546284
+>
+> Boa estadia!
 
 ---
 

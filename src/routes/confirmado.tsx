@@ -58,7 +58,7 @@ function Confirmado() {
         </div>
 
         <a
-          href="https://shantipousada.com.br"
+          href="https://shantipousada.com.br/chapada-dos-veadeiros/"
           target="_blank"
           rel="noreferrer"
           className="mt-6 block rounded-lg p-5 bg-primary text-primary-foreground hover:bg-primary-hover transition-colors"

@@ -249,7 +249,7 @@ function Chegada() {
                   que dá para fazer hoje mesmo.
                 </p>
                 <a
-                  href="https://shantipousada.com.br"
+                  href="https://shantipousada.com.br/chapada-dos-veadeiros/"
                   target="_blank"
                   rel="noreferrer"
                   className="mt-3 inline-block rounded-md bg-card text-foreground font-medium px-5 py-2.5 text-sm hover:bg-background transition-colors"

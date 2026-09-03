@@ -199,12 +199,12 @@ serve de sinal de que falta conferir na plataforma.
 
 ## Por que
 
-Na página `/chegada` tem um botão "Confirmar minha chegada". Hoje ele só abre
-o WhatsApp com uma mensagem pronta — e o hóspede raramente toca em Enviar lá.
-Sem esse toque, ninguém fica sabendo que ele chegou. O app agora chama
-`/api/avisar-chegada` no momento do clique (antes de abrir o WhatsApp), que
-cai aqui no Apps Script e manda o e-mail. Não depende do hóspede completar
-nada no WhatsApp depois.
+Na página `/chegada` tem um botão "Confirmar minha chegada". Ele abre o
+WhatsApp da Genilda com uma mensagem pronta — e o hóspede raramente toca em
+Enviar lá. Sem esse toque, ela não fica sabendo que ele chegou. O app agora
+chama `/api/avisar-chegada` no momento do clique (antes de abrir o WhatsApp),
+que cai aqui no Apps Script e manda um e-mail pra ela. Não depende do hóspede
+completar nada no WhatsApp depois.
 
 ## Código
 
@@ -238,7 +238,9 @@ function avisarChegada_(nome, quarto, plataforma) {
     '',
     'Confirmado em ' + new Date().toLocaleString('pt-BR')
   ].join('\n');
-  MailApp.sendEmail('shantipousada@gmail.com,genildinhapopozuda@gmail.com', assunto, corpo);
+  // Só a Genilda — o e-mail é o aviso de bastidor pra ela, o WhatsApp que o
+  // botão abre (com o Fabio) continua sendo o canal de atendimento.
+  MailApp.sendEmail('genildinhapopozuda@gmail.com', assunto, corpo);
 }
 ```
 

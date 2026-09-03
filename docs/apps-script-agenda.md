@@ -78,8 +78,12 @@ function criarEventoAgenda(data) {
   if (!cal) return;
 
   var nome = String(data.nome || '').trim();
+  // Configuração logo após o nome: é a informação que a Genilda mais precisa
+  // ao olhar a agenda — casal, solteiro, quantas pessoas — para preparar a
+  // cama certa antes da chegada.
   var titulo = [
     nome || 'Hóspede sem nome',
+    String(data.configuracao || '').trim(),
     String(data.quarto || '').trim() || 'QUARTO A CONFIRMAR',
     String(data.plataforma || '').trim()
   ].filter(String).join(' · ');
@@ -128,12 +132,18 @@ aceitar a permissão.
 ## Título resultante
 
 ```
-Mariana Silva · Duplex Seriema · Booking.com
+Mariana Silva · Casal + 1 solteiro (3 pessoas) · Duplex Seriema · Booking.com
 ```
 
+A configuração vem logo após o nome de propósito — é a primeira coisa que a
+Genilda vê ao abrir o evento, e é o que ela precisa saber para montar a cama
+certa antes da chegada.
+
 Quando o hóspede marca "Não sei / não lembro" na acomodação, o app envia o
-quarto vazio e o título sai como `Nome · QUARTO A CONFIRMAR · Plataforma` —
-propositalmente chamativo, para aparecer na agenda como pendência.
+quarto vazio e o título sai como
+`Nome · Configuração · QUARTO A CONFIRMAR · Plataforma` —
+o "QUARTO A CONFIRMAR" propositalmente chamativo, para aparecer na agenda
+como pendência.
 
 ## Data do evento — até o check-out, não até a véspera
 

@@ -68,7 +68,7 @@ export const rooms: Record<RoomKey, Room> = {
       "Casal (2 pessoas)",
       "Casal + 1 solteiro (3 pessoas)",
     ],
-    note: "O Chalé Maytreia tem cama king size e acomoda até 3 pessoas, com cama adicional.",
+    note: "O Chalé Maytreia acomoda até 3 pessoas, com cama adicional.",
     codigoCofrinho: "0005",
   },
   mantra: {

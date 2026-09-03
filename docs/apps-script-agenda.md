@@ -38,6 +38,12 @@ function dataLocal_(s) {
   return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
 }
 
+// Versão curta da configuração, só para o título do evento na agenda — o
+// formulário do hóspede continua mostrando "Casal (2 pessoas)" por extenso.
+function configResumida_(config) {
+  return config === 'Casal (2 pessoas)' ? 'Casal' : config;
+}
+
 function descricaoEvento_(data) {
   var linhas = [
     'Hóspede: ' + (data.nome || '—'),
@@ -83,10 +89,12 @@ function criarEventoAgenda(data) {
   // nome completo (que fica na descrição) não cabe nem ajuda ali. Configuração
   // logo em seguida: é a informação que a Genilda mais precisa ao olhar a
   // agenda — casal, solteiro, quantas pessoas — para preparar a cama certa
-  // antes da chegada.
+  // antes da chegada. "Casal (2 pessoas)" vira só "Casal" no título — é óbvio
+  // que casal são duas pessoas, e o espaço no card é curto; a contagem
+  // completa continua na descrição, para quem abrir o evento.
   var titulo = [
     primeiroNome || 'Hóspede sem nome',
-    String(data.configuracao || '').trim(),
+    configResumida_(String(data.configuracao || '').trim()),
     String(data.quarto || '').trim() || 'QUARTO A CONFIRMAR',
     String(data.plataforma || '').trim()
   ].filter(String).join(' · ');
@@ -143,6 +151,12 @@ Só o primeiro nome — o nome completo fica na descrição do evento, não no
 título, que a agenda mostra em cards pequenos. A configuração vem logo em
 seguida de propósito: é a primeira coisa que a Genilda vê ao abrir o evento, e
 é o que ela precisa saber para montar a cama certa antes da chegada.
+
+Quando a configuração é `Casal (2 pessoas)`, o título mostra só `Casal` — duas
+pessoas é óbvio, e sobra espaço pro resto. As outras configurações continuam
+por extenso, com a contagem de pessoas: `Casal + 1 solteiro (3 pessoas)`,
+`2 solteiros (2 pessoas)`, `Solteiro — uso individual (1 pessoa)`. No
+formulário do hóspede (app) não muda nada — sempre por extenso lá.
 
 Quando o hóspede marca "Não sei / não lembro" na acomodação, o app envia o
 quarto vazio e o título sai como

@@ -278,18 +278,6 @@ function Chegada() {
                     Dicas
                   </a>
                 </div>
-                <p className="mt-4 text-sm opacity-90">
-                  Durante a sua estadia, qualquer coisa no dia a dia é com a
-                  Genilda, que está na pousada:
-                </p>
-                <a
-                  href={`https://wa.me/${WHATSAPP_GENILDA}?text=${encodeURIComponent(`Olá Genilda! Sou ${firstName}, hóspede ${reserva.room.article === "a" ? "da" : "do"} ${reserva.room.label}.`)}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-2 inline-block rounded-md bg-card text-foreground font-medium px-5 py-2.5 text-sm hover:bg-background transition-colors"
-                >
-                  Falar com a Genilda
-                </a>
               </>
             ) : (
               <>
@@ -308,8 +296,8 @@ function Chegada() {
                       plataforma: new URLSearchParams(window.location.search).get("plataforma") || "",
                     });
                     fetch(`/api/avisar-chegada?${params.toString()}`).catch(() => {});
-                    const msg = `Olá Genilda! Acabei de chegar na ${reserva.room.label}. ✓`;
-                    window.open(`https://wa.me/${WHATSAPP_GENILDA}?text=${encodeURIComponent(msg)}`, "_blank");
+                    const msg = `Olá! Acabei de chegar na ${reserva.room.label}. ✓`;
+                    window.open(`https://wa.me/${WHATSAPP_SHANTI}?text=${encodeURIComponent(msg)}`, "_blank");
                   }}
                   className="mt-4 rounded-md bg-card text-foreground font-medium px-5 py-2.5 text-sm hover:bg-background transition-colors"
                 >

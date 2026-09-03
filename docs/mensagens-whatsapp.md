@@ -216,8 +216,7 @@ Opcional, mas é onde aparecem os pedidos que evitam problema na chegada.
 
 Acontece com frequência: o hóspede avisa por aqui em vez de tocar no botão
 "Confirmar minha chegada" da página de chegada. Direcionar para o botão em vez
-de só responder "que bom" — é ele que libera as dicas para o hóspede, e é o
-sinal que a Genilda recebe do lado dela.
+de só responder "que bom" — é ele que libera as dicas para o hóspede.
 
 > Que bom que chegou bem, [Nome]! Fica à vontade.
 >
@@ -226,9 +225,8 @@ sinal que a Genilda recebe do lado dela.
 > receber ali mesmo alguns links muito úteis, com dicas práticas para uma
 > experiência perfeita na sua viagem.
 >
-> Além disso, libera um botão para falar diretamente com a Genilda, nossa
-> funcionária. Qualquer coisa que precisar durante a estadia é só falar com
-> ela.
+> Qualquer coisa que precisar durante a estadia, é só chamar por aqui — e se
+> for algo na pousada mesmo, a Genilda está por lá durante o dia.
 
 ---
 

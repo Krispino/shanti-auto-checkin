@@ -78,11 +78,14 @@ function criarEventoAgenda(data) {
   if (!cal) return;
 
   var nome = String(data.nome || '').trim();
-  // Configuração logo após o nome: é a informação que a Genilda mais precisa
-  // ao olhar a agenda — casal, solteiro, quantas pessoas — para preparar a
-  // cama certa antes da chegada.
+  var primeiroNome = nome.split(' ')[0] || '';
+  // No título só o primeiro nome — a agenda é vista em cards pequenos, e o
+  // nome completo (que fica na descrição) não cabe nem ajuda ali. Configuração
+  // logo em seguida: é a informação que a Genilda mais precisa ao olhar a
+  // agenda — casal, solteiro, quantas pessoas — para preparar a cama certa
+  // antes da chegada.
   var titulo = [
-    nome || 'Hóspede sem nome',
+    primeiroNome || 'Hóspede sem nome',
     String(data.configuracao || '').trim(),
     String(data.quarto || '').trim() || 'QUARTO A CONFIRMAR',
     String(data.plataforma || '').trim()
@@ -91,10 +94,11 @@ function criarEventoAgenda(data) {
   var cor = CORES_QUARTO[String(data.quartoKey || '').toLowerCase()];
 
   // Se o hóspede reenviar o formulário, atualiza o evento em vez de duplicar.
-  if (nome) {
+  // Casa pelo primeiro nome, que é o que agora abre o título.
+  if (primeiroNome) {
     var doDia = cal.getEventsForDay(inicio);
     for (var i = 0; i < doDia.length; i++) {
-      if (doDia[i].getTitle().indexOf(nome) === 0) {
+      if (doDia[i].getTitle().indexOf(primeiroNome) === 0) {
         doDia[i].setTitle(titulo);
         doDia[i].setDescription(descricaoEvento_(data));
         if (cor) doDia[i].setColor(cor);
@@ -132,16 +136,17 @@ aceitar a permissão.
 ## Título resultante
 
 ```
-Mariana Silva · Casal + 1 solteiro (3 pessoas) · Duplex Seriema · Booking.com
+Mariana · Casal + 1 solteiro (3 pessoas) · Duplex Seriema · Booking.com
 ```
 
-A configuração vem logo após o nome de propósito — é a primeira coisa que a
-Genilda vê ao abrir o evento, e é o que ela precisa saber para montar a cama
-certa antes da chegada.
+Só o primeiro nome — o nome completo fica na descrição do evento, não no
+título, que a agenda mostra em cards pequenos. A configuração vem logo em
+seguida de propósito: é a primeira coisa que a Genilda vê ao abrir o evento, e
+é o que ela precisa saber para montar a cama certa antes da chegada.
 
 Quando o hóspede marca "Não sei / não lembro" na acomodação, o app envia o
 quarto vazio e o título sai como
-`Nome · Configuração · QUARTO A CONFIRMAR · Plataforma` —
+`Primeiro nome · Configuração · QUARTO A CONFIRMAR · Plataforma` —
 o "QUARTO A CONFIRMAR" propositalmente chamativo, para aparecer na agenda
 como pendência.
 

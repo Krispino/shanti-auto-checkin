@@ -15,10 +15,13 @@ export const Route = createFileRoute("/confirmado")({
 
 function Confirmado() {
   const [firstName, setFirstName] = useState("hospede");
+  const [reservaDireta, setReservaDireta] = useState(false);
 
   useEffect(() => {
     const nome = sessionStorage.getItem("checkin_nome");
     if (nome) setFirstName(nome.split(" ")[0]);
+    const plataforma = sessionStorage.getItem("checkin_plataforma");
+    if (plataforma === "Reserva direta") setReservaDireta(true);
   }, []);
 
   return (
@@ -50,6 +53,21 @@ function Confirmado() {
           </a>
         </div>
 
+        {reservaDireta && (
+          <div className="mt-6 rounded-lg border border-border bg-card p-5 flex items-center gap-4">
+            <div className="flex items-center justify-center rounded-md flex-shrink-0" style={{ width: 48, height: 48, backgroundColor: "var(--primary-soft)", color: "var(--primary)", fontSize: 11, fontWeight: 700 }}>
+              PDF
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="font-medium">Guia Shanti — exclusivo para reserva direta</div>
+              <div className="text-xs text-muted-foreground mt-0.5">Dicas da Chapada só para quem reservou direto com a gente</div>
+            </div>
+            <a href="https://shantipousada.com.br/guia-hospede.pdf" target="_blank" rel="noreferrer" className="rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground font-medium hover:bg-primary-hover transition-colors">
+              Baixar
+            </a>
+          </div>
+        )}
+
         <div className="mt-6 rounded-lg border border-border bg-card p-6">
           <div className="text-xs text-muted-foreground mb-2" style={{ letterSpacing: "2px" }}>ACESSO E ORIENTAÇÕES</div>
           <p className="text-sm leading-relaxed">
@@ -58,7 +76,7 @@ function Confirmado() {
         </div>
 
         <a
-          href="https://shantipousada.com.br/chapada-dos-veadeiros/"
+          href="https://shantipousada.com.br/chapada-dos-veadeiros/?utm_source=checkin&utm_medium=confirmado&utm_content=roteiros#roteiros"
           target="_blank"
           rel="noreferrer"
           className="mt-6 block rounded-lg p-6 text-center text-white transition-opacity hover:opacity-90"

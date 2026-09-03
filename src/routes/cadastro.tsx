@@ -166,6 +166,7 @@ function Cadastro() {
       window.open(`https://wa.me/${WHATSAPP_SHANTI}?text=${encodeURIComponent(linhas)}`, "_blank");
 
       sessionStorage.setItem("checkin_nome", nome);
+      sessionStorage.setItem("checkin_plataforma", plataforma);
       navigate({ to: "/confirmado" });
     } finally {
       setSubmitting(false);
@@ -575,6 +576,15 @@ function Cadastro() {
                 Quero receber dicas da Chapada dos Veadeiros e novidades da Shanti Pousada.
               </span>
             </label>
+            <p className="mt-4 text-xs text-muted-foreground">
+              Seus dados são usados para o check-in e a comunicação durante a
+              estadia. Ao marcar a caixa acima, você também autoriza o envio
+              de dicas, cupons promocionais, etc. Saiba mais na{" "}
+              <a href="/privacidade" target="_blank" rel="noreferrer" className="underline">
+                política de privacidade
+              </a>
+              .
+            </p>
           </Section>
 
           {duplicado ? (

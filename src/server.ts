@@ -166,6 +166,31 @@ function handleLogin(request: Request, env: Record<string, unknown>): Response {
     : json({ ok: false }, 401);
 }
 
+// Avisa Fabio e Genilda que o hóspede apertou "Confirmar minha chegada" em
+// /chegada. Não depende de o hóspede tocar em Enviar no WhatsApp que abre em
+// seguida — o e-mail sai do servidor, então chega mesmo que o hóspede feche a
+// aba ou não mande a mensagem.
+async function handleAvisarChegada(
+  request: Request,
+  env: Record<string, unknown>,
+): Promise<Response> {
+  const url = new URL(request.url);
+  const token = typeof env.SHEETS_TOKEN === "string" ? env.SHEETS_TOKEN : "";
+  const upstream = new URL(SHEETS_ENDPOINT);
+  upstream.searchParams.set("token", token);
+  upstream.searchParams.set("acao", "chegada");
+  upstream.searchParams.set("nome", url.searchParams.get("nome") || "");
+  upstream.searchParams.set("quarto", url.searchParams.get("quarto") || "");
+  upstream.searchParams.set("plataforma", url.searchParams.get("plataforma") || "");
+  try {
+    await fetch(upstream.toString());
+    return json({ ok: true });
+  } catch {
+    // Melhor esforço — se falhar, o hóspede ainda manda o WhatsApp normal.
+    return json({ ok: false }, 502);
+  }
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
@@ -179,6 +204,9 @@ export default {
       }
       if (url.pathname === "/api/login") {
         return handleLogin(request, environment);
+      }
+      if (url.pathname === "/api/avisar-chegada") {
+        return await handleAvisarChegada(request, environment);
       }
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);

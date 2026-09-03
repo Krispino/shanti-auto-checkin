@@ -206,13 +206,24 @@ Opcional, mas é onde aparecem os pedidos que evitam problema na chegada.
 > na vila, então vale trazer algum dinheiro, e o último posto de combustível
 > fica em Alto Paraíso.
 >
+> Mais dicas que fazem diferença: https://shantipousada.com.br/chapada-dos-veadeiros/?utm_source=whatsapp&utm_medium=vespera&utm_content=dicas#dicas
+>
 > Boa estrada, e qualquer coisa me chama.
 
 ---
 
-## 8. Já chegou `/chegou`
+## 8. Já chegou, mas mandou "cheguei" direto no WhatsApp `/chegou`
 
-> Que bom que chegou bem, [Nome]. Fica à vontade.
+Acontece com frequência: o hóspede avisa por aqui em vez de tocar no botão
+"Confirmar minha chegada" da página de chegada. Direcionar para o botão em vez
+de só responder "que bom" — é ele que libera as dicas para o hóspede, e é o
+sinal que a Genilda recebe do lado dela.
+
+> Que bom que chegou bem, [Nome]! Fica à vontade.
+>
+> Só um detalhe: na sua página de chegada tem um botão "Confirmar minha
+> chegada" — [link]. Toca nele que eu já te libero ali mesmo os links de onde
+> comer em São Jorge e os melhores roteiros para os seus dias por aqui.
 >
 > Qualquer coisa que precisar durante a estadia, é só chamar por aqui — e se
 > for algo na pousada mesmo, a Genilda está por lá durante o dia.

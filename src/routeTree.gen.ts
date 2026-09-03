@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as ConfirmadoRouteImport } from './routes/confirmado'
 import { Route as ChegadaRouteImport } from './routes/chegada'
 import { Route as CadastroRouteImport } from './routes/cadastro'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 
+const PrivacidadeRoute = PrivacidadeRouteImport.update({
+  id: '/privacidade',
+  path: '/privacidade',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ConfirmadoRoute = ConfirmadoRouteImport.update({
   id: '/confirmado',
   path: '/confirmado',
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/cadastro': typeof CadastroRoute
   '/chegada': typeof ChegadaRoute
   '/confirmado': typeof ConfirmadoRoute
+  '/privacidade': typeof PrivacidadeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/cadastro': typeof CadastroRoute
   '/chegada': typeof ChegadaRoute
   '/confirmado': typeof ConfirmadoRoute
+  '/privacidade': typeof PrivacidadeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,27 @@ export interface FileRoutesById {
   '/cadastro': typeof CadastroRoute
   '/chegada': typeof ChegadaRoute
   '/confirmado': typeof ConfirmadoRoute
+  '/privacidade': typeof PrivacidadeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/cadastro' | '/chegada' | '/confirmado'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/cadastro'
+    | '/chegada'
+    | '/confirmado'
+    | '/privacidade'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/cadastro' | '/chegada' | '/confirmado'
-  id: '__root__' | '/' | '/admin' | '/cadastro' | '/chegada' | '/confirmado'
+  to: '/' | '/admin' | '/cadastro' | '/chegada' | '/confirmado' | '/privacidade'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/cadastro'
+    | '/chegada'
+    | '/confirmado'
+    | '/privacidade'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,10 +99,18 @@ export interface RootRouteChildren {
   CadastroRoute: typeof CadastroRoute
   ChegadaRoute: typeof ChegadaRoute
   ConfirmadoRoute: typeof ConfirmadoRoute
+  PrivacidadeRoute: typeof PrivacidadeRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/privacidade': {
+      id: '/privacidade'
+      path: '/privacidade'
+      fullPath: '/privacidade'
+      preLoaderRoute: typeof PrivacidadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/confirmado': {
       id: '/confirmado'
       path: '/confirmado'
@@ -125,6 +155,7 @@ const rootRouteChildren: RootRouteChildren = {
   CadastroRoute: CadastroRoute,
   ChegadaRoute: ChegadaRoute,
   ConfirmadoRoute: ConfirmadoRoute,
+  PrivacidadeRoute: PrivacidadeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

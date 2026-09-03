@@ -195,6 +195,59 @@ serve de sinal de que falta conferir na plataforma.
 
 ---
 
+# Aviso de "já cheguei" por e-mail
+
+## Por que
+
+Na página `/chegada` tem um botão "Confirmar minha chegada". Hoje ele só abre
+o WhatsApp com uma mensagem pronta — e o hóspede raramente toca em Enviar lá.
+Sem esse toque, ninguém fica sabendo que ele chegou. O app agora chama
+`/api/avisar-chegada` no momento do clique (antes de abrir o WhatsApp), que
+cai aqui no Apps Script e manda o e-mail. Não depende do hóspede completar
+nada no WhatsApp depois.
+
+## Código
+
+Adicionar no `doGet` (o mesmo que já responde `/api/buscar` com o token), como
+um novo ramo checado **antes** da lógica de busca — se vier
+`?acao=chegada&token=...`, manda o aviso e responde, sem tocar na planilha:
+
+```javascript
+function doGet(e) {
+  var token = e.parameter.token;
+  if (token !== TOKEN_SECRETO) {
+    return ContentService.createTextOutput(JSON.stringify({ erro: 'não autorizado' }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  if (e.parameter.acao === 'chegada') {
+    avisarChegada_(e.parameter.nome, e.parameter.quarto, e.parameter.plataforma);
+    return ContentService.createTextOutput(JSON.stringify({ ok: true }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  // ... segue a busca existente (nome/checkin) ...
+}
+
+function avisarChegada_(nome, quarto, plataforma) {
+  var assunto = 'Chegou: ' + (nome || 'hóspede sem nome') + ' · ' + (quarto || 'quarto não informado');
+  var corpo = [
+    (nome || 'Hóspede') + ' confirmou a chegada pela página de check-in.',
+    'Acomodação: ' + (quarto || '—'),
+    'Plataforma: ' + (plataforma || '—'),
+    '',
+    'Confirmado em ' + new Date().toLocaleString('pt-BR')
+  ].join('\n');
+  MailApp.sendEmail('shantipousada@gmail.com,genildinhapopozuda@gmail.com', assunto, corpo);
+}
+```
+
+`TOKEN_SECRETO` é o nome que o script já usa internamente para comparar com o
+token que o Worker manda — ajustar para o nome real da variável no seu
+`doGet` atual.
+
+---
+
 # Aviso de cadastro novo por e-mail
 
 Este é um problema separado da agenda, mas se resolve na mesma edição.

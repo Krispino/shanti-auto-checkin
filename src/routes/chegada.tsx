@@ -251,26 +251,63 @@ function Chegada() {
                   onde comer em São Jorge, roteiros de trilhas e cachoeiras e o
                   que dá para fazer hoje mesmo.
                 </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <a
+                    href="https://shantipousada.com.br/chapada-dos-veadeiros/?utm_source=checkin&utm_medium=chegada&utm_content=onde-comer#onde-comer"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-block rounded-md text-white font-medium px-5 py-2.5 text-sm transition-opacity hover:opacity-90"
+                    style={{ backgroundColor: "var(--terracota)" }}
+                  >
+                    Onde comer em São Jorge
+                  </a>
+                  <a
+                    href="https://shantipousada.com.br/chapada-dos-veadeiros/?utm_source=checkin&utm_medium=chegada&utm_content=roteiros#roteiros"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-block rounded-md bg-card text-foreground font-medium px-5 py-2.5 text-sm hover:bg-background transition-colors"
+                  >
+                    Roteiros
+                  </a>
+                  <a
+                    href="https://shantipousada.com.br/chapada-dos-veadeiros/?utm_source=checkin&utm_medium=chegada&utm_content=dicas#dicas"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-block rounded-md bg-card text-foreground font-medium px-5 py-2.5 text-sm hover:bg-background transition-colors"
+                  >
+                    Dicas
+                  </a>
+                </div>
+                <p className="mt-4 text-sm opacity-90">
+                  Durante a sua estadia, qualquer coisa no dia a dia é com a
+                  Genilda, que está na pousada:
+                </p>
                 <a
-                  href="https://shantipousada.com.br/chapada-dos-veadeiros/"
+                  href={`https://wa.me/${WHATSAPP_GENILDA}?text=${encodeURIComponent(`Olá Genilda! Sou ${firstName}, hóspede ${reserva.room.article === "a" ? "da" : "do"} ${reserva.room.label}.`)}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-3 inline-block rounded-md text-white font-medium px-5 py-2.5 text-sm transition-opacity hover:opacity-90"
-                  style={{ backgroundColor: "var(--terracota)" }}
+                  className="mt-2 inline-block rounded-md bg-card text-foreground font-medium px-5 py-2.5 text-sm hover:bg-background transition-colors"
                 >
-                  Ver roteiros e onde comer
+                  Falar com a Genilda
                 </a>
               </>
             ) : (
               <>
                 <div className="text-lg font-medium">Já chegou?</div>
                 <p className="mt-1 text-sm opacity-90">
-                  Toque abaixo para nos avisar que você entrou na acomodação.
+                  Toque abaixo para nos avisar que você entrou na acomodação —
+                  e já receber os links de dicas para a sua viagem.
                 </p>
                 <button
                   type="button"
                   onClick={() => {
                     setChegadaConfirmada(true);
+                    const params = new URLSearchParams({
+                      nome: reserva.rawNome || "",
+                      quarto: reserva.room.label,
+                      plataforma: new URLSearchParams(window.location.search).get("plataforma") || "",
+                    });
+                    fetch(`/api/avisar-chegada?${params.toString()}`).catch(() => {});
                     const msg = `Olá! Acabei de chegar na ${reserva.room.label}. ✓`;
                     window.open(`https://wa.me/${WHATSAPP_SHANTI}?text=${encodeURIComponent(msg)}`, "_blank");
                   }}

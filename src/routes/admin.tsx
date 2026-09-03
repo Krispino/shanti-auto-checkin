@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ShantiLogo } from "@/components/shanti-logo";
 import { rooms, type RoomKey } from "@/lib/shanti";
 
@@ -7,6 +7,9 @@ import { rooms, type RoomKey } from "@/lib/shanti";
 // o token do Sheets nunca chega ao navegador.
 const BUSCA_ENDPOINT = "/api/buscar";
 const LOGIN_ENDPOINT = "/api/login";
+// Mantém a sessão entre visitas: sem isto a senha era pedida a cada abertura do
+// link. Fica no navegador do próprio aparelho e é reenviada em cada busca.
+const CHAVE_SENHA = "shanti_admin_senha";
 const WHATSAPP_GENILDA = "5562998546284";
 
 export const Route = createFileRoute("/admin")({
@@ -35,6 +38,7 @@ export const Route = createFileRoute("/admin")({
 
 function Admin() {
   const [auth, setAuth] = useState(false);
+  const [verificandoSessao, setVerificandoSessao] = useState(true);
   const [senha, setSenha] = useState("");
   const [senhaErro, setSenhaErro] = useState(false);
   const [quarto, setQuarto] = useState<RoomKey | "">("");
@@ -50,13 +54,49 @@ function Admin() {
   const [resultado, setResultado] = useState<{quarto: string; quartoKey: string; checkin: string; checkout: string; plataforma: string; configuracao: string; horario: string} | null>(null);
   const [listaResultados, setListaResultados] = useState<{nome: string; quarto: string; quartoKey: string; checkin: string; checkout: string; plataforma: string; configuracao: string; horario: string}[]>([]);
 
+  // Revalida a senha guardada no servidor — se ela tiver mudado, cai na tela
+  // de login em vez de deixar o admin abrir e falhar em cada busca.
+  useEffect(() => {
+    let ativo = true;
+    const salva = typeof window !== "undefined" ? localStorage.getItem(CHAVE_SENHA) : null;
+    if (!salva) {
+      setVerificandoSessao(false);
+      return;
+    }
+    fetch(LOGIN_ENDPOINT, { headers: { "x-admin-senha": salva } })
+      .then((res) => {
+        if (!ativo) return;
+        if (res.ok) {
+          setSenha(salva);
+          setAuth(true);
+        } else {
+          localStorage.removeItem(CHAVE_SENHA);
+        }
+      })
+      .catch(() => {})
+      .finally(() => ativo && setVerificandoSessao(false));
+    return () => {
+      ativo = false;
+    };
+  }, []);
+
+  function sair() {
+    localStorage.removeItem(CHAVE_SENHA);
+    setSenha("");
+    setAuth(false);
+  }
+
   async function handleSenha(e: React.FormEvent) {
     e.preventDefault();
     setEntrando(true);
     try {
       const res = await fetch(LOGIN_ENDPOINT, { headers: { "x-admin-senha": senha } });
-      if (res.ok) setAuth(true);
-      else setSenhaErro(true);
+      if (res.ok) {
+        localStorage.setItem(CHAVE_SENHA, senha);
+        setAuth(true);
+      } else {
+        setSenhaErro(true);
+      }
     } catch {
       setSenhaErro(true);
     } finally {
@@ -230,6 +270,14 @@ ${link}` : null,
     window.open(`https://wa.me/${WHATSAPP_GENILDA}?text=${encodeURIComponent(linhasMsg)}`, "_blank");
   }
 
+  if (verificandoSessao) {
+    return (
+      <main className="min-h-screen bg-background text-foreground flex items-center justify-center">
+        <div className="text-sm text-muted-foreground">Carregando...</div>
+      </main>
+    );
+  }
+
   if (!auth) {
     return (
       <main className="min-h-screen bg-background text-foreground flex items-center justify-center">
@@ -264,7 +312,16 @@ ${link}` : null,
     <main className="min-h-screen bg-background text-foreground">
       <div className="mx-auto px-5 py-10" style={{ maxWidth: 480 }}>
         <ShantiLogo />
-        <div className="text-xs text-muted-foreground text-center mb-6" style={{ letterSpacing: "3px" }}>FERRAMENTA DE CHEGADA</div>
+        <div className="text-xs text-muted-foreground text-center" style={{ letterSpacing: "3px" }}>FERRAMENTA DE CHEGADA</div>
+        <div className="text-center mb-6">
+          <button
+            type="button"
+            onClick={sair}
+            className="text-xs text-muted-foreground hover:text-destructive underline"
+          >
+            sair deste aparelho
+          </button>
+        </div>
 
         <div className="rounded-lg border border-border bg-card p-6 space-y-4">
           <div className="grid grid-cols-2 gap-3">

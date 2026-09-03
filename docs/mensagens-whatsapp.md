@@ -18,6 +18,44 @@ errado.
 > Olá, [Nome], tudo bem? Aqui é da Shanti Pousada, em São Jorge.
 >
 > Você tem uma reserva com a gente para o dia [data], certo?
+>
+> Pergunto porque preciso te mandar o pré-check-in. Aqui funciona com auto
+> check-in, sem recepção, e é por ele que eu te envio os códigos de entrada.
+
+---
+
+## Mensagem automática das OTAs
+
+Esta é a que dispara sozinha quando a reserva entra, antes de qualquer conversa
+no WhatsApp. Confira se está assim em **todas** as plataformas — Booking,
+Airbnb, Expedia, Decolar — e no que a Innotel envia.
+
+> Olá, [Nome], obrigado pela reserva!
+>
+> Para que sua chegada seja tranquila, peço que faça o seu pré-check-in. É
+> rápido, leva dois minutos:
+>
+> https://checkin.shantipousada.com.br
+>
+> Importante: a Shanti funciona com auto check-in, sem recepção presencial.
+> Depois do cadastro eu te envio a sua página de chegada, e nela os códigos do
+> portão e da chave aparecem no dia anterior à sua chegada.
+>
+> Check-in a partir das 14h · Check-out até meio-dia
+>
+> Qualquer dúvida, estou à disposição. Boa viagem!
+
+**O que mudou em relação à versão anterior:**
+
+O link era `tanstack-start-app.shanti-checkin.workers.dev`, que além de não ter
+cara de link da pousada tem cara de golpe — motivo pelo qual o domínio próprio
+foi configurado.
+
+"você receberá os códigos com antecedência" virou "aparecem no dia anterior à
+sua chegada". Antecedência é vago e faz o hóspede cobrar antes da hora.
+
+O "obrigada" no feminino ficou de quando a Paula respondia; hoje quem atende é
+o Fabio.
 
 ---
 

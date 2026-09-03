@@ -23,20 +23,24 @@ errado.
 
 ## 1b. Depois do "sim" — mandar o pré-check-in `/precheckin`
 
-> Ótimo! Segue o pré-check-in, leva dois minutos e evita o questionário na hora
-> que você chega cansado da estrada:
+> Ótimo! Aqui na Shanti o check-in é feito por você mesmo, sem recepção — você
+> chega na hora que quiser, sem ninguém esperando de plantão.
+>
+> Por isso o pré-check-in importa: é por ele que eu te envio o código do portão
+> e o do cofrinho com a chave do seu quarto. Leva dois minutos:
 >
 > https://checkin.shantipousada.com.br
 >
 > No fim do formulário aparece um botão que abre esta conversa com os seus
 > dados prontos. É só tocar em Enviar.
 >
-> Depois eu te mando a página de chegada, com o caminho até a pousada e o vídeo
-> do quarto. Os códigos do portão e da chave aparecem nela no dia anterior à
-> sua chegada.
+> Depois eu te mando a página de chegada, com o caminho e o vídeo do quarto. Os
+> códigos aparecem nela no dia anterior à sua chegada.
 
-*O último parágrafo evita a cobrança depois: sem ele, o hóspede espera os
-códigos na hora.*
+*Dois pontos fazem esta mensagem funcionar. O primeiro é dizer que não há
+recepção: enquanto o pré-check-in parecer papelada, fica para depois; quando
+fica claro que é assim que se entra, é feito na hora. O segundo é avisar quando
+os códigos aparecem — sem isso, o hóspede espera recebê-los já e cobra.*
 
 ---
 
@@ -127,12 +131,15 @@ Mandar no dia anterior à chegada. Uma vez só.
 
 > [Nome], sua chegada na Shanti é amanhã.
 >
-> Ainda não recebi o seu pré-check-in. Se puder preencher hoje, já te mando os
-> códigos de acesso e o caminho até o quarto, e amanhã você chega direto:
+> Ainda não recebi o seu pré-check-in, e ele é o que destrava o seu acesso: como
+> não temos recepção, é por ele que eu te mando o código do portão e o da chave
+> do quarto. Sem isso você chega e fica na porta.
+>
+> Dá para resolver agora, leva dois minutos:
 > https://checkin.shantipousada.com.br
 >
-> Se preferir, me manda por aqui mesmo o nome completo e o documento de quem
-> vai ficar, que eu resolvo daqui.
+> Se preferir, me manda por aqui mesmo o nome completo e o documento de quem vai
+> ficar, que eu preencho daqui.
 
 ---
 

@@ -9,25 +9,34 @@ Voz da Shanti: parágrafos curtos, tom de conversa, sem lista de tópicos.
 
 ---
 
-## 1. Primeiro contato — pedir o pré-check-in `/precheckin`
+## 1a. Abertura — confirmar a reserva `/oi`
 
-> Olá, [Nome], tudo bem? Aqui é da Shanti Pousada.
+Primeiro contato vai **sem link**. Link frio de número desconhecido tem a
+mesma cara de golpe, e confirmar antes evita mandar acesso para o número
+errado.
+
+> Olá, [Nome], tudo bem? Aqui é da Shanti Pousada, em São Jorge.
 >
-> Sua reserva está confirmada, e para adiantar a sua chegada eu queria te pedir
-> uma coisa rápida: preencher o pré-check-in. Leva uns dois minutos e evita
-> aquele questionário todo na hora que você chega cansado da estrada.
+> Você tem uma reserva com a gente para o dia [data], certo?
+
+---
+
+## 1b. Depois do "sim" — mandar o pré-check-in `/precheckin`
+
+> Ótimo! Segue o pré-check-in, leva dois minutos e evita o questionário na hora
+> que você chega cansado da estrada:
 >
-> É por aqui: https://checkin.shantipousada.com.br
+> https://checkin.shantipousada.com.br
 >
 > No fim do formulário aparece um botão que abre esta conversa com os seus
-> dados prontos. Só tocar em Enviar.
+> dados prontos. É só tocar em Enviar.
 >
-> Assim que eu receber, te mando a sua página de chegada, com o caminho até a
-> pousada e o vídeo do quarto. Os códigos do portão e da chave aparecem nessa
-> mesma página no dia anterior à sua chegada.
+> Depois eu te mando a página de chegada, com o caminho até a pousada e o vídeo
+> do quarto. Os códigos do portão e da chave aparecem nela no dia anterior à
+> sua chegada.
 
-*Por que o último parágrafo importa: sem ele o hóspede espera os códigos na
-hora e cobra depois.*
+*O último parágrafo evita a cobrança depois: sem ele, o hóspede espera os
+códigos na hora.*
 
 ---
 

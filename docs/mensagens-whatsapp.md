@@ -222,11 +222,13 @@ sinal que a Genilda recebe do lado dela.
 > Que bom que chegou bem, [Nome]! Fica à vontade.
 >
 > Só um detalhe: na sua página de chegada tem um botão "Confirmar minha
-> chegada" — [link]. Toca nele que eu já te libero ali mesmo os links de onde
-> comer em São Jorge e os melhores roteiros para os seus dias por aqui.
+> chegada" — [link]. Toca nele para fecharmos o processo de check-in e você
+> receber ali mesmo alguns links muito úteis, com dicas práticas para uma
+> experiência perfeita na sua viagem.
 >
-> Qualquer coisa que precisar durante a estadia, é só chamar por aqui — e se
-> for algo na pousada mesmo, a Genilda está por lá durante o dia.
+> Além disso, libera um botão para falar diretamente com a Genilda, nossa
+> funcionária. Qualquer coisa que precisar durante a estadia é só falar com
+> ela.
 
 ---
 

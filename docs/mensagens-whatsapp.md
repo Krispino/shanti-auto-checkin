@@ -15,12 +15,9 @@ Primeiro contato vai **sem link**. Link frio de número desconhecido tem a
 mesma cara de golpe, e confirmar antes evita mandar acesso para o número
 errado.
 
-> Olá, [Nome], tudo bem? Aqui é da Shanti Pousada, em São Jorge.
+> Olá, [Nome], tudo bem? Aqui quem fala é Fábio, da Shanti Pousada.
 >
-> Você tem uma reserva com a gente para o dia [data], certo?
->
-> Pergunto porque preciso te mandar o pré-check-in. Aqui funciona com auto
-> check-in, sem recepção, e é por ele que eu te envio os códigos de entrada.
+> Você tem uma reserva confirmada com a gente, certo?
 
 ---
 
@@ -32,14 +29,17 @@ Airbnb, Expedia, Decolar — e no que a Innotel envia.
 
 > Olá, [Nome], obrigado pela reserva!
 >
-> Para que sua chegada seja tranquila, peço que faça o seu pré-check-in. É
-> rápido, leva dois minutos:
+> Aqui é o Fábio, da Shanti Pousada. Preciso que você faça o seu pré-check-in:
 >
 > https://checkin.shantipousada.com.br
 >
-> Importante: a Shanti funciona com auto check-in, sem recepção presencial.
-> Depois do cadastro eu te envio a sua página de chegada, e nela os códigos do
-> portão e da chave aparecem no dia anterior à sua chegada.
+> Ele não é burocracia — é o que destrava a sua entrada. A Shanti funciona com
+> auto check-in, sem recepção presencial, e é pelo formulário que eu te mando o
+> código do portão e o do cofrinho com a chave do seu quarto. Sem isso você
+> chega e fica na porta.
+>
+> Leva dois minutos. Depois eu te envio a sua página de chegada, com o caminho
+> e o vídeo do quarto. Os códigos aparecem nela no dia anterior à sua chegada.
 >
 > Check-in a partir das 14h · Check-out até meio-dia
 >
@@ -55,30 +55,30 @@ foi configurado.
 sua chegada". Antecedência é vago e faz o hóspede cobrar antes da hora.
 
 O "obrigada" no feminino ficou de quando a Paula respondia; hoje quem atende é
-o Fabio.
+o Fabio, e a mensagem passa a se identificar por nome — número desconhecido
+mandando link é o que mais parece golpe.
 
 ---
 
 ## 1b. Depois do "sim" — mandar o pré-check-in `/precheckin`
 
-> Ótimo! Aqui na Shanti o check-in é feito por você mesmo, sem recepção — você
-> chega na hora que quiser, sem ninguém esperando de plantão.
->
-> Por isso o pré-check-in importa: é por ele que eu te envio o código do portão
-> e o do cofrinho com a chave do seu quarto. Leva dois minutos:
+> Ótimo! Então preciso que você faça o pré-check-in:
 >
 > https://checkin.shantipousada.com.br
 >
-> No fim do formulário aparece um botão que abre esta conversa com os seus
-> dados prontos. É só tocar em Enviar.
+> Ele é o que destrava o seu acesso. A Shanti não tem recepção — o check-in é
+> feito por você mesmo, na hora que chegar — e é pelo formulário que eu te mando
+> o código do portão e o do cofrinho com a chave do seu quarto. Sem isso você
+> chega e fica na porta.
 >
-> Depois eu te mando a página de chegada, com o caminho e o vídeo do quarto. Os
-> códigos aparecem nela no dia anterior à sua chegada.
+> Leva dois minutos. No fim aparece um botão que abre esta conversa com os seus
+> dados prontos: é só tocar em Enviar.
+>
+> Assim que receber, te mando a sua página de chegada, com o caminho e o vídeo
+> do quarto. Os códigos aparecem nela no dia anterior à sua chegada.
 
-*Dois pontos fazem esta mensagem funcionar. O primeiro é dizer que não há
-recepção: enquanto o pré-check-in parecer papelada, fica para depois; quando
-fica claro que é assim que se entra, é feito na hora. O segundo é avisar quando
-os códigos aparecem — sem isso, o hóspede espera recebê-los já e cobra.*
+*Enquanto o pré-check-in parecer papelada, fica para depois. Dizer que não há
+recepção e que sem ele a pessoa fica na porta é o que faz preencher na hora.*
 
 ---
 

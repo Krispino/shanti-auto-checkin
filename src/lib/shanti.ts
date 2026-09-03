@@ -18,7 +18,10 @@ export const rooms: Record<RoomKey, Room> = {
   caliandra: {
     label: "Suíte Caliandra",
     article: "a",
-    configs: ["Casal (2 pessoas)", "Solteiro — uso individual (1 pessoa)"],
+    configs: [
+      "Solteiro — uso individual (1 pessoa)",
+      "Casal (2 pessoas)",
+    ],
     note: "A Suíte Caliandra acomoda apenas casal ou uso individual.",
     codigoCofrinho: "1000",
   },
@@ -26,9 +29,9 @@ export const rooms: Record<RoomKey, Room> = {
     label: "Suíte Mangaba",
     article: "a",
     configs: [
+      "Solteiro — uso individual (1 pessoa)",
       "Casal (2 pessoas)",
       "2 solteiros (2 pessoas)",
-      "Solteiro — uso individual (1 pessoa)",
     ],
     note: "A Suíte Mangaba acomoda casal, 2 solteiros ou uso individual.",
     codigoCofrinho: "0200",
@@ -36,7 +39,10 @@ export const rooms: Record<RoomKey, Room> = {
   caninde: {
     label: "Duplex Caninde",
     article: "o",
-    configs: ["Casal (2 pessoas)", "Solteiro — uso individual (1 pessoa)"],
+    configs: [
+      "Solteiro — uso individual (1 pessoa)",
+      "Casal (2 pessoas)",
+    ],
     note: "O Duplex Caninde acomoda apenas casal ou uso individual.",
     codigoCofrinho: "0004",
   },
@@ -44,12 +50,12 @@ export const rooms: Record<RoomKey, Room> = {
     label: "Duplex Seriema",
     article: "o",
     configs: [
+      "Solteiro — uso individual (1 pessoa)",
       "Casal (2 pessoas)",
       "2 solteiros (2 pessoas)",
       "Casal + 1 solteiro (3 pessoas)",
       "3 solteiros (3 pessoas)",
       "Casal + 2 solteiros (4 pessoas)",
-      "Solteiro — uso individual (1 pessoa)",
     ],
     note: "O Duplex Seriema acomoda até 4 pessoas — casal, 2 solteiros, 3 solteiros, casal + 1 solteiro, casal + 2 solteiros ou uso individual.",
     codigoCofrinho: "0030",
@@ -58,17 +64,20 @@ export const rooms: Record<RoomKey, Room> = {
     label: "Chalé Maytreia",
     article: "o",
     configs: [
-      "Casal (king size) (2 pessoas)",
-      "Casal (king size) + 1 solteiro (cama adicional) - 3 pessoas",
       "Solteiro — uso individual (1 pessoa)",
+      "Casal (2 pessoas)",
+      "Casal + 1 solteiro (3 pessoas)",
     ],
-    note: "O Chalé Maytreia acomoda casal (cama king size), casal (king size) + 1 solteiro em cama adicional, ou uso individual.",
+    note: "O Chalé Maytreia tem cama king size e acomoda até 3 pessoas, com cama adicional.",
     codigoCofrinho: "0005",
   },
   mantra: {
     label: "Chalé Mantra",
     article: "o",
-    configs: ["Casal (2 pessoas)", "Solteiro — uso individual (1 pessoa)"],
+    configs: [
+      "Solteiro — uso individual (1 pessoa)",
+      "Casal (2 pessoas)",
+    ],
     note: "O Chalé Mantra acomoda apenas casal ou uso individual.",
     codigoCofrinho: "0006",
   },

@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   WHATSAPP_SHANTI,
   getReservaFromSearch,
@@ -63,6 +63,7 @@ function Cadastro() {
   const [marketing, setMarketing] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [duplicado, setDuplicado] = useState<{ checkin: string } | null>(null);
+  const saidaRef = useRef<HTMLInputElement>(null);
   const [jaConfirmado, setJaConfirmado] = useState(false);
 
   // Aproveita o que o link da reserva já informa, para o hóspede não redigitar.
@@ -200,6 +201,23 @@ function Cadastro() {
   function confirmarJaEstaCerto() {
     setDuplicado(null);
     setJaConfirmado(true);
+    // Sem isto o hóspede vê "tudo certo" e a pousada não recebe nada — foi o
+    // que aconteceu em 02/09, com o hóspede achando que tinha avisado.
+    const linhas = [
+      `Olá, aqui é ${nome}.`,
+      "Meu pré-check-in já está preenchido, só confirmando por aqui.",
+      dataEntrada
+        ? `• Chegada: ${dataEntrada.split("-").reverse().join("/")}`
+        : null,
+      quartoEfetivo ? `• Acomodação: ${quartoEfetivo.label}` : null,
+      "Fico no aguardo das instruções de acesso. Obrigado(a)!",
+    ]
+      .filter(Boolean)
+      .join("\n");
+    window.open(
+      `https://wa.me/${WHATSAPP_SHANTI}?text=${encodeURIComponent(linhas)}`,
+      "_blank",
+    );
   }
 
   if (jaConfirmado) {
@@ -217,8 +235,9 @@ function Cadastro() {
             Tudo certo, {nome.split(" ")[0] || "viajante"}.
           </h1>
           <p className="mt-3 text-muted-foreground">
-            Seu pré-check-in já está registrado. Você vai receber as
-            informações de acesso pelo WhatsApp em breve.
+            Seu pré-check-in já estava registrado. Abrimos o WhatsApp com uma
+            mensagem curta de confirmação — toque em Enviar para a gente saber
+            que está tudo certo com você.
           </p>
           <a
             href={`https://wa.me/${WHATSAPP_SHANTI}`}
@@ -335,12 +354,20 @@ function Cadastro() {
                   type="date"
                   required
                   value={dataEntrada}
-                  onChange={(e) => setDataEntrada(e.target.value)}
+                  onChange={(e) => {
+                    setDataEntrada(e.target.value);
+                    // Já abre o seletor da saída, para o hóspede não precisar
+                    // fechar um e abrir o outro.
+                    if (e.target.value && !dataSaida) {
+                      requestAnimationFrame(() => saidaRef.current?.showPicker?.());
+                    }
+                  }}
                   className={inputCls}
                 />
               </Field>
               <Field label="Data de saída" required>
                 <input
+                  ref={saidaRef}
                   type="date"
                   required
                   min={dataEntrada || undefined}
@@ -352,21 +379,76 @@ function Cadastro() {
             </div>
           </Section>
 
-          <Section title={ondeUsar}>
-            <Field label="Configuração">
+          <Section title="Reserva">
+            <Field label="Onde você reservou" required>
               <select
                 required
-                value={config}
-                onChange={(e) => setConfig(e.target.value)}
+                value={plataforma}
+                onChange={(e) => setPlataforma(e.target.value)}
                 className={inputCls}
               >
                 <option value="">Selecione</option>
-                {configsValidas.map((c) => (
-                  <option key={c}>{c}</option>
-                ))}
+                <option>Reserva direta</option>
+                <option>Booking.com</option>
+                <option>Airbnb</option>
+                <option>Expedia</option>
+                <option>Decolar</option>
               </select>
-
             </Field>
+            {plataforma && (
+              <Field label="Acomodação" required>
+                <select
+                  required
+                  value={acomodacaoNome}
+                  onChange={(e) => setAcomodacaoNome(e.target.value)}
+                  className={inputCls}
+                >
+                  <option value="">Selecione</option>
+                  <option value="nao-sei">Não sei / não lembro</option>
+                  {plataforma === "Booking.com" ? (
+                    <>
+                <option value="caliandra">Quarto Duplo Deluxe com Varanda (Caliandra)</option>
+                <option value="mangaba">Quarto Deluxe com Cama de Casal ou 2 de Solteiro e Varanda (Mangaba)</option>
+                <option value="caninde">Apartamento Duplex (Caninde)</option>
+                <option value="seriema">Quarto Quadruplo Duplex (Seriema)</option>
+                <option value="maytreia">Quarto Família Deluxe (Maytreia)</option>
+                <option value="mantra">Chalé Superior (Mantra)</option>
+                    </>
+                  ) : (
+                    <>
+                <option value="caliandra">Suíte Caliandra</option>
+                <option value="mangaba">Suíte Mangaba</option>
+                <option value="caninde">Duplex Caninde</option>
+                <option value="seriema">Duplex Seriema</option>
+                <option value="maytreia">Chalé Maytreia</option>
+                <option value="mantra">Chalé Mantra</option>
+                    </>
+                  )}
+                </select>
+              </Field>
+            )}
+          </Section>
+
+          <Section title={ondeUsar}>
+            {acomodacaoNome ? (
+              <Field label="Configuração">
+                <select
+                  required
+                  value={config}
+                  onChange={(e) => setConfig(e.target.value)}
+                  className={inputCls}
+                >
+                  <option value="">Selecione</option>
+                  {configsValidas.map((c) => (
+                    <option key={c}>{c}</option>
+                  ))}
+                </select>
+              </Field>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                Escolha a acomodação acima para ver as configurações de cama.
+              </p>
+            )}
             {numAcompanhantes > 0 && (
               <Field label="Acompanhantes">
                 <div className="space-y-2">
@@ -426,56 +508,6 @@ function Cadastro() {
               </div>
               <p className="mt-1 text-xs text-muted-foreground">Até 3 crianças. Informe a idade de cada uma.</p>
             </Field>
-          </Section>
-
-          <Section title="Reserva">
-            <Field label="Onde você reservou" required>
-              <select
-                required
-                value={plataforma}
-                onChange={(e) => setPlataforma(e.target.value)}
-                className={inputCls}
-              >
-                <option value="">Selecione</option>
-                <option>Reserva direta</option>
-                <option>Booking.com</option>
-                <option>Airbnb</option>
-                <option>Expedia</option>
-                <option>Decolar</option>
-              </select>
-            </Field>
-            {plataforma && (
-              <Field label="Acomodação" required>
-                <select
-                  required
-                  value={acomodacaoNome}
-                  onChange={(e) => setAcomodacaoNome(e.target.value)}
-                  className={inputCls}
-                >
-                  <option value="">Selecione</option>
-                  <option value="nao-sei">Não sei / não lembro</option>
-                  {plataforma === "Booking.com" ? (
-                    <>
-                <option value="caliandra">Quarto Duplo Deluxe com Varanda (Caliandra)</option>
-                <option value="mangaba">Quarto Deluxe com Cama de Casal ou 2 de Solteiro e Varanda (Mangaba)</option>
-                <option value="caninde">Apartamento Duplex (Caninde)</option>
-                <option value="seriema">Quarto Quadruplo Duplex (Seriema)</option>
-                <option value="maytreia">Quarto Família Deluxe (Maytreia)</option>
-                <option value="mantra">Chalé Superior (Mantra)</option>
-                    </>
-                  ) : (
-                    <>
-                <option value="caliandra">Suíte Caliandra</option>
-                <option value="mangaba">Suíte Mangaba</option>
-                <option value="caninde">Duplex Caninde</option>
-                <option value="seriema">Duplex Seriema</option>
-                <option value="maytreia">Chalé Maytreia</option>
-                <option value="mantra">Chalé Mantra</option>
-                    </>
-                  )}
-                </select>
-              </Field>
-            )}
           </Section>
 
           <Section title="Chegada">

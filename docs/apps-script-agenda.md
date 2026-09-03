@@ -63,8 +63,16 @@ function descricaoEvento_(data) {
 
 function criarEventoAgenda(data) {
   var inicio = dataLocal_(data.checkin);
-  var fim = dataLocal_(data.checkout);
-  if (!inicio || !fim || fim <= inicio) return;
+  var checkout = dataLocal_(data.checkout);
+  if (!inicio || !checkout || checkout <= inicio) return;
+
+  // Evento de dia inteiro tem data final EXCLUSIVA no Google Agenda — para o
+  // evento aparecer pintado até o dia do check-out (inclusive), a data que se
+  // passa pra API precisa ser check-out + 1. Isso é proposital: se o evento de
+  // quem sai e o de quem entra pintam o MESMO dia, é sinal visual de que a
+  // Genilda precisa limpar o quarto correndo, porque tem gente chegando na
+  // hora que outro hóspede está de saída.
+  var fim = new Date(checkout.getFullYear(), checkout.getMonth(), checkout.getDate() + 1);
 
   var cal = CalendarApp.getCalendarById(AGENDA_ID);
   if (!cal) return;
@@ -91,8 +99,6 @@ function criarEventoAgenda(data) {
     }
   }
 
-  // Em evento de dia inteiro a data final é exclusiva: passar o check-out puro
-  // pinta as noites de fato dormidas, que é como a agenda já vinha sendo usada.
   var evento = cal.createAllDayEvent(titulo, inicio, fim);
   evento.setDescription(descricaoEvento_(data));
   if (cor) evento.setColor(cor);
@@ -128,6 +134,19 @@ Mariana Silva · Duplex Seriema · Booking.com
 Quando o hóspede marca "Não sei / não lembro" na acomodação, o app envia o
 quarto vazio e o título sai como `Nome · QUARTO A CONFIRMAR · Plataforma` —
 propositalmente chamativo, para aparecer na agenda como pendência.
+
+## Data do evento — até o check-out, não até a véspera
+
+O evento vai pintado na agenda **do dia do check-in até o dia do check-out,
+inclusive**. É diferente de como a Innotel mostra a reserva (que para um dia
+antes do check-out) e diferente também do padrão manual antigo desta agenda,
+que só pintava as noites dormidas.
+
+O motivo é operacional: se o evento de quem está saindo e o de um hóspede
+novo entrando pintam o **mesmo dia**, é o sinal visual de que há troca no
+mesmo dia naquele quarto — a Genilda precisa limpar correndo, porque tem
+gente chegando na saída do outro. Com o padrão antigo (parar um dia antes),
+essa sobreposição não aparecia na agenda.
 
 ## Cores por acomodação
 

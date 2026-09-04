@@ -220,12 +220,11 @@ mesmo acontece quando ele avisa "cheguei" solto, sem passar pelo botão. Nos
 dois casos a resposta é esta, com os links direto na mensagem: assim ele
 recebe o essencial mesmo que não volte para a página depois.
 
-> Que bom que chegou bem, [Nome]! Fica à vontade.
+> Bem vinda, [Nome]!
 >
-> No nosso site tem tudo o que você precisa para começar agora: onde comer em
-> São Jorge, roteiros personalizados, infos sobre trilhas e cachoeiras e muito
-> mais.
-> https://checkin.shantipousada.com.br/dicas
+> No nosso site tem várias informações que podem ser muito úteis: onde comer
+> em São Jorge, roteiros personalizados, infos sobre trilhas e cachoeiras e
+> muito mais. https://checkin.shantipousada.com.br/dicas
 >
 > Qualquer coisa que precisar durante a estadia, quem cuida do dia a dia aqui
 > na pousada é a Genilda, nossa funcionária. Fala com ela direto por aqui:

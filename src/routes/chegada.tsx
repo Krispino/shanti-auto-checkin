@@ -6,20 +6,39 @@ import {
   WHATSAPP_SHANTI,
   formatDateShort,
   getReservaFromSearch,
+  isRoomKey,
+  rooms,
   type ReservaParams,
 } from "@/lib/shanti";
 import { ShantiLogo } from "@/components/shanti-logo";
 
 export const Route = createFileRoute("/chegada")({
-  head: () => ({
+  head: (ctx) => {
     // A prévia de marketing continua (o hóspede recebe este link e precisa
     // reconhecer a pousada), mas a página mostra códigos de acesso e nunca
-    // pode ser indexada.
-    meta: [
-      { title: "Sua chegada — Shanti Pousada" },
-      { name: "robots", content: "noindex, nofollow" },
-    ],
-  }),
+    // pode ser indexada. A foto e o texto mudam por acomodação — assim a
+    // prévia no WhatsApp não fica idêntica à do link de pré-check-in, e o
+    // hóspede já reconhece o quarto antes de abrir o link.
+    const search = (ctx.match.search ?? {}) as Record<string, unknown>;
+    const quartoParam = String(search.quarto ?? search.acomodacao ?? "");
+    const room = isRoomKey(quartoParam) ? rooms[quartoParam] : null;
+    const imagem = room
+      ? `https://checkin.shantipousada.com.br/arquivos/quartos/${quartoParam}.jpg`
+      : "https://checkin.shantipousada.com.br/arquivos/fachada.jpg";
+    const descricao = room
+      ? `Códigos de acesso, vídeo do caminho e orientações para a sua chegada n${room.article === "a" ? "a" : "o"} ${room.label}.`
+      : "Códigos de acesso, vídeo do caminho e orientações para a sua chegada.";
+    return {
+      meta: [
+        { title: "Sua chegada — Shanti Pousada" },
+        { name: "robots", content: "noindex, nofollow" },
+        { property: "og:title", content: room ? `Sua chegada — ${room.label}` : "Sua chegada — Shanti Pousada" },
+        { property: "og:description", content: descricao },
+        { property: "og:image", content: imagem },
+        { name: "twitter:image", content: imagem },
+      ],
+    };
+  },
   component: Chegada,
 });
 

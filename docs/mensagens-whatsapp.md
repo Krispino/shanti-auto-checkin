@@ -206,7 +206,7 @@ Opcional, mas é onde aparecem os pedidos que evitam problema na chegada.
 > na vila, então vale trazer algum dinheiro, e o último posto de combustível
 > fica em Alto Paraíso.
 >
-> Mais dicas que fazem diferença: https://checkin.shantipousada.com.br/dicas
+> Mais dicas que fazem diferença: https://checkin.shantipousada.com.br/dicas?v=2
 >
 > Boa estrada, e qualquer coisa me chama.
 
@@ -224,7 +224,7 @@ recebe o essencial mesmo que não volte para a página depois.
 >
 > No nosso site tem várias informações que podem ser muito úteis: onde comer
 > em São Jorge, roteiros personalizados, infos sobre trilhas e cachoeiras e
-> muito mais. https://checkin.shantipousada.com.br/dicas
+> muito mais. https://checkin.shantipousada.com.br/dicas?v=2
 >
 > Qualquer coisa que precisar durante a estadia, quem cuida do dia a dia aqui
 > na pousada é a Genilda, nossa funcionária. Fala com ela direto por aqui:
@@ -234,6 +234,12 @@ recebe o essencial mesmo que não volte para a página depois.
 
 *"Bem vinda" está no feminino fixo — se o hóspede for homem, trocar para
 "Bem vindo" (ou usar "Seja bem-vindo(a)") antes de mandar.*
+
+*O `?v=2` no link de dicas existe pra furar o cache de prévia do WhatsApp —
+sem ele, quem já recebeu esse link antes (ou o WhatsApp já "descobriu" essa
+URL) continua vendo a prévia antiga, mesmo com a página atualizada. Se a foto
+ou o texto de `/dicas` mudar de novo no futuro, subir esse número (`?v=3`,
+`?v=4`...) força o WhatsApp a buscar a prévia de novo.*
 
 ---
 

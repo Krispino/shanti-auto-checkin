@@ -232,6 +232,9 @@ recebe o essencial mesmo que não volte para a página depois.
 >
 > Boa estadia!
 
+*"Bem vinda" está no feminino fixo — se o hóspede for homem, trocar para
+"Bem vindo" (ou usar "Seja bem-vindo(a)") antes de mandar.*
+
 ---
 
 ## O que não escrever

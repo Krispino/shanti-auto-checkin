@@ -99,7 +99,14 @@ function criarEventoAgenda(data) {
     String(data.plataforma || '').trim()
   ].filter(String).join(' · ');
 
-  var cor = CORES_QUARTO[String(data.quartoKey || '').toLowerCase()];
+  // Sem acomodação informada (hóspede marcou "Não sei / não lembro"), o
+  // evento sai cinza — sinal visual pra Genilda de que esse cadastro precisa
+  // ser conferido na plataforma antes de tudo. Com acomodação informada, usa
+  // a cor do quarto (ou sem cor, no caso do Canindé, que não tem cor própria).
+  var quartoInformado = String(data.quarto || '').trim();
+  var cor = quartoInformado
+    ? CORES_QUARTO[String(data.quartoKey || '').toLowerCase()]
+    : CalendarApp.EventColor.GRAY;
 
   // Se o hóspede reenviar o formulário, atualiza o evento em vez de duplicar.
   // Casa pelo primeiro nome, que é o que agora abre o título.
@@ -162,7 +169,10 @@ Quando o hóspede marca "Não sei / não lembro" na acomodação, o app envia o
 quarto vazio e o título sai como
 `Primeiro nome · Configuração · QUARTO A CONFIRMAR · Plataforma` —
 o "QUARTO A CONFIRMAR" propositalmente chamativo, para aparecer na agenda
-como pendência.
+como pendência. O evento também sai **cinza** (Graphite) nesse caso,
+independente do quarto — cor reservada só pra isso, pra Genilda bater o olho
+e saber que aquele cadastro precisa ser conferido na plataforma antes de
+qualquer outra coisa.
 
 ## Data do evento — até o check-out, não até a véspera
 
@@ -187,11 +197,14 @@ essa sobreposição não aparecia na agenda.
 | Maytreia | Banana (amarelo) | `YELLOW` |
 | Mantra | Uva (roxo) | `MAUVE` |
 | Canindé | sem cor (padrão do calendário) | — |
+| *(acomodação não informada)* | Cinza (Graphite) | `GRAY` |
 
 O mapeamento foi levantado dos eventos lançados à mão entre maio e agosto de
 2026 e é consistente ao longo de todos eles. Quando o hóspede não informa a
-acomodação, o evento fica sem cor — junto com o `QUARTO A CONFIRMAR` no título,
-serve de sinal de que falta conferir na plataforma.
+acomodação, o evento fica cinza — diferente do Canindé, que também não tem
+cor própria mas fica sem cor nenhuma (padrão do calendário). O cinza, junto
+com o `QUARTO A CONFIRMAR` no título, é o sinal de que falta conferir a
+acomodação na plataforma.
 
 ---
 

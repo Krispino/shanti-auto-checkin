@@ -212,22 +212,21 @@ Opcional, mas é onde aparecem os pedidos que evitam problema na chegada.
 
 ---
 
-## 7b. Chegada é hoje e não avisou nada `/aindanaochegou`
+## 7b. Já chegou, mas não apertou o botão `/aindanaochegou`
 
-Mandar no fim do dia do check-in se o hóspede não apertou o botão nem mandou
-"cheguei" por conta própria. É a única mensagem que **pede** pra apertar o
-botão — a 8 (abaixo) só responde depois que ele já avisou de algum jeito.
+Mandar quando o Fabio já sabe que o hóspede chegou (viu, a Genilda avisou,
+etc.) mas ele não apertou "Confirmar minha chegada" nem mandou "cheguei" por
+conta própria. É a única mensagem que **pede** pra apertar o botão — a 8
+(abaixo) só responde depois que ele já avisou de algum jeito.
 
-> [Nome], tudo certo por aí? Vi que sua chegada é hoje.
+> [Nome], vi que você já chegou na Shanti!
 >
-> Se já estiver na Shanti, toca no botão "Confirmar minha chegada" na sua
-> página de chegada — [link] — que eu já libero ali os links de onde comer em
-> São Jorge e os melhores roteiros pra você aproveitar.
->
-> Se ainda estiver a caminho, só me avisa quando chegar.
+> Toca no botão "Confirmar minha chegada" na sua página de chegada — [link] —
+> que eu já libero ali os links de onde comer em São Jorge e os melhores
+> roteiros pra você aproveitar.
 
-*Não mandar se a chegada for de madrugada ou fora do horário comercial — vale
-esperar a manhã seguinte.*
+*Não mandar de madrugada ou fora do horário comercial — vale esperar a manhã
+seguinte.*
 
 ---
 

@@ -206,7 +206,7 @@ Opcional, mas é onde aparecem os pedidos que evitam problema na chegada.
 > na vila, então vale trazer algum dinheiro, e o último posto de combustível
 > fica em Alto Paraíso.
 >
-> Mais dicas que fazem diferença: https://shantipousada.com.br/chapada-dos-veadeiros/?utm_source=whatsapp&utm_medium=vespera&utm_content=dicas#dicas
+> Mais dicas que fazem diferença: https://checkin.shantipousada.com.br/dicas
 >
 > Boa estrada, e qualquer coisa me chama.
 
@@ -225,7 +225,7 @@ recebe o essencial mesmo que não volte para a página depois.
 > No nosso site tem tudo o que você precisa para começar agora: onde comer em
 > São Jorge, roteiros personalizados, infos sobre trilhas e cachoeiras e muito
 > mais.
-> https://shantipousada.com.br/chapada-dos-veadeiros/?utm_source=whatsapp&utm_medium=chegada&utm_content=dicas#dicas
+> https://checkin.shantipousada.com.br/dicas
 >
 > Qualquer coisa que precisar durante a estadia, quem cuida do dia a dia aqui
 > na pousada é a Genilda, nossa funcionária. Fala com ela direto por aqui:

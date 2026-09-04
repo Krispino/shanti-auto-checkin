@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
+import { Route as DicasRouteImport } from './routes/dicas'
 import { Route as ConfirmadoRouteImport } from './routes/confirmado'
 import { Route as ChegadaRouteImport } from './routes/chegada'
 import { Route as CadastroRouteImport } from './routes/cadastro'
@@ -19,6 +20,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const PrivacidadeRoute = PrivacidadeRouteImport.update({
   id: '/privacidade',
   path: '/privacidade',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DicasRoute = DicasRouteImport.update({
+  id: '/dicas',
+  path: '/dicas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConfirmadoRoute = ConfirmadoRouteImport.update({
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/cadastro': typeof CadastroRoute
   '/chegada': typeof ChegadaRoute
   '/confirmado': typeof ConfirmadoRoute
+  '/dicas': typeof DicasRoute
   '/privacidade': typeof PrivacidadeRoute
 }
 export interface FileRoutesByTo {
@@ -61,6 +68,7 @@ export interface FileRoutesByTo {
   '/cadastro': typeof CadastroRoute
   '/chegada': typeof ChegadaRoute
   '/confirmado': typeof ConfirmadoRoute
+  '/dicas': typeof DicasRoute
   '/privacidade': typeof PrivacidadeRoute
 }
 export interface FileRoutesById {
@@ -70,6 +78,7 @@ export interface FileRoutesById {
   '/cadastro': typeof CadastroRoute
   '/chegada': typeof ChegadaRoute
   '/confirmado': typeof ConfirmadoRoute
+  '/dicas': typeof DicasRoute
   '/privacidade': typeof PrivacidadeRoute
 }
 export interface FileRouteTypes {
@@ -80,9 +89,17 @@ export interface FileRouteTypes {
     | '/cadastro'
     | '/chegada'
     | '/confirmado'
+    | '/dicas'
     | '/privacidade'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/cadastro' | '/chegada' | '/confirmado' | '/privacidade'
+  to:
+    | '/'
+    | '/admin'
+    | '/cadastro'
+    | '/chegada'
+    | '/confirmado'
+    | '/dicas'
+    | '/privacidade'
   id:
     | '__root__'
     | '/'
@@ -90,6 +107,7 @@ export interface FileRouteTypes {
     | '/cadastro'
     | '/chegada'
     | '/confirmado'
+    | '/dicas'
     | '/privacidade'
   fileRoutesById: FileRoutesById
 }
@@ -99,6 +117,7 @@ export interface RootRouteChildren {
   CadastroRoute: typeof CadastroRoute
   ChegadaRoute: typeof ChegadaRoute
   ConfirmadoRoute: typeof ConfirmadoRoute
+  DicasRoute: typeof DicasRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
 }
 
@@ -109,6 +128,13 @@ declare module '@tanstack/react-router' {
       path: '/privacidade'
       fullPath: '/privacidade'
       preLoaderRoute: typeof PrivacidadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dicas': {
+      id: '/dicas'
+      path: '/dicas'
+      fullPath: '/dicas'
+      preLoaderRoute: typeof DicasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/confirmado': {
@@ -155,6 +181,7 @@ const rootRouteChildren: RootRouteChildren = {
   CadastroRoute: CadastroRoute,
   ChegadaRoute: ChegadaRoute,
   ConfirmadoRoute: ConfirmadoRoute,
+  DicasRoute: DicasRoute,
   PrivacidadeRoute: PrivacidadeRoute,
 }
 export const routeTree = rootRouteImport

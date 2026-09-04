@@ -12,6 +12,18 @@ import {
 } from "@/lib/shanti";
 import { ShantiLogo } from "@/components/shanti-logo";
 
+// Mesma foto de capa que cada página de acomodação já usa no site oficial
+// (og:image de shantipousada.com.br/acomodacoes/<quarto>) — evita reusar uma
+// foto ruim/desatualizada só pra prévia do link de chegada.
+const IMAGEM_QUARTO: Record<string, string> = {
+  caliandra: "https://shantipousada.com.br/content/ai-photos/caliandra/chapada-dos-veadeiros-sao-jorge-shanti-suite-caliandra-02.webp",
+  mangaba: "https://shantipousada.com.br/content/ai-photos/mangaba/chapada-dos-veadeiros-sao-jorge-shanti-suite-mangaba-02.webp",
+  caninde: "https://shantipousada.com.br/content/ai-photos/caninde/chapada-dos-veadeiros-sao-jorge-shanti-duplex-caninde-05.webp",
+  seriema: "https://shantipousada.com.br/content/ai-photos/seriema/chapada-dos-veadeiros-sao-jorge-shanti-duplex-seriema-07.webp",
+  maytreia: "https://shantipousada.com.br/content/ai-photos/maytreia/chapada-dos-veadeiros-sao-jorge-shanti-chale-maytreia-07.webp",
+  mantra: "https://shantipousada.com.br/content/ai-photos/mantra/chapada-dos-veadeiros-sao-jorge-shanti-chale-mantra-07.webp",
+};
+
 export const Route = createFileRoute("/chegada")({
   head: (ctx) => {
     // A prévia de marketing continua (o hóspede recebe este link e precisa
@@ -23,7 +35,7 @@ export const Route = createFileRoute("/chegada")({
     const quartoParam = String(search.quarto ?? search.acomodacao ?? "");
     const room = isRoomKey(quartoParam) ? rooms[quartoParam] : null;
     const imagem = room
-      ? `https://checkin.shantipousada.com.br/arquivos/quartos/${quartoParam}.jpg`
+      ? IMAGEM_QUARTO[quartoParam]
       : "https://checkin.shantipousada.com.br/arquivos/fachada.jpg";
     const descricao = room
       ? `Códigos de acesso, vídeo do caminho e orientações para a sua chegada n${room.article === "a" ? "a" : "o"} ${room.label}.`

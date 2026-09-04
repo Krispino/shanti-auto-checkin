@@ -186,14 +186,19 @@ function Admin() {
     return Date.now() >= entrada.getTime() - 24 * 60 * 60 * 1000;
   }
 
-  function abrirWhatsApp() {
-    if (!quarto) return;
+  // Usada tanto pelo botão de enviar quanto pelo de copiar — as duas vias
+  // precisam do texto completo, não só do link puro, e do lembrete de
+  // apertar "Confirmar minha chegada" ao chegar, que é o que fecha o
+  // processo (libera as dicas e o contato da Genilda pro hóspede).
+  function mensagemChegada(): string {
     const link = linkGerado || gerarLink();
-    if (!link) return;
+    if (!link || !quarto) return "";
     const room = rooms[quarto];
     const primeiroNome = nome ? nome.split(" ")[0] : "";
     const saudacao = primeiroNome ? `Olá, ${primeiroNome}!` : "Olá!";
-    const msg = codigosJaLiberados()
+    const lembreteBotao =
+      'Assim que chegar, não esqueça de tocar em "Confirmar minha chegada" na página — é o que fecha o processo e libera as dicas da viagem.';
+    return codigosJaLiberados()
       ? [
           `${saudacao} Recebemos o seu pré-check-in, obrigado.`,
           "",
@@ -201,6 +206,8 @@ function Admin() {
           link,
           "",
           `Nela estão o código do portão, o código do cofrinho com a chave ${room.article === "a" ? "da" : "do"} ${room.label} e um vídeo curto mostrando o caminho até o quarto. O check-in é a partir das 14h.`,
+          "",
+          lembreteBotao,
           "",
           "Boa viagem, e qualquer coisa é só chamar por aqui.",
         ].join("\n")
@@ -212,8 +219,15 @@ function Admin() {
           "",
           `Nela você encontra o endereço, o vídeo do caminho até ${room.article === "a" ? "a" : "o"} ${room.label} e as orientações da casa. Por segurança, o código do portão e o do cofrinho com a chave aparecem nessa mesma página no dia anterior à sua chegada.`,
           "",
+          lembreteBotao,
+          "",
           "Qualquer dúvida até lá, é só chamar por aqui.",
         ].join("\n");
+  }
+
+  function abrirWhatsApp() {
+    const msg = mensagemChegada();
+    if (!msg) return;
     window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, "_blank");
   }
 
@@ -459,10 +473,10 @@ ${link}` : null,
                 <div className="text-xs text-muted-foreground break-all">{linkGerado}</div>
                 <button
                   type="button"
-                  onClick={() => navigator.clipboard.writeText(linkGerado)}
+                  onClick={() => navigator.clipboard.writeText(mensagemChegada() || linkGerado)}
                   className="w-full rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-accent transition-colors"
                 >
-                  Copiar link
+                  Copiar mensagem
                 </button>
                 <button
                   type="button"

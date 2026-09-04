@@ -84,9 +84,10 @@ recepção e que sem ele a pessoa fica na porta é o que faz preencher na hora.*
 
 ## 2. Ele preencheu — enviar a página de chegada `/chegada`
 
-Esta o `/admin` já monta sozinha no botão "Enviar para hóspede no WhatsApp",
-com o link certo e o texto ajustado conforme falte mais ou menos de 24 horas.
-O texto abaixo é o mesmo, caso precise mandar à mão.
+Esta o `/admin` já monta sozinha nos botões "Copiar mensagem" e "Enviar para
+hóspede no WhatsApp" — os dois geram o mesmo texto completo, com o link certo
+e ajustado conforme falte mais ou menos de 24 horas. O texto abaixo é o
+mesmo, caso precise mandar à mão.
 
 **Faltando mais de um dia:**
 
@@ -99,6 +100,9 @@ O texto abaixo é o mesmo, caso precise mandar à mão.
 > orientações da casa. Por segurança, o código do portão e o do cofrinho com a
 > chave aparecem nessa mesma página no dia anterior à sua chegada.
 >
+> Assim que chegar, não esqueça de tocar em "Confirmar minha chegada" na
+> página — é o que fecha o processo e libera as dicas da viagem.
+>
 > Qualquer dúvida até lá, é só chamar por aqui.
 
 **Faltando menos de 24 horas:**
@@ -110,6 +114,9 @@ O texto abaixo é o mesmo, caso precise mandar à mão.
 >
 > Nela estão o código do portão, o código do cofrinho com a chave [do Quarto] e
 > um vídeo curto mostrando o caminho até o quarto. O check-in é a partir das 14h.
+>
+> Assim que chegar, não esqueça de tocar em "Confirmar minha chegada" na
+> página — é o que fecha o processo e libera as dicas da viagem.
 >
 > Boa viagem, e qualquer coisa é só chamar por aqui.
 

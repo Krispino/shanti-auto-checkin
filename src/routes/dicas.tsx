@@ -23,11 +23,11 @@ export const Route = createFileRoute("/dicas")({
       },
       {
         property: "og:image",
-        content: "https://checkin.shantipousada.com.br/arquivos/fachada.jpg",
+        content: "https://shantipousada.com.br/content/chapada/parque/saltos-carrossel/saltos-carrossel-parque-nacional-chapada-dos-veadeiros-06.webp",
       },
       {
         name: "twitter:image",
-        content: "https://checkin.shantipousada.com.br/arquivos/fachada.jpg",
+        content: "https://shantipousada.com.br/content/chapada/parque/saltos-carrossel/saltos-carrossel-parque-nacional-chapada-dos-veadeiros-06.webp",
       },
     ],
   }),

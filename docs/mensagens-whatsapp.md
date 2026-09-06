@@ -230,7 +230,7 @@ conta própria. É a única mensagem que **pede** pra apertar o botão — a 8
 >
 > Toca no botão "Confirmar minha chegada" na sua página de chegada — [link] —
 > que eu já libero ali os links de onde comer em São Jorge e os melhores
-> roteiros pra você aproveitar.
+> roteiros para você aproveitar.
 
 *Não mandar de madrugada ou fora do horário comercial — vale esperar a manhã
 seguinte.*
@@ -247,9 +247,9 @@ recebe o essencial mesmo que não volte para a página depois.
 
 > Bem vinda, [Nome]!
 >
-> No nosso site tem várias informações que podem ser muito úteis: onde comer
-> em São Jorge, roteiros personalizados, infos sobre trilhas e cachoeiras e
-> muito mais. https://checkin.shantipousada.com.br/dicas?v=3
+> Tem bastante coisa útil no nosso site para aproveitar os dias por aqui: onde
+> comer em São Jorge, roteiros, trilhas e cachoeiras.
+> https://checkin.shantipousada.com.br/dicas?v=3
 >
 > Qualquer coisa que precisar durante a estadia, quem cuida do dia a dia aqui
 > na pousada é a Genilda, nossa funcionária. Fala com ela direto por aqui:

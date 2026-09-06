@@ -88,8 +88,12 @@ function Chegada() {
     return () => clearInterval(id);
   }, []);
 
+  // Link genérico: sem checkin na URL, pra liberar acesso rápido a quem
+  // reservou e ainda não fez o pré-check-in. Fica sempre liberado, sem
+  // contagem regressiva nem nome — só os dados fixos do quarto escolhido.
+  const generico = !reserva.checkinUrl;
   const status = getStatus(reserva);
-  const liberado = status === "liberado";
+  const liberado = generico || status === "liberado";
   const firstName = reserva.rawNome
     ? reserva.rawNome.split(" ")[0]
     : "hóspede";
@@ -123,9 +127,13 @@ function Chegada() {
                 Olá, {firstName}
               </h1>
               <p className="mt-1 text-sm text-muted-foreground">
-                {reserva.room.label} · {reserva.noites} noite
-                {reserva.noites > 1 ? "s" : ""} · chegada{" "}
-                {formatDateShort(reserva.checkin)}
+                {generico
+                  ? reserva.room.label
+                  : <>
+                      {reserva.room.label} · {reserva.noites} noite
+                      {reserva.noites > 1 ? "s" : ""} · chegada{" "}
+                      {formatDateShort(reserva.checkin)}
+                    </>}
               </p>
             </div>
             <StatusBadge liberado={liberado} />
@@ -150,7 +158,7 @@ function Chegada() {
           {liberado ? (
             <>
               <div className="text-xs text-muted-foreground uppercase" style={{ letterSpacing: 2 }}>
-                Sua chegada é {hojeAmanha}
+                {generico ? "Acesso liberado" : `Sua chegada é ${hojeAmanha}`}
               </div>
               <div
                 className="mt-3 text-2xl md:text-3xl font-medium"

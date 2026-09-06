@@ -176,6 +176,15 @@ function Admin() {
     return link;
   }
 
+  // Link genérico: sem nome nem datas, só a acomodação — pra liberar acesso
+  // rápido a quem reservou mas ainda não fez o pré-check-in. A página de
+  // chegada trata a ausência de "checkin" na URL como sinal pra já vir
+  // liberada, sem contagem regressiva.
+  function gerarLinkGenerico(): string {
+    if (!quarto) return "";
+    return `https://checkin.shantipousada.com.br/chegada?quarto=${quarto}`;
+  }
+
   // Faltam menos de 24h para a chegada? Nesse caso os códigos já aparecem na
   // página, e a mensagem muda de "vai liberar" para "está tudo aí".
   function codigosJaLiberados(): boolean {
@@ -432,6 +441,16 @@ ${link}` : null,
               ))}
             </select>
           </div>
+
+          {quarto && (
+            <button
+              type="button"
+              onClick={() => navigator.clipboard.writeText(gerarLinkGenerico())}
+              className="w-full rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-accent transition-colors"
+            >
+              Copiar link genérico ({rooms[quarto].label}) — sem nome/data
+            </button>
+          )}
         </div>
 
         <div className="flex items-center gap-2 mt-2">

@@ -5,7 +5,11 @@ Textos prontos para colar. Trocar `[Nome]`, `[Quarto]` e `[link]`.
 No WhatsApp Business dá para salvar cada uma em **Configurações → Ferramentas
 comerciais → Respostas rápidas**, com o atalho sugerido em cada bloco.
 
-Voz da Shanti: parágrafos curtos, tom de conversa, sem lista de tópicos.
+Voz da Shanti no WhatsApp: parágrafos curtos, tom de conversa, sem lista de
+tópicos. Aqui é diferente do site — é você conversando de verdade com o
+hóspede, então "ok?" no fim de frase, contração ("pra", "tá") e emoji leve
+(🙏✌️) são bem-vindos. Firme quando precisa ser firme (multa, horário), mas
+sempre com calor.
 
 ---
 
@@ -25,7 +29,9 @@ errado.
 
 Esta é a que dispara sozinha quando a reserva entra, antes de qualquer conversa
 no WhatsApp. Confira se está assim em **todas** as plataformas — Booking,
-Airbnb, Expedia, Decolar — e no que a Innotel envia.
+Airbnb, Expedia, Decolar — e no que a Innotel envia. É a única mensagem deste
+doc que fica mais neutra — ainda não é uma conversa, é um disparo automático
+pra um número que o hóspede não conhece, então cara de golpe pesa mais aqui.
 
 > Olá, [Nome], obrigado pela reserva!
 >
@@ -45,37 +51,23 @@ Airbnb, Expedia, Decolar — e no que a Innotel envia.
 >
 > Qualquer dúvida, estou à disposição. Boa viagem!
 
-**O que mudou em relação à versão anterior:**
-
-O link era `tanstack-start-app.shanti-checkin.workers.dev`, que além de não ter
-cara de link da pousada tem cara de golpe — motivo pelo qual o domínio próprio
-foi configurado.
-
-"você receberá os códigos com antecedência" virou "aparecem no dia anterior à
-sua chegada". Antecedência é vago e faz o hóspede cobrar antes da hora.
-
-O "obrigada" no feminino ficou de quando a Paula respondia; hoje quem atende é
-o Fabio, e a mensagem passa a se identificar por nome — número desconhecido
-mandando link é o que mais parece golpe.
-
 ---
 
 ## 1b. Depois do "sim" — mandar o pré-check-in `/precheckin`
 
-> Ótimo! Então preciso que você faça o pré-check-in:
+> Ótimo! Então preciso que você faça o pré-check-in, pode ser?
 >
 > https://checkin.shantipousada.com.br
 >
-> Ele é o que destrava o seu acesso. A Shanti não tem recepção — o check-in é
-> feito por você mesmo, na hora que chegar — e é pelo formulário que eu te mando
-> o código do portão e o do cofrinho com a chave do seu quarto. Sem isso você
-> chega e fica na porta.
+> É rápido, leva uns 2 minutinhos. Como não temos recepção, é por ele que eu
+> te mando o código do portão e o da chave do quarto — sem isso você chega e
+> fica na porta, então não esquece, ok?
 >
-> Leva dois minutos. No fim aparece um botão que abre esta conversa com os seus
-> dados prontos: é só tocar em Enviar.
+> No fim aparece um botão que já abre esta conversa com seus dados prontos, é
+> só tocar em Enviar.
 >
-> Assim que receber, te mando a sua página de chegada, com o caminho e o vídeo
-> do quarto. Os códigos aparecem nela no dia anterior à sua chegada.
+> Assim que receber, te mando sua página de chegada, com o caminho e o vídeo
+> do quarto 🙏
 
 *Enquanto o pré-check-in parecer papelada, fica para depois. Dizer que não há
 recepção e que sem ele a pessoa fica na porta é o que faz preencher na hora.*
@@ -91,34 +83,36 @@ mesmo, caso precise mandar à mão.
 
 **Faltando mais de um dia:**
 
-> Olá, [Nome]! Recebemos o seu pré-check-in, obrigado. Está tudo anotado aqui.
+> Olá, [Nome]! Recebemos seu pré-check-in, obrigado — já está tudo anotado
+> aqui.
 >
-> Esta é a sua página de chegada:
+> Esta é sua página de chegada:
 > [link]
 >
 > Nela você encontra o endereço, o vídeo do caminho até [o Quarto] e as
-> orientações da casa. Por segurança, o código do portão e o do cofrinho com a
-> chave aparecem nessa mesma página no dia anterior à sua chegada.
+> orientações da casa. Por segurança, o código do portão e o do cofrinho com
+> a chave aparecem nessa mesma página no dia anterior à sua chegada.
 >
-> Assim que chegar, não esqueça de tocar em "Confirmar minha chegada" na
-> página — é o que fecha o processo e libera as dicas da viagem.
+> Assim que chegar, não esquece de tocar em "Confirmar minha chegada" na
+> página, ok? É o que fecha o processo e libera as dicas da viagem.
 >
-> Qualquer dúvida até lá, é só chamar por aqui.
+> Qualquer dúvida até lá, é só chamar por aqui 🙏
 
 **Faltando menos de 24 horas:**
 
-> Olá, [Nome]! Recebemos o seu pré-check-in, obrigado.
+> Olá, [Nome]! Recebemos seu pré-check-in, obrigado.
 >
-> Esta é a sua página de chegada:
+> Esta é sua página de chegada:
 > [link]
 >
-> Nela estão o código do portão, o código do cofrinho com a chave [do Quarto] e
-> um vídeo curto mostrando o caminho até o quarto. O check-in é a partir das 14h.
+> Nela estão o código do portão, o código do cofrinho com a chave [do Quarto]
+> e um vídeo curto mostrando o caminho até o quarto. O check-in é a partir
+> das 14h.
 >
-> Assim que chegar, não esqueça de tocar em "Confirmar minha chegada" na
-> página — é o que fecha o processo e libera as dicas da viagem.
+> Assim que chegar, não esquece de tocar em "Confirmar minha chegada" na
+> página, ok? É o que fecha o processo e libera as dicas da viagem.
 >
-> Boa viagem, e qualquer coisa é só chamar por aqui.
+> Boa viagem, e qualquer coisa é só chamar por aqui ✌️
 
 ---
 
@@ -130,22 +124,22 @@ sem digitar nome — o nome do documento às vezes é diferente do nome do anún
 
 **Se achou o cadastro:**
 
-> Achei sim, [Nome], está tudo certo por aqui. Obrigado!
+> Achei sim, [Nome], está tudo certo por aqui! Obrigado.
 >
-> Esta é a sua página de chegada:
+> Esta é sua página de chegada:
 > [link]
 >
 > [seguir com o parágrafo do caso 2, conforme a data]
 
 **Se não achou:**
 
-> [Nome], procurei aqui e não localizei o seu cadastro. Deve ter faltado o
-> último passo: no fim do formulário aparece um botão que abre esta conversa
-> com os seus dados, e é preciso tocar em Enviar.
+> [Nome], procurei aqui e não achei seu cadastro. Deve ter faltado o último
+> passo: no fim do formulário aparece um botão que abre esta conversa com
+> seus dados, e é preciso tocar em Enviar.
 >
 > Pode tentar de novo por aqui? https://checkin.shantipousada.com.br
 >
-> Se der qualquer erro, me fala que a gente resolve por aqui mesmo.
+> Se der qualquer erro, me chama que a gente resolve por aqui mesmo 🙏
 
 ---
 
@@ -157,16 +151,16 @@ pessoa precisa é entrar.
 > Olá, [Nome]! Sua reserva está confirmada, e como sua chegada é logo, vou
 > direto ao que importa.
 >
-> Esta é a sua página de chegada:
+> Esta é sua página de chegada:
 > [link]
 >
-> Nela estão o código do portão, o código do cofrinho com a chave [do Quarto] e
-> um vídeo curto mostrando o caminho. O check-in é a partir das 14h.
+> Nela estão o código do portão, o código do cofrinho com a chave [do Quarto]
+> e um vídeo curto mostrando o caminho. O check-in é a partir das 14h.
 >
 > Quando puder, preenche o pré-check-in com calma, é rapidinho:
 > https://checkin.shantipousada.com.br
 >
-> Boa viagem!
+> Boa viagem! ✌️
 
 ---
 
@@ -174,30 +168,30 @@ pessoa precisa é entrar.
 
 Mandar no dia anterior à chegada. Uma vez só.
 
-> [Nome], sua chegada na Shanti é amanhã.
+> [Nome], sua chegada na Shanti é amanhã!
 >
-> Ainda não recebi o seu pré-check-in, e ele é o que destrava o seu acesso: como
-> não temos recepção, é por ele que eu te mando o código do portão e o da chave
-> do quarto. Sem isso você chega e fica na porta.
+> Ainda não recebi seu pré-check-in, e ele é o que destrava seu acesso: como
+> não temos recepção, é por ele que eu te mando o código do portão e o da
+> chave do quarto. Sem isso você chega e fica na porta.
 >
 > Dá para resolver agora, leva dois minutos:
 > https://checkin.shantipousada.com.br
 >
-> Se preferir, me manda por aqui mesmo o nome completo e o documento de quem vai
-> ficar, que eu preencho daqui.
+> Se preferir, me manda por aqui mesmo o nome completo e o documento de quem
+> vai ficar, que eu preencho daqui 🙏
 
 ---
 
 ## 6. "Cadê os códigos?" antes das 24 horas `/codigos`
 
-> [Nome], os códigos aparecem na sua página de chegada no dia anterior — é uma
-> segurança para todo mundo que se hospeda aqui, para que o código do portão
-> não fique circulando com semanas de antecedência.
+> [Nome], os códigos aparecem na sua página de chegada no dia anterior — é
+> uma segurança para todo mundo que se hospeda aqui, pra que o código do
+> portão não fique circulando com semanas de antecedência, ok?
 >
 > A página é esta, e pode guardar: [link]
 >
-> Amanhã, ao abrir, o código do portão e o do cofrinho com a chave já vão estar
-> lá, junto com o vídeo do caminho.
+> Amanhã, ao abrir, o código do portão e o do cofrinho com a chave já vão
+> estar lá, junto com o vídeo do caminho.
 
 ---
 
@@ -205,17 +199,17 @@ Mandar no dia anterior à chegada. Uma vez só.
 
 Opcional, mas é onde aparecem os pedidos que evitam problema na chegada.
 
-> [Nome], tudo pronto para amanhã por aqui.
+> [Nome], tudo pronto para amanhã por aqui!
 >
 > Sua página de chegada, com os códigos e o vídeo do caminho: [link]
 >
-> Duas coisas que ajudam antes de subir para São Jorge: não há caixa eletrônico
-> na vila, então vale trazer algum dinheiro, e o último posto de combustível
-> fica em Alto Paraíso.
+> Duas coisas que ajudam antes de subir para São Jorge: não há caixa
+> eletrônico na vila, então vale trazer algum dinheiro, e o último posto de
+> combustível fica em Alto Paraíso.
 >
 > Mais dicas que fazem diferença: https://checkin.shantipousada.com.br/dicas?v=3
 >
-> Boa estrada, e qualquer coisa me chama.
+> Boa estrada, e qualquer coisa me chama 🙏
 
 ---
 
@@ -228,9 +222,9 @@ conta própria. É a única mensagem que **pede** pra apertar o botão — a 8
 
 > [Nome], vi que você já chegou na Shanti!
 >
-> Toca no botão "Confirmar minha chegada" na sua página de chegada — [link] —
-> que eu já libero ali os links de onde comer em São Jorge e os melhores
-> roteiros para você aproveitar.
+> Toca no botão "Confirmar minha chegada" na sua página de chegada — [link]
+> — que eu já libero ali os links de onde comer em São Jorge e os melhores
+> roteiros pra você aproveitar ✌️
 
 *Não mandar de madrugada ou fora do horário comercial — vale esperar a manhã
 seguinte.*
@@ -245,26 +239,23 @@ mesmo acontece quando ele avisa "cheguei" solto, sem passar pelo botão. Nos
 dois casos a resposta é esta, com os links direto na mensagem: assim ele
 recebe o essencial mesmo que não volte para a página depois.
 
-> Bem vinda, [Nome]!
+> Que bom que chegou bem! Fica à vontade.
 >
-> Tem bastante coisa útil no nosso site para aproveitar os dias por aqui: onde
-> comer em São Jorge, roteiros, trilhas e cachoeiras.
+> Dá uma olhada no nosso site que tem bastante coisa útil pra aproveitar os
+> dias por aqui: onde comer em São Jorge, roteiros, trilhas e cachoeiras.
 > https://checkin.shantipousada.com.br/dicas?v=3
 >
-> Qualquer coisa que precisar durante a estadia, quem cuida do dia a dia aqui
-> na pousada é a Genilda, nossa funcionária. Fala com ela direto por aqui:
+> Qualquer coisa que precisar durante a estadia, quem cuida do dia a dia
+> aqui é a Genilda, é só chamar ela direto por aqui:
 > https://wa.me/5562998546284
 >
-> Boa estadia!
+> Boa estadia! ✌️🙏
 
-*"Bem vinda" está no feminino fixo — se o hóspede for homem, trocar para
-"Bem vindo" (ou usar "Seja bem-vindo(a)") antes de mandar.*
-
-*O `?v=2` no link de dicas existe pra furar o cache de prévia do WhatsApp —
+*O `?v=3` no link de dicas existe pra furar o cache de prévia do WhatsApp —
 sem ele, quem já recebeu esse link antes (ou o WhatsApp já "descobriu" essa
 URL) continua vendo a prévia antiga, mesmo com a página atualizada. Se a foto
-ou o texto de `/dicas` mudar de novo no futuro, subir esse número (`?v=3`,
-`?v=4`...) força o WhatsApp a buscar a prévia de novo.*
+ou o texto de `/dicas` mudar de novo no futuro, subir esse número (`?v=4`,
+`?v=5`...) força o WhatsApp a buscar a prévia de novo.*
 
 ---
 

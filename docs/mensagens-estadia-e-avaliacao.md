@@ -7,10 +7,11 @@ principalmente o pedido de avaliação pós-checkout e as respostas de política
 Atualizados aqui: remetente é o Fabio, número é o `WHATSAPP_SHANTI`
 ((62) 99968-1569), Instagram é @shantipousada.
 
-Voz da Shanti: parágrafos curtos, tom de conversa, sem lista de tópicos, sem
-contração escrita (não "pra", "tá" — sempre "para", "está").
+Voz da Shanti no WhatsApp: parágrafos curtos, tom de conversa. Aqui é você
+falando de verdade com o hóspede — "ok?", contração ("pra") e emoji leve
+(🙏✌️) são bem-vindos, sem perder a firmeza quando é preciso (multa, horário).
 
-Servem pra dois usos: respostas rápidas do WhatsApp Business, e conhecimento
+Servem para dois usos: respostas rápidas do WhatsApp Business, e conhecimento
 do agente de IA (Innotel), já que cobrem perguntas frequentes que o bot
 provavelmente vai receber.
 
@@ -21,13 +22,15 @@ provavelmente vai receber.
 Mandar cedo (por volta das 8h) no dia da saída — antecipa a saída em vez de
 cobrar na hora.
 
-> Bom dia, [Nome]! Só lembrando: o checkout é até o meio-dia. Ao sair, deixe
-> a chave na maçaneta da acomodação, do lado de fora, e nos avise por aqui.
+> Bom dia, [Nome]! Só lembrando: o checkout é até o meio-dia, impreterivelmente
+> — precisamos do tempo para preparar a acomodação pros próximos hóspedes.
+> Qualquer atraso está sujeito a multa.
 >
-> Late checkout sob consulta, é só chamar.
+> Ao sair, deixa a chave na maçaneta da acomodação, do lado de fora, e nos
+> avisa por aqui, ok?
 >
-> Obrigado pela estadia — esperamos que a Chapada tenha valido a viagem. Se
-> tiver alguma sugestão, fica à vontade pra mandar.
+> Muito obrigado pela estadia! Se tiver alguma sugestão pra melhorar nossos
+> serviços, fica à vontade para mandar o feedback ✌️🙏
 
 ---
 
@@ -36,15 +39,15 @@ cobrar na hora.
 Mandar separado do checkout, não junto — funciona melhor quando o hóspede já
 chegou em casa e está tranquilo, não saindo com pressa.
 
-> Olá, [Nome], espero que a viagem de volta tenha sido tranquila.
+> Olá, [Nome]! Espero que a viagem de volta tenha sido tranquila.
 >
 > Se tiver um momento, uma avaliação no Google ou na plataforma que você
-> reservou faz muita diferença para nós. Qualquer feedback, bom ou ruim, é
+> reservou faz muita diferença pra gente. Qualquer feedback, bom ou ruim, é
 > bem-vindo.
 >
-> Quando quiser voltar à Chapada, é só chamar.
+> Quando quiser voltar à Chapada, é só chamar 🙏
 >
-> Segue a gente no Instagram para dicas da região e novidades da Shanti:
+> Segue a gente no Instagram pra dicas da região e novidades da Shanti:
 > @shantipousada
 
 *Nunca prometer ou insinuar troca de benefício por avaliação (voucher,
@@ -54,13 +57,20 @@ violação e o risco é suspensão do perfil. Isso já está documentado em
 
 ---
 
+## Agradecimento pós-avaliação
+
+> Muito obrigado! É sempre bom receber quem se identifica com nossa proposta.
+> Se sentir vontade de deixar uma avaliação, é sempre de grande valor pra
+> nós. Forte abraço ✌️🙏
+
+---
+
 ## Pedido de early check-in
 
-> Olá, [Nome], recebemos seu pedido de check-in antecipado.
+> Olá, [Nome], recebemos seu pedido de check-in antecipado!
 >
-> Nosso horário padrão é a partir das 14h. Entrada antes desse horário
-> depende da disponibilidade do quarto no dia — te confirmo assim que
-> souber.
+> Nosso horário padrão é a partir das 14h. Entrada antes disso depende da
+> disponibilidade do quarto no dia — te confirmo assim que souber, ok?
 
 ---
 
@@ -68,20 +78,20 @@ violação e o risco é suspensão do perfil. Isso já está documentado em
 
 > Olá, [Nome], recebemos seu pedido de late checkout.
 >
-> Nosso horário padrão de saída é até o meio-dia. Para estender, os valores
+> Nosso horário padrão de saída é até o meio-dia. Pra estender, os valores
 > são, sobre a diária:
 >
 > Saída até 14h: 25%
 > Saída entre 14h e 18h: 50%
 > Saída depois das 18h: 100%
 >
-> Sujeito à disponibilidade. Para confirmar, é só chamar por aqui.
+> Sujeito à disponibilidade. Pra confirmar, é só chamar por aqui 🙏
 
 ---
 
 ## Estacionamento
 
-> Olá, [Nome], não temos estacionamento interno, mas dá para estacionar
+> Olá, [Nome], não temos estacionamento interno, mas dá pra estacionar
 > gratuitamente ao longo da rua — é bem tranquilo aqui em São Jorge.
 
 ---
@@ -89,7 +99,7 @@ violação e o risco é suspensão do perfil. Isso já está documentado em
 ## Fumantes
 
 > Olá, [Nome], todos os quartos e áreas internas da Shanti são para
-> não-fumantes. O descumprimento está sujeito a multa.
+> não-fumantes, ok? O descumprimento está sujeito a multa.
 >
 > Nas áreas externas da propriedade, pode fumar à vontade.
 
@@ -97,20 +107,20 @@ violação e o risco é suspensão do perfil. Isso já está documentado em
 
 ## Preferência de cama
 
-> Olá, [Nome], vamos fazer o possível para atender sua preferência de cama.
+> Olá, [Nome], vamos fazer o possível pra atender sua preferência de cama.
 >
 > A confirmação depende da disponibilidade no momento do check-in. Qualquer
-> dúvida, é só chamar por aqui.
+> dúvida, é só chamar por aqui 🙏
 
 ---
 
 ## Confirmação automática de reserva (Booking.com, não WhatsApp)
 
 Esse é o texto que o próprio Booking.com dispara sozinho, configurado no
-Template Scheduler deles — não é mensagem manual. Deixo aqui porque é
-conteúdo relacionado, e porque o bot do Innotel deve saber que essa mensagem
-já existe (evita repetir a mesma informação de dois jeitos diferentes pro
-hóspede).
+Template Scheduler deles — não é mensagem manual, e por não ser conversa,
+fica mais neutro, sem "ok?"/emoji. Deixo aqui porque é conteúdo relacionado,
+e porque o bot do Innotel deve saber que essa mensagem já existe (evita
+repetir a mesma informação de dois jeitos diferentes para o hóspede).
 
 > Olá, [Nome], reserva confirmada!
 >

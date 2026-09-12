@@ -61,7 +61,7 @@ aparelho. Tem um "sair deste aparelho" na tela para limpar o acesso local.
    WhatsApp com uma confirmação curta (não é uma tela morta).
 5. O Fabio usa `/admin` pra gerar o link de `/chegada` e mandar pelo
    WhatsApp — a mensagem muda de texto conforme falte mais ou menos de 24h
-   pra chegada (`docs/mensagens-whatsapp.md` tem os textos de referência,
+   pra chegada (`docs/mensagens.md` tem os textos de referência,
    incluindo a mensagem automática das OTAs).
 6. Em `/chegada`, liberado 24h antes: códigos do portão/cofrinho e vídeo.
    Confirmar chegada abre WhatsApp e mostra um card convidando pros
@@ -112,7 +112,9 @@ aparelho. Tem um "sair deste aparelho" na tela para limpar o acesso local.
 
 - `docs/apps-script-agenda.md` — código completo do `doPost`/Apps Script:
   criação de evento na agenda com cor por quarto, e o e-mail de aviso.
-- `docs/mensagens-whatsapp.md` — textos prontos para as situações mais
-  comuns (primeiro contato, lembrete, cadastro perdido, chegada de última
-  hora, mensagem automática das OTAs).
+- `docs/mensagens.md` — arquivo único com TODO o texto de atendimento:
+  respostas rápidas do WhatsApp, mensagens automáticas das OTAs, vouchers,
+  políticas e conhecimento do bot. Cada mensagem traz o tom Fabio e o tom
+  formal quando eles diferem (decisão de qual usar ainda em aberto). Regra
+  de negócio do voucher fica em `SHANTI BIG PICTURE/docs/sistema-vouchers.md`.
 - `docs/especificacoes.md` — especificação original do app.

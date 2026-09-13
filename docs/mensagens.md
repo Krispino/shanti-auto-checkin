@@ -36,7 +36,7 @@ aparecem quando o texto muda de verdade.
 
 # 1. Reserva confirmada (antes de qualquer conversa)
 
-## 1.1 Mensagem automática das OTAs `/1-ota`
+## 1.1 Mensagem automática das OTAs `/reservaOta`
 
 Dispara sozinha quando a reserva entra. Conferir se está assim em **todas** as
 plataformas — Booking, Airbnb, Expedia, Decolar — e no que a Innotel envia. É
@@ -64,7 +64,7 @@ neutra: cara de golpe pesa mais aqui. **Versão única, não tem tom Fabio.**
 
 ---
 
-## 1.2 Confirmação automática do Booking.com `/2-booking`
+## 1.2 Confirmação automática do Booking.com `/reservaBooking`
 
 Texto que o próprio Booking.com dispara pelo Template Scheduler deles — não é
 mensagem manual nem conversa. **Versão única.** O bot do Innotel deve saber
@@ -79,7 +79,7 @@ que essa mensagem existe, para não repetir a mesma informação de outro jeito.
 
 ---
 
-## 1.3 Reserva confirmada — pré-check-in obrigatório (manual) `/3-confirmada`
+## 1.3 Reserva confirmada — pré-check-in obrigatório (manual) `/reservaConfirmada`
 
 Quando o Fabio confirma a reserva à mão (reserva direta, ou OTA cujo
 automático não cobriu).
@@ -120,7 +120,7 @@ automático não cobriu).
 
 ---
 
-## 1.4 Pagamento — 50% de sinal via Pix `/4-sinal`
+## 1.4 Pagamento — 50% de sinal via Pix `/reservaSinal`
 
 Para reserva direta. **O CNPJ e o nome completo ficam só neste doc interno —
 nunca em conteúdo público do site ou redes sociais.**
@@ -159,7 +159,7 @@ nunca em conteúdo público do site ou redes sociais.**
 
 # 2. Primeiro contato e pré-check-in
 
-## 2.1 Abertura — confirmar a reserva `/5-oi`
+## 2.1 Abertura — confirmar a reserva `/contatoOi`
 
 Primeiro contato vai **sem link**. Link frio de número desconhecido tem a
 mesma cara de golpe, e confirmar antes evita mandar acesso para o número
@@ -171,7 +171,7 @@ errado. **Versão única** (as duas versões são iguais).
 
 ---
 
-## 2.2 Depois do "sim" — mandar o pré-check-in `/6-precheckin`
+## 2.2 Depois do "sim" — mandar o pré-check-in `/contatoPrecheckin`
 
 **Tom Fabio:**
 
@@ -211,7 +211,7 @@ recepção e que sem ele a pessoa fica na porta é o que faz preencher na hora.*
 
 ---
 
-## 2.3 "Já preenchi e não chegou nada" `/7-japreencheu`
+## 2.3 "Já preenchi e não chegou nada" `/contatoAchei` `/contatoNaoachei`
 
 Acontece quando o hóspede preenche e não toca em Enviar na conversa que o app
 abre. **Antes de responder, confira no `/admin`:** busque pela data de
@@ -243,7 +243,7 @@ aqui mesmo." (sem 🙏).
 
 ---
 
-## 2.4 Lembrete de quem não preencheu `/8-lembrete`
+## 2.4 Lembrete de quem não preencheu `/contatoLembrete`
 
 Mandar no dia anterior à chegada. Uma vez só.
 
@@ -267,7 +267,7 @@ Mandar no dia anterior à chegada. Uma vez só.
 
 # 3. Chegada
 
-## 3.1 Enviar a página de chegada `/9-chegada`
+## 3.1 Enviar a página de chegada `/chegadaPadrao`
 
 O `/admin` já monta esta mensagem nos botões "Copiar mensagem" e "Enviar para
 hóspede no WhatsApp" — os dois geram o mesmo texto, com o link certo e
@@ -345,7 +345,7 @@ caso precise mandar à mão.
 
 ---
 
-## 3.2 Chegada de última hora, sem preenchimento `/10-ultimahora`
+## 3.2 Chegada de última hora, sem preenchimento `/chegadaUltimahora`
 
 Reserva feita em cima da hora não vale insistir no formulário: o que essa
 pessoa precisa é entrar.
@@ -370,7 +370,7 @@ pessoa precisa é entrar.
 
 ---
 
-## 3.3 "Cadê os códigos?" antes das 24 horas `/11-codigos`
+## 3.3 "Cadê os códigos?" antes das 24 horas `/chegadaCodigos`
 
 **Tom Fabio:**
 
@@ -387,7 +387,7 @@ pessoa precisa é entrar.
 
 ---
 
-## 3.4 Véspera da chegada `/12-vespera`
+## 3.4 Véspera da chegada `/chegadaVespera`
 
 Opcional, mas é onde aparecem os pedidos que evitam problema na chegada.
 
@@ -409,7 +409,7 @@ Opcional, mas é onde aparecem os pedidos que evitam problema na chegada.
 
 ---
 
-## 3.5 Já chegou, mas não apertou o botão `/13-aindanaochegou`
+## 3.5 Já chegou, mas não apertou o botão `/chegadaAindanaochegou`
 
 Mandar quando o Fabio já sabe que o hóspede chegou (viu, a Genilda avisou)
 mas ele não apertou "Confirmar minha chegada" nem mandou "cheguei" por conta
@@ -431,7 +431,7 @@ seguinte.*
 
 ---
 
-## 3.6 Já chegou `/14-chegou`
+## 3.6 Já chegou `/chegadaChegou`
 
 O "Confirmar minha chegada" da página de chegada abre esta conversa com uma
 mensagem pronta, e o hóspede sai da página ao tocar em Enviar — o mesmo
@@ -460,7 +460,7 @@ a buscar a prévia de novo.*
 
 ---
 
-## 3.7 Chegada antecipada negada (acomodação ocupada) `/15-semantecipada`
+## 3.7 Chegada antecipada negada (acomodação ocupada) `/chegadaSemantecipada`
 
 **Tom Fabio:**
 
@@ -482,7 +482,7 @@ a buscar a prévia de novo.*
 
 ---
 
-## 3.8 Chegada antecipada liberada (sem reserva no dia) `/16-antecipada`
+## 3.8 Chegada antecipada liberada (sem reserva no dia) `/chegadaAntecipada`
 
 **Tom Fabio:**
 
@@ -500,7 +500,7 @@ a buscar a prévia de novo.*
 
 # 4. Durante a estadia
 
-## 4.1 Oferecer suporte + Instagram `/17-estadia`
+## 4.1 Oferecer suporte + Instagram `/estadiaSuporte`
 
 Instagram é `@shantipousada` (o antigo `espaco_shanti_saojorge` não existe
 mais).
@@ -523,7 +523,7 @@ mais).
 
 ---
 
-## 4.2 Aviso de silêncio — para todos os hóspedes `/18-silencio`
+## 4.2 Aviso de silêncio — para todos os hóspedes `/estadiaSilencio`
 
 **Tom Fabio:**
 
@@ -553,7 +553,7 @@ mais).
 
 ---
 
-## 4.3 Limpeza da cozinha coletiva — para todos os hóspedes `/19-cozinha`
+## 4.3 Limpeza da cozinha coletiva — para todos os hóspedes `/estadiaCozinha`
 
 **Tom Fabio:**
 
@@ -576,7 +576,7 @@ mais).
 
 ---
 
-## 4.4 Cozinha coletiva — argumento para reserva direta em grupo `/20-cozinhagrupo`
+## 4.4 Cozinha coletiva — argumento para reserva direta em grupo `/estadiaCozinhagrupo`
 
 **Tom Fabio:**
 
@@ -586,7 +586,7 @@ mais).
 
 ---
 
-## 4.5 Problema na acomodação — oferta de troca `/21-problema`
+## 4.5 Problema na acomodação — oferta de troca `/estadiaProblema`
 
 **Tom Fabio:**
 
@@ -607,37 +607,10 @@ mais).
 
 # 5. Checkout
 
-## 5.1 Manhã do checkout `/22-checkout`
+## 5.1 Manhã do checkout `/checkoutManha`
 
 Mandar cedo (por volta das 8h) no dia da saída — antecipa a saída em vez de
-cobrar na hora. **Redundante com o item 5.2** — usar uma ou outra, não as
-duas.
-
-**Tom Fabio:**
-
-> Bom dia, [Nome]! Só lembrando: o checkout é até o meio-dia,
-> impreterivelmente — precisamos do tempo para preparar a acomodação pros
-> próximos hóspedes. Qualquer atraso está sujeito a multa.
->
-> Ao sair, deixa a chave na maçaneta da acomodação, do lado de fora, e nos
-> avisa por aqui, ok?
->
-> Muito obrigado pela estadia! Se tiver alguma sugestão pra melhorar nossos
-> serviços, fica à vontade para mandar o feedback ✌️🙏
-
-**Tom formal:**
-
-> Bom dia, [Nome]! Só lembrando: o checkout é até o meio-dia. Ao sair, deixe
-> a chave na maçaneta da acomodação, do lado de fora, e nos avise por aqui.
->
-> Late checkout sob consulta, é só chamar.
->
-> Obrigado pela estadia — esperamos que a Chapada tenha valido a viagem. Se
-> tiver alguma sugestão, fica à vontade para mandar.
-
----
-
-## 5.2 Instruções de checkout (versão mais firme) `/23-checkout2`
+cobrar na hora.
 
 **Tom Fabio:**
 
@@ -655,7 +628,7 @@ duas.
 
 # 6. Pós-estadia
 
-## 6.1 Pedido de avaliação (1 dia após o checkout) `/24-avaliacao`
+## 6.1 Pedido de avaliação (1 dia após o checkout) `/posAvaliacao`
 
 Mandar separado do checkout, não junto — funciona melhor quando o hóspede já
 chegou em casa e está tranquilo.
@@ -692,7 +665,7 @@ violação e o risco é suspensão do perfil. Ver "O que não escrever".*
 
 ---
 
-## 6.2 Agradecimento pós-avaliação `/25-obrigadoavaliacao`
+## 6.2 Agradecimento pós-avaliação `/posObrigado`
 
 **Tom Fabio:**
 
@@ -702,7 +675,7 @@ violação e o risco é suspensão do perfil. Ver "O que não escrever".*
 
 ---
 
-## 6.3 Agradecimento pós-estadia + pedido de sugestão `/26-sugestao`
+## 6.3 Agradecimento pós-estadia + pedido de sugestão `/posSugestao`
 
 Diferente do pedido de avaliação — aqui não se menciona avaliação, só
 feedback interno. Usar quando não fizer sentido pedir avaliação pública ainda
@@ -736,7 +709,7 @@ Desconto: **10% padrão** para todo hóspede pós-estadia. **12% a 18% variável
 e o vínculo avaliação↔desconto só pode ser dito por WhatsApp, **nunca em
 página, post ou qualquer lugar indexável pelo Google**.
 
-### Envio do voucher — padrão (quem NÃO avaliou) `/27-voucher`
+### Envio do voucher — padrão (quem NÃO avaliou) `/voucherPadrao`
 
 **Tom Fabio:**
 
@@ -767,7 +740,7 @@ página, post ou qualquer lugar indexável pelo Google**.
 >
 > Guarde esse número.
 
-### Envio do voucher — quem avaliou (12–18%) `/28-voucheravaliou`
+### Envio do voucher — quem avaliou (12–18%) `/voucherAvaliou`
 
 Só enviar depois de **conferir que a avaliação está publicada**. Nunca
 prometer antes.
@@ -800,7 +773,7 @@ prometer antes.
 >
 > Guarde esse número.
 
-### Código usado por indicação — avisar o hóspede original `/29-voucherusado`
+### Código usado por indicação — avisar o hóspede original `/voucherUsado`
 
 **Tom Fabio:**
 
@@ -820,7 +793,7 @@ prometer antes.
 > também com 10% de desconto, válido por 12 meses. Esperamos te ver de novo
 > por aqui.
 
-### Régua de reativação sazonal `/30-voucherlembrete`
+### Régua de reativação sazonal `/voucherLembrete`
 
 3–4x por ano, para hóspedes com voucher não usado. Frequência baixa, tom
 sóbrio, nunca mais de 1x por gatilho sazonal. Nunca urgência artificial tipo
@@ -848,7 +821,7 @@ sóbrio, nunca mais de 1x por gatilho sazonal. Nunca urgência artificial tipo
 
 # 7. Políticas e pedidos pontuais
 
-## 7.1 Early check-in `/31-early`
+## 7.1 Early check-in `/politicaEarly`
 
 **Tom Fabio:**
 
@@ -866,7 +839,7 @@ sóbrio, nunca mais de 1x por gatilho sazonal. Nunca urgência artificial tipo
 
 ---
 
-## 7.2 Late checkout `/32-late`
+## 7.2 Late checkout `/politicaLate`
 
 **Tom Fabio:**
 
@@ -885,7 +858,7 @@ sóbrio, nunca mais de 1x por gatilho sazonal. Nunca urgência artificial tipo
 
 ---
 
-## 7.3 Estacionamento `/33-estacionamento`
+## 7.3 Estacionamento `/politicaEstacionamento`
 
 **Versão única.**
 
@@ -896,7 +869,7 @@ sóbrio, nunca mais de 1x por gatilho sazonal. Nunca urgência artificial tipo
 
 ---
 
-## 7.4 Fumantes `/34-fumo`
+## 7.4 Fumantes `/politicaFumo`
 
 **Tom Fabio:**
 
@@ -914,7 +887,7 @@ sóbrio, nunca mais de 1x por gatilho sazonal. Nunca urgência artificial tipo
 
 ---
 
-## 7.5 Preferência de cama `/35-cama`
+## 7.5 Preferência de cama `/politicaCama`
 
 Só vale para a **Suíte Mangaba** (pode ser casal ou 2 solteiros) e o
 **Chalé Maytreia** (pode adicionar uma cama de solteiro extra além da de
@@ -938,7 +911,7 @@ indicou a preferência no cadastro.
 
 ---
 
-## 7.6 Faixa de preço (pergunta genérica de valor) `/36-preco`
+## 7.6 Faixa de preço (pergunta genérica de valor) `/politicaPreco`
 
 **Tom formal:**
 
@@ -948,7 +921,7 @@ indicou a preferência no cadastro.
 
 ---
 
-## 7.7 Oferta de upgrade de acomodação `/37-upgrade`
+## 7.7 Oferta de upgrade de acomodação `/politicaUpgrade`
 
 Aplica-se apenas às **suítes simples** (Caliandra e Mangaba). Se a reserva
 veio por OTA, o upgrade precisa ser feito na própria plataforma — o Fabio não
@@ -985,7 +958,7 @@ direto. Mandar **um dia antes da chegada** e confirmar o valor adicional.
 
 ---
 
-## 7.8 "Ainda tem interesse?" — reativar negociação `/38-interesse`
+## 7.8 "Ainda tem interesse?" — reativar negociação `/politicaInteresse`
 
 **Tom Fabio:**
 
@@ -996,7 +969,7 @@ direto. Mandar **um dia antes da chegada** e confirmar o valor adicional.
 
 ---
 
-## 7.9 Sem disponibilidade no período `/39-lotado`
+## 7.9 Sem disponibilidade no período `/politicaLotado`
 
 **Tom Fabio:**
 
@@ -1005,7 +978,7 @@ direto. Mandar **um dia antes da chegada** e confirmar o valor adicional.
 
 ---
 
-## 7.10 Cancelamento em cima da hora — explicando a política `/40-cancelamento`
+## 7.10 Cancelamento em cima da hora — explicando a política `/politicaCancelamento`
 
 **Tom Fabio:**
 
@@ -1040,7 +1013,7 @@ direto. Mandar **um dia antes da chegada** e confirmar o valor adicional.
 
 ---
 
-## 7.11 Segurança e localização da Vila `/41-vila`
+## 7.11 Segurança e localização da Vila `/politicaVila`
 
 **Tom Fabio:**
 
@@ -1050,7 +1023,7 @@ direto. Mandar **um dia antes da chegada** e confirmar o valor adicional.
 
 ---
 
-## 7.12 Não aceita pets `/42-pets`
+## 7.12 Não aceita pets `/politicaPets`
 
 **Tom Fabio:**
 
@@ -1067,7 +1040,7 @@ direto. Mandar **um dia antes da chegada** e confirmar o valor adicional.
 
 ---
 
-## 7.13 Indicação — captar quem está procurando hospedagem `/43-indicacao`
+## 7.13 Indicação — captar quem está procurando hospedagem `/politicaIndicacao`
 
 **Tom Fabio:**
 
@@ -1102,7 +1075,7 @@ Mensagens para enviar quando o hóspede pergunta sobre um quarto específico ou
 quando se quer apresentar as opções. Cada mensagem traz uma descrição curta e
 o link para a página completa no site.
 
-## 8.1 Suíte Caliandra `/44-caliandra`
+## 8.1 Suíte Caliandra `/quartoCaliandra`
 
 > A Suíte Caliandra é uma suíte térrea simples, ideal pra casais. Tem cama
 > de casal, varanda com rede, móveis de apoio, ventilador e frigobar.
@@ -1111,7 +1084,7 @@ o link para a página completa no site.
 > Veja as fotos e todos os detalhes aqui:
 > https://shantipousada.com.br/acomodacoes/caliandra?v=3
 
-## 8.2 Suíte Mangaba `/45-mangaba`
+## 8.2 Suíte Mangaba `/quartoMangaba`
 
 > A Suíte Mangaba tem configuração flexível — 1 cama de casal ou 2 de
 > solteiro — ideal pra amigas, viajantes solo ou casais que não querem
@@ -1121,7 +1094,7 @@ o link para a página completa no site.
 > Veja as fotos e todos os detalhes aqui:
 > https://shantipousada.com.br/acomodacoes/mangaba?v=3
 
-## 8.3 Duplex Caninde `/46-caninde`
+## 8.3 Duplex Caninde `/quartoCaninde`
 
 > O Duplex Caninde tem dois andares com ar-condicionado, ideal pra casais.
 > Em cima, cama de casal e sacada com rede; no térreo, banheiro com
@@ -1131,7 +1104,7 @@ o link para a página completa no site.
 > Veja as fotos e todos os detalhes aqui:
 > https://shantipousada.com.br/acomodacoes/caninde?v=3
 
-## 8.4 Duplex Seriema `/47-seriema`
+## 8.4 Duplex Seriema `/quartoSeriema`
 
 > O Duplex Seriema acomoda até 4 pessoas — 1 cama queen + 2 de solteiro —
 > em dois andares pensados pra funcionar bem em grupo: no térreo, banheiro
@@ -1141,7 +1114,7 @@ o link para a página completa no site.
 > Veja as fotos e todos os detalhes aqui:
 > https://shantipousada.com.br/acomodacoes/seriema?v=3
 
-## 8.5 Chalé Maytreia `/48-maytreia`
+## 8.5 Chalé Maytreia `/quartoMaytreia`
 
 > O Chalé Maytreia acomoda até 3 pessoas — cama king + cama auxiliar —
 > ideal pra casal, dois amigos ou pequena família. Construído em adobe,
@@ -1151,7 +1124,7 @@ o link para a página completa no site.
 > Veja as fotos e todos os detalhes aqui:
 > https://shantipousada.com.br/acomodacoes/maytreia?v=3
 
-## 8.6 Chalé Mantra `/49-mantra`
+## 8.6 Chalé Mantra `/quartoMantra`
 
 > O Chalé Mantra é ideal pra casais, com ar-condicionado e cozinha de
 > apoio privativa. Construído em adobe, com a leveza da arquitetura

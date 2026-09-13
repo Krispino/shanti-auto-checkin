@@ -887,10 +887,12 @@ sóbrio, nunca mais de 1x por gatilho sazonal. Nunca urgência artificial tipo
 
 ## 7.3 Estacionamento `/33-estacionamento`
 
-**Versão única** (as duas versões são praticamente iguais).
+**Versão única.**
 
-> Olá, [Nome], não temos estacionamento interno, mas dá para estacionar
-> gratuitamente ao longo da rua — é bem tranquilo aqui em São Jorge.
+> Em São Jorge os estabelecimentos não têm estacionamento interno. Estamos
+> localizados numa rua tranquila, de frente pra uma reserva ecológica. É
+> possível estacionar ao longo do meio fio, com segurança. Como tudo é
+> pertinho, vale ir a pé pro centrinho.
 
 ---
 
@@ -1102,51 +1104,58 @@ o link para a página completa no site.
 
 ## 8.1 Suíte Caliandra `/44-caliandra`
 
-> A Suíte Caliandra é nossa suíte térrea, aconchegante e prática. Acomoda
-> casal ou uso individual.
+> A Suíte Caliandra é uma suíte térrea simples, ideal pra casais. Tem cama
+> de casal, varanda com rede, móveis de apoio, ventilador e frigobar.
+> Banheiro privativo com aquecimento solar e elétrico.
 >
 > Veja as fotos e todos os detalhes aqui:
 > https://shantipousada.com.br/acomodacoes/caliandra?v=3
 
 ## 8.2 Suíte Mangaba `/45-mangaba`
 
-> A Suíte Mangaba é uma suíte térrea com varanda, que pode ser configurada
-> com cama de casal ou duas camas de solteiro. Acomoda até 2 pessoas.
+> A Suíte Mangaba tem configuração flexível — 1 cama de casal ou 2 de
+> solteiro — ideal pra amigas, viajantes solo ou casais que não querem
+> dividir a cama. Varanda térrea com rede, móveis de apoio, ventilação e
+> banheiro privativo com aquecimento solar e elétrico.
 >
 > Veja as fotos e todos os detalhes aqui:
 > https://shantipousada.com.br/acomodacoes/mangaba?v=3
 
 ## 8.3 Duplex Caninde `/46-caninde`
 
-> O Duplex Caninde é uma acomodação de dois andares — sala embaixo e quarto
-> em cima, com bastante privacidade. Acomoda casal ou uso individual.
+> O Duplex Caninde tem dois andares com ar-condicionado, ideal pra casais.
+> Em cima, cama de casal e sacada com rede; no térreo, banheiro com
+> aquecimento solar e elétrico, varanda com mesa e cozinha de apoio
+> privativa.
 >
 > Veja as fotos e todos os detalhes aqui:
 > https://shantipousada.com.br/acomodacoes/caninde?v=3
 
 ## 8.4 Duplex Seriema `/47-seriema`
 
-> O Duplex Seriema é nosso maior espaço — dois andares com diversas
-> configurações de cama, acomodando até 4 pessoas. Ideal pra famílias ou
-> grupos de amigos.
+> O Duplex Seriema acomoda até 4 pessoas — 1 cama queen + 2 de solteiro —
+> em dois andares pensados pra funcionar bem em grupo: no térreo, banheiro
+> com mictório, pia externa e lockers pra guardar pertences; em cima, as
+> camas e o silêncio. Ideal pra grupos de amigos, famílias ou casais.
 >
 > Veja as fotos e todos os detalhes aqui:
 > https://shantipousada.com.br/acomodacoes/seriema?v=3
 
 ## 8.5 Chalé Maytreia `/48-maytreia`
 
-> O Chalé Maytreia é um chalé independente com cozinha de apoio privativa
-> (pia, fogão elétrico, frigobar e cafeteira). Acomoda até 3 pessoas, com
-> possibilidade de cama de solteiro extra além da de casal.
+> O Chalé Maytreia acomoda até 3 pessoas — cama king + cama auxiliar —
+> ideal pra casal, dois amigos ou pequena família. Construído em adobe,
+> pensado pra dar a sensação de estar em casa, com ar-condicionado e
+> cozinha de apoio privativa.
 >
 > Veja as fotos e todos os detalhes aqui:
 > https://shantipousada.com.br/acomodacoes/maytreia?v=3
 
 ## 8.6 Chalé Mantra `/49-mantra`
 
-> O Chalé Mantra é nosso chalé mais espaçoso, também com cozinha de apoio
-> privativa. Acomoda casal ou uso individual, com muito espaço e
-> privacidade.
+> O Chalé Mantra é ideal pra casais, com ar-condicionado e cozinha de
+> apoio privativa. Construído em adobe, com a leveza da arquitetura
+> orgânica — o essencial pra descansar bem e sair cedo pras trilhas.
 >
 > Veja as fotos e todos os detalhes aqui:
 > https://shantipousada.com.br/acomodacoes/mantra?v=3

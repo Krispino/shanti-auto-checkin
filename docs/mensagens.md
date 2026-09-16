@@ -1091,7 +1091,7 @@ o link para a página completa no site.
 > Banheiro privativo com aquecimento solar e elétrico.
 >
 > Veja as fotos e todos os detalhes aqui:
-> https://shantipousada.com.br/acomodacoes/caliandra?v=3
+> https://shantipousada.com.br/acomodacoes/suite-caliandra/
 
 ## 8.2 Suíte Mangaba `/quartoMangaba`
 
@@ -1101,7 +1101,7 @@ o link para a página completa no site.
 > banheiro privativo com aquecimento solar e elétrico.
 >
 > Veja as fotos e todos os detalhes aqui:
-> https://shantipousada.com.br/acomodacoes/mangaba?v=3
+> https://shantipousada.com.br/acomodacoes/suite-mangaba/
 
 ## 8.3 Duplex Caninde `/quartoCaninde`
 
@@ -1111,7 +1111,7 @@ o link para a página completa no site.
 > privativa.
 >
 > Veja as fotos e todos os detalhes aqui:
-> https://shantipousada.com.br/acomodacoes/caninde?v=3
+> https://shantipousada.com.br/acomodacoes/duplex-caninde/
 
 ## 8.4 Duplex Seriema `/quartoSeriema`
 
@@ -1121,7 +1121,7 @@ o link para a página completa no site.
 > camas e o silêncio. Ideal pra grupos de amigos, famílias ou casais.
 >
 > Veja as fotos e todos os detalhes aqui:
-> https://shantipousada.com.br/acomodacoes/seriema?v=3
+> https://shantipousada.com.br/acomodacoes/duplex-seriema/
 
 ## 8.5 Chalé Maytreia `/quartoMaytreia`
 
@@ -1131,7 +1131,7 @@ o link para a página completa no site.
 > cozinha de apoio privativa.
 >
 > Veja as fotos e todos os detalhes aqui:
-> https://shantipousada.com.br/acomodacoes/maytreia?v=3
+> https://shantipousada.com.br/acomodacoes/chale-maytreia/
 
 ## 8.6 Chalé Mantra `/quartoMantra`
 
@@ -1140,7 +1140,7 @@ o link para a página completa no site.
 > orgânica — o essencial pra descansar bem e sair cedo pras trilhas.
 >
 > Veja as fotos e todos os detalhes aqui:
-> https://shantipousada.com.br/acomodacoes/mantra?v=3
+> https://shantipousada.com.br/acomodacoes/chale-mantra/
 
 ---
 

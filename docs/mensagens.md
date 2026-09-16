@@ -444,9 +444,9 @@ essencial mesmo que não volte para a página depois.
 > Dá uma olhada no nosso site que tem bastante coisa útil pra aproveitar os
 > dias por aqui:
 >
-> 🍽️ Onde comer em São Jorge: https://shantipousada.com.br/chapada-dos-veadeiros/onde-comer-em-sao-jorge/?v=3
-> 🗺️ Roteiros: https://shantipousada.com.br/chapada-dos-veadeiros/roteiros/?v=3
-> 🏞️ Trilhas e cachoeiras: https://shantipousada.com.br/chapada-dos-veadeiros/trilhas-e-cachoeiras/?v=3
+> 🍽️ Onde comer em São Jorge: https://shantipousada.com.br/chapada-dos-veadeiros/?v=4#onde-comer
+> 🗺️ Roteiros: https://shantipousada.com.br/chapada-dos-veadeiros/?v=4#roteiros
+> 🏞️ Trilhas e cachoeiras: https://shantipousada.com.br/chapada-dos-veadeiros/?v=4#parque
 >
 > Qualquer coisa que precisar durante a estadia, quem cuida do dia a dia
 > aqui é a Genilda, é só chamar ela direto por aqui:
@@ -454,8 +454,14 @@ essencial mesmo que não volte para a página depois.
 >
 > Boa estadia! ✌️🙏
 
-*O `?v=3` nos links fura o cache de prévia do WhatsApp. Se o conteúdo dessas
-páginas mudar no futuro, subir o número (`?v=4`, `?v=5`...) força o WhatsApp
+*Os três links apontam para seções (`#onde-comer`, `#roteiros`, `#parque`)
+dentro da mesma página `/chapada-dos-veadeiros/` — não existem como páginas
+separadas, igual ao link `/#contato` da home. Por isso a prévia do WhatsApp
+é sempre a mesma foto para os três (a do topo da página); não dá para ter
+uma foto diferente por seção.*
+
+*O `?v=4` nos links fura o cache de prévia do WhatsApp. Se o conteúdo dessas
+páginas mudar no futuro, subir o número (`?v=5`, `?v=6`...) força o WhatsApp
 a buscar a prévia de novo.*
 
 ---

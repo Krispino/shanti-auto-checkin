@@ -444,9 +444,9 @@ essencial mesmo que não volte para a página depois.
 > Dá uma olhada no nosso site que tem bastante coisa útil pra aproveitar os
 > dias por aqui:
 >
-> 🍽️ Onde comer em São Jorge: https://shantipousada.com.br/chapada-dos-veadeiros/?v=4#onde-comer
-> 🗺️ Roteiros: https://shantipousada.com.br/chapada-dos-veadeiros/?v=4#roteiros
-> 🏞️ Trilhas e cachoeiras: https://shantipousada.com.br/chapada-dos-veadeiros/?v=4#parque
+> 🍽️ Onde comer em São Jorge: https://shantipousada.com.br/chapada-dos-veadeiros/?v=7#onde-comer
+> 🗺️ Roteiros: https://shantipousada.com.br/chapada-dos-veadeiros/?v=7#roteiros
+> 🏞️ Trilhas e cachoeiras: https://shantipousada.com.br/chapada-dos-veadeiros/?v=7#parque
 >
 > Qualquer coisa que precisar durante a estadia, quem cuida do dia a dia
 > aqui é a Genilda, é só chamar ela direto por aqui:
@@ -460,9 +460,12 @@ separadas, igual ao link `/#contato` da home. Por isso a prévia do WhatsApp
 é sempre a mesma foto para os três (a do topo da página); não dá para ter
 uma foto diferente por seção.*
 
-*O `?v=4` nos links fura o cache de prévia do WhatsApp. Se o conteúdo dessas
-páginas mudar no futuro, subir o número (`?v=5`, `?v=6`...) força o WhatsApp
-a buscar a prévia de novo.*
+*O `?v=7` nos links fura o cache de prévia do WhatsApp. O WhatsApp guarda a
+prévia por URL exata: se um número já foi tentado antes (mesmo sem sucesso),
+ele fica preso naquele resultado para sempre — subir de novo o mesmo `?v=`
+não adianta. Sempre que o conteúdo dessas páginas mudar, usar um número que
+nunca apareceu em nenhuma mensagem antes (confirmado em 16/09/2026: testado
+e funcionando com foto).*
 
 ---
 

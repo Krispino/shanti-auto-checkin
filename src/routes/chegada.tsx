@@ -54,10 +54,25 @@ export const Route = createFileRoute("/chegada")({
   component: Chegada,
 });
 
+// Códigos liberam ao meio-dia do próprio dia da chegada — não na véspera.
+// Antes disso o hóspede já aparecia com o código de madrugada/manhã e não
+// respeitava o check-in das 14h; ao meio-dia ainda sobra tempo de reação
+// (a pessoa vê que está bloqueado e pode avisar a gente) sem dar acesso
+// full antes da hora.
+function getLiberaEm(checkin: Date): Date {
+  return new Date(
+    checkin.getFullYear(),
+    checkin.getMonth(),
+    checkin.getDate(),
+    12,
+    0,
+    0,
+  );
+}
+
 function getStatus(reserva: ReservaParams): "bloqueado" | "liberado" {
   const now = Date.now();
-  const liberaEm = reserva.checkin.getTime() - 24 * 60 * 60 * 1000;
-  return now >= liberaEm ? "liberado" : "bloqueado";
+  return now >= getLiberaEm(reserva.checkin).getTime() ? "liberado" : "bloqueado";
 }
 
 function timeRemaining(target: Date) {
@@ -98,7 +113,7 @@ function Chegada() {
     ? reserva.rawNome.split(" ")[0]
     : "hóspede";
 
-  const liberaEm = new Date(reserva.checkin.getTime() - 24 * 60 * 60 * 1000);
+  const liberaEm = getLiberaEm(reserva.checkin);
   const remaining = timeRemaining(liberaEm);
 
   const today = new Date();
@@ -181,11 +196,45 @@ function Chegada() {
               </div>
               <p className="mt-3 text-sm text-muted-foreground max-w-md mx-auto">
                 Por segurança, os códigos do portão e do quarto aparecem aqui
-                24h antes da chegada.
+                a partir do meio-dia do dia da sua chegada.
               </p>
             </>
           )}
         </div>
+
+        {/* Aviso de chegada antecipada — mesmo com o código já liberado
+            (a partir do meio-dia), o check-in oficial continua às 14h.
+            Some depois das 14h: nesse ponto a chegada antecipada já não
+            se aplica mais. */}
+        {liberado && (generico || Date.now() < reserva.checkin.getTime()) && (
+          <div
+            className="mt-4 rounded-lg p-5"
+            style={{
+              backgroundColor: "oklch(0.97 0.05 80)",
+              border: "1px solid oklch(0.75 0.1 60)",
+            }}
+          >
+            <div className="font-medium" style={{ color: "oklch(0.4 0.1 50)" }}>
+              Chegando antes das 14h?
+            </div>
+            <p className="mt-1.5 text-sm" style={{ color: "oklch(0.35 0.08 50)" }}>
+              O check-in é sempre a partir das 14h — é o horário que a equipe
+              usa pra preparar a acomodação. Se você chegar antes, pode deixar
+              suas coisas na cozinha externa enquanto aguarda. Se realmente
+              precisar entrar antes das 14h, avise a gente por aqui antes de
+              chegar:{" "}
+              <a
+                href={`https://wa.me/${WHATSAPP_SHANTI}?text=${encodeURIComponent(`Olá! Sou ${firstName}, hóspede ${reserva.room.article === "a" ? "da" : "do"} ${reserva.room.label}. Vou chegar antes das 14h, preciso avisar sobre o horário.`)}`}
+                target="_blank"
+                rel="noreferrer"
+                className="text-primary hover:underline font-medium"
+              >
+                chamar no WhatsApp
+              </a>
+              .
+            </p>
+          </div>
+        )}
 
         {/* Códigos */}
         <SectionTitle>Códigos de acesso</SectionTitle>

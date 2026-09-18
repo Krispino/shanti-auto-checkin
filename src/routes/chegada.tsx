@@ -202,11 +202,10 @@ function Chegada() {
           )}
         </div>
 
-        {/* Aviso de chegada antecipada — mesmo com o código já liberado
-            (a partir do meio-dia), o check-in oficial continua às 14h.
-            Some depois das 14h: nesse ponto a chegada antecipada já não
-            se aplica mais. */}
-        {liberado && (generico || Date.now() < reserva.checkin.getTime()) && (
+        {/* Aviso de chegada antes das 14h — aparece com os códigos
+            bloqueados ou liberados. Some depois das 14h do dia da chegada,
+            quando a chegada antecipada já não se aplica mais. */}
+        {(generico || Date.now() < reserva.checkin.getTime()) && (
           <div
             className="mt-4 rounded-lg p-5"
             style={{

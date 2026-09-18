@@ -220,16 +220,7 @@ function Chegada() {
             <p className="mt-1.5 text-sm" style={{ color: "oklch(0.35 0.08 50)" }}>
               O check-in é a partir das 14h. Não trabalhamos com check-in
               antecipado, mas é possível deixar as malas em nossos aposentos se
-              precisar chegar antes. Fale com a gente para mais orientações:{" "}
-              <a
-                href={`https://wa.me/${WHATSAPP_SHANTI}?text=${encodeURIComponent(`Olá! Sou ${firstName}, hóspede ${reserva.room.article === "a" ? "da" : "do"} ${reserva.room.label}. Vou chegar antes das 14h, preciso avisar sobre o horário.`)}`}
-                target="_blank"
-                rel="noreferrer"
-                className="text-primary hover:underline font-medium"
-              >
-                chamar no WhatsApp
-              </a>
-              .
+              precisar chegar antes. Fale com a gente para mais orientações.
             </p>
           </div>
         )}

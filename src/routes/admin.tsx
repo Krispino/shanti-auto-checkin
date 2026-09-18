@@ -205,7 +205,7 @@ function Admin() {
     const primeiroNome = nome ? nome.split(" ")[0] : "";
     const saudacao = primeiroNome ? `Olá, ${primeiroNome}!` : "Olá!";
     const lembreteBotao =
-      'Assim que chegar, não esqueça de tocar em "Confirmar minha chegada" na página — é o que fecha o processo e libera as dicas da viagem.';
+      'Assim que chegar, não esqueça de tocar em "Confirmar minha chegada" na página — é o que fecha o processo e avisa a plataforma de reservas (Booking, Airbnb) de sua chegada.';
     return codigosJaLiberados()
       ? [
           `${saudacao} Recebemos o seu pré-check-in, obrigado.`,
@@ -213,19 +213,19 @@ function Admin() {
           "Esta é a sua página de chegada:",
           link,
           "",
-          `Nela estão o código do portão, o código do cofrinho com a chave ${room.article === "a" ? "da" : "do"} ${room.label} e um vídeo curto mostrando o caminho até o quarto. O check-in é a partir das 14h. Não trabalhamos com check-in antecipado, mas é possível deixar as malas em nossos aposentos se precisar chegar antes. Fale com a gente para mais orientações.`,
+          `Nela estão o código do portão, o código do cofrinho com a chave ${room.article === "a" ? "da" : "do"} ${room.label} e um vídeo curto mostrando o caminho até o quarto. O check-in é a partir das 14h.`,
           "",
           lembreteBotao,
           "",
           "Boa viagem, e qualquer coisa é só chamar por aqui.",
         ].join("\n")
       : [
-          `${saudacao} Recebemos o seu pré-check-in, obrigado. Está tudo anotado aqui.`,
+          `${saudacao} Recebemos o seu pré-check-in, obrigado.`,
           "",
           "Esta é a sua página de chegada:",
           link,
           "",
-          `Nela você encontra o endereço, o vídeo do caminho até ${room.article === "a" ? "a" : "o"} ${room.label} e as orientações da casa. Por segurança, o código do portão e o do cofrinho com a chave aparecem nessa mesma página a partir do meio-dia do dia da sua chegada. O check-in é a partir das 14h. Não trabalhamos com check-in antecipado, mas é possível deixar as malas em nossos aposentos se precisar chegar antes. Fale com a gente para mais orientações.`,
+          `Nela você encontra o endereço, o vídeo do caminho até ${room.article === "a" ? "a" : "o"} ${room.label} e as orientações da casa. Por segurança, o código do portão e o do cofrinho com a chave aparecem nessa mesma página a partir do meio-dia do dia da sua chegada. O check-in é a partir das 14h.`,
           "",
           lembreteBotao,
           "",

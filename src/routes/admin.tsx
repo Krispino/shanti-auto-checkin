@@ -185,14 +185,13 @@ function Admin() {
     return `https://checkin.shantipousada.com.br/chegada?quarto=${quarto}`;
   }
 
-  // Faltam menos de 24h para a chegada? Nesse caso os códigos já aparecem na
-  // página, e a mensagem muda de "vai liberar" para "está tudo aí".
+  // Já passou do meio-dia do dia da chegada? Nesse caso os códigos já aparecem
+  // na página, e a mensagem muda de "vai liberar" para "está tudo aí".
   function codigosJaLiberados(): boolean {
     if (!checkin) return false;
     const [a, m, d] = checkin.split("-").map(Number);
     if (!a || !m || !d) return false;
-    const entrada = new Date(a, m - 1, d, 14, 0, 0);
-    return Date.now() >= entrada.getTime() - 24 * 60 * 60 * 1000;
+    return Date.now() >= new Date(a, m - 1, d, 12, 0, 0).getTime();
   }
 
   // Usada tanto pelo botão de enviar quanto pelo de copiar — as duas vias
@@ -214,7 +213,7 @@ function Admin() {
           "Esta é a sua página de chegada:",
           link,
           "",
-          `Nela estão o código do portão, o código do cofrinho com a chave ${room.article === "a" ? "da" : "do"} ${room.label} e um vídeo curto mostrando o caminho até o quarto. O check-in é a partir das 14h.`,
+          `Nela estão o código do portão, o código do cofrinho com a chave ${room.article === "a" ? "da" : "do"} ${room.label} e um vídeo curto mostrando o caminho até o quarto. O check-in é a partir das 14h. Se chegar antes, pode deixar suas coisas na cozinha externa enquanto aguarda; se precisar entrar antes das 14h, avise a gente por aqui antes de chegar.`,
           "",
           lembreteBotao,
           "",
@@ -226,7 +225,7 @@ function Admin() {
           "Esta é a sua página de chegada:",
           link,
           "",
-          `Nela você encontra o endereço, o vídeo do caminho até ${room.article === "a" ? "a" : "o"} ${room.label} e as orientações da casa. Por segurança, o código do portão e o do cofrinho com a chave aparecem nessa mesma página no dia anterior à sua chegada.`,
+          `Nela você encontra o endereço, o vídeo do caminho até ${room.article === "a" ? "a" : "o"} ${room.label} e as orientações da casa. Por segurança, o código do portão e o do cofrinho com a chave aparecem nessa mesma página a partir do meio-dia do dia da sua chegada. O check-in é a partir das 14h; se chegar antes, pode deixar suas coisas na cozinha externa enquanto aguarda e, se precisar entrar antes das 14h, avise a gente por aqui.`,
           "",
           lembreteBotao,
           "",

@@ -245,7 +245,8 @@ aqui mesmo." (sem 🙏).
 
 ## 2.4 Lembrete de quem não preencheu `/contatoLembrete`
 
-Mandar no dia anterior à chegada. Uma vez só.
+Mandar no dia anterior à chegada. Uma vez só. (Os códigos só aparecem ao
+meio-dia do dia da chegada — este lembrete é sobre o pré-check-in.)
 
 **Tom Fabio:**
 
@@ -271,10 +272,11 @@ Mandar no dia anterior à chegada. Uma vez só.
 
 O `/admin` já monta esta mensagem nos botões "Copiar mensagem" e "Enviar para
 hóspede no WhatsApp" — os dois geram o mesmo texto, com o link certo e
-ajustado conforme falte mais ou menos de 24 horas. O texto abaixo é o mesmo,
+ajustado conforme já tenha passado ou não o meio-dia do dia da chegada
+(quando os códigos liberam). O texto abaixo é o mesmo,
 caso precise mandar à mão.
 
-### Faltando mais de um dia
+### Antes do meio-dia do dia da chegada
 
 **Tom Fabio:**
 
@@ -286,7 +288,10 @@ caso precise mandar à mão.
 >
 > Nela você encontra o endereço, o vídeo do caminho até [o Quarto] e as
 > orientações da casa. Por segurança, o código do portão e o do cofrinho com
-> a chave aparecem nessa mesma página no dia anterior à sua chegada.
+> a chave aparecem nessa mesma página ao meio-dia do dia da sua chegada. O
+> check-in é a partir das 14h — se chegar antes, pode deixar suas coisas na
+> cozinha externa enquanto aguarda, e se precisar entrar antes, me avisa
+> antes de chegar, ok?
 >
 > Assim que chegar, não esquece de tocar em "Confirmar minha chegada" na
 > página, ok? É o que fecha o processo e libera as dicas da viagem.
@@ -302,14 +307,17 @@ caso precise mandar à mão.
 >
 > Nela você encontra o endereço, o vídeo do caminho até [o Quarto] e as
 > orientações da casa. Por segurança, o código do portão e o do cofrinho com
-> a chave aparecem nessa mesma página no dia anterior à sua chegada.
+> a chave aparecem nessa mesma página a partir do meio-dia do dia da sua
+> chegada. O check-in é a partir das 14h — se chegar antes, pode deixar suas
+> coisas na cozinha externa enquanto aguarda e, se precisar entrar antes,
+> avise antes de chegar.
 >
 > Assim que chegar, não esqueça de tocar em "Confirmar minha chegada" na
 > página — é o que fecha o processo e libera as dicas da viagem.
 >
 > Qualquer dúvida até lá, é só chamar por aqui.
 
-### Faltando menos de 24 horas
+### Depois do meio-dia do dia da chegada
 
 **Tom Fabio:**
 
@@ -320,7 +328,8 @@ caso precise mandar à mão.
 >
 > Nela estão o código do portão, o código do cofrinho com a chave [do Quarto]
 > e um vídeo curto mostrando o caminho até o quarto. O check-in é a partir
-> das 14h.
+> das 14h — se chegar antes, pode deixar suas coisas na cozinha externa
+> enquanto aguarda, e se precisar entrar antes, me avisa antes de chegar.
 >
 > Assim que chegar, não esquece de tocar em "Confirmar minha chegada" na
 > página, ok? É o que fecha o processo e libera as dicas da viagem.
@@ -336,7 +345,8 @@ caso precise mandar à mão.
 >
 > Nela estão o código do portão, o código do cofrinho com a chave [do Quarto]
 > e um vídeo curto mostrando o caminho até o quarto. O check-in é a partir
-> das 14h.
+> das 14h — se chegar antes, pode deixar suas coisas na cozinha externa
+> enquanto aguarda e, se precisar entrar antes, avise antes de chegar.
 >
 > Assim que chegar, não esqueça de tocar em "Confirmar minha chegada" na
 > página — é o que fecha o processo e libera as dicas da viagem.
@@ -370,18 +380,20 @@ pessoa precisa é entrar.
 
 ---
 
-## 3.3 "Cadê os códigos?" antes das 24 horas `/chegadaCodigos`
+## 3.3 "Cadê os códigos?" antes do meio-dia `/chegadaCodigos`
 
 **Tom Fabio:**
 
-> [Nome], os códigos aparecem na sua página de chegada no dia anterior — é
-> uma segurança para todo mundo que se hospeda aqui, pra que o código do
-> portão não fique circulando com semanas de antecedência, ok?
+> [Nome], os códigos aparecem na sua página de chegada ao meio-dia do dia
+> da chegada — é uma segurança para todo mundo que se hospeda aqui, pra que
+> o código do portão não fique circulando antes da hora, ok?
 >
 > A página é esta, e pode guardar: [link]
 >
-> Amanhã, ao abrir, o código do portão e o do cofrinho com a chave já vão
-> estar lá, junto com o vídeo do caminho.
+> No dia da chegada, ao meio-dia, o código do portão e o do cofrinho com a
+> chave já vão estar lá, junto com o vídeo do caminho. O check-in é a
+> partir das 14h; se chegar antes, pode deixar suas coisas na cozinha
+> externa.
 
 **Tom formal** — igual, sem "ok?" e "para que" em vez de "pra que".
 
@@ -395,7 +407,9 @@ Opcional, mas é onde aparecem os pedidos que evitam problema na chegada.
 
 > [Nome], tudo pronto para amanhã por aqui!
 >
-> Sua página de chegada, com os códigos e o vídeo do caminho: [link]
+> Sua página de chegada: [link] — os códigos e o vídeo do caminho aparecem
+> lá amanhã, a partir do meio-dia. O check-in é a partir das 14h; se chegar
+> antes, pode deixar suas coisas na cozinha externa.
 >
 > Duas coisas que ajudam antes de subir para São Jorge: não há caixa
 > eletrônico na vila, então vale trazer algum dinheiro, e o último posto de
@@ -1147,7 +1161,7 @@ o link para a página completa no site.
 # 9. O que não escrever
 
 Não prometer os códigos "em seguida" quando falta mais de um dia: eles só
-aparecem 24 horas antes, e a promessa gera cobrança.
+só aparecem ao meio-dia do dia da chegada, e a promessa gera cobrança.
 
 Não pedir avaliação junto com o voucher de retorno, nem na mesma conversa. As
 plataformas tratam isso como troca de benefício por avaliação, e o risco é

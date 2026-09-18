@@ -71,7 +71,7 @@ function Confirmado() {
         <div className="mt-6 rounded-lg border border-border bg-card p-6">
           <div className="text-xs text-muted-foreground mb-2" style={{ letterSpacing: "2px" }}>ACESSO E ORIENTAÇÕES</div>
           <p className="text-sm leading-relaxed">
-            Os códigos de entrada e as orientações de acesso serão enviados pelo WhatsApp e ficarão disponíveis no dia anterior à sua chegada.
+            Os códigos de entrada e as orientações de acesso serão enviados pelo WhatsApp e ficarão disponíveis a partir do meio-dia do dia da sua chegada.
           </p>
         </div>
 

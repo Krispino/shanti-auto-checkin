@@ -289,9 +289,8 @@ caso precise mandar à mão.
 > Nela você encontra o endereço, o vídeo do caminho até [o Quarto] e as
 > orientações da casa. Por segurança, o código do portão e o do cofrinho com
 > a chave aparecem nessa mesma página ao meio-dia do dia da sua chegada. O
-> check-in é a partir das 14h — se chegar antes, pode deixar suas coisas na
-> cozinha externa enquanto aguarda, e se precisar entrar antes, me avisa
-> antes de chegar, ok?
+> check-in é a partir das 14h. Não trabalhamos com check-in antecipado, mas é possível deixar as malas em nossos aposentos se precisar chegar antes.
+> Fale com a gente para mais orientações.
 >
 > Assim que chegar, não esquece de tocar em "Confirmar minha chegada" na
 > página, ok? É o que fecha o processo e libera as dicas da viagem.
@@ -308,9 +307,9 @@ caso precise mandar à mão.
 > Nela você encontra o endereço, o vídeo do caminho até [o Quarto] e as
 > orientações da casa. Por segurança, o código do portão e o do cofrinho com
 > a chave aparecem nessa mesma página a partir do meio-dia do dia da sua
-> chegada. O check-in é a partir das 14h — se chegar antes, pode deixar suas
-> coisas na cozinha externa enquanto aguarda e, se precisar entrar antes,
-> avise antes de chegar.
+> chegada. O check-in é a partir das 14h. Não trabalhamos com check-in
+> antecipado, mas é possível deixar as malas em nossos aposentos se precisar
+> chegar antes. Fale com a gente para mais orientações.
 >
 > Assim que chegar, não esqueça de tocar em "Confirmar minha chegada" na
 > página — é o que fecha o processo e libera as dicas da viagem.
@@ -328,8 +327,9 @@ caso precise mandar à mão.
 >
 > Nela estão o código do portão, o código do cofrinho com a chave [do Quarto]
 > e um vídeo curto mostrando o caminho até o quarto. O check-in é a partir
-> das 14h — se chegar antes, pode deixar suas coisas na cozinha externa
-> enquanto aguarda, e se precisar entrar antes, me avisa antes de chegar.
+> das 14h. Não trabalhamos com check-in antecipado, mas é possível deixar as
+> malas em nossos aposentos se precisar chegar antes. Fale com a gente para
+> mais orientações.
 >
 > Assim que chegar, não esquece de tocar em "Confirmar minha chegada" na
 > página, ok? É o que fecha o processo e libera as dicas da viagem.
@@ -345,8 +345,9 @@ caso precise mandar à mão.
 >
 > Nela estão o código do portão, o código do cofrinho com a chave [do Quarto]
 > e um vídeo curto mostrando o caminho até o quarto. O check-in é a partir
-> das 14h — se chegar antes, pode deixar suas coisas na cozinha externa
-> enquanto aguarda e, se precisar entrar antes, avise antes de chegar.
+> das 14h. Não trabalhamos com check-in antecipado, mas é possível deixar as
+> malas em nossos aposentos se precisar chegar antes. Fale com a gente para
+> mais orientações.
 >
 > Assim que chegar, não esqueça de tocar em "Confirmar minha chegada" na
 > página — é o que fecha o processo e libera as dicas da viagem.
@@ -408,8 +409,8 @@ Opcional, mas é onde aparecem os pedidos que evitam problema na chegada.
 > [Nome], tudo pronto para amanhã por aqui!
 >
 > Sua página de chegada: [link] — os códigos e o vídeo do caminho aparecem
-> lá amanhã, a partir do meio-dia. O check-in é a partir das 14h; se chegar
-> antes, pode deixar suas coisas na cozinha externa.
+> lá amanhã, a partir do meio-dia. O check-in é a partir das 14h. Não trabalhamos com check-in antecipado, mas é possível
+> deixar as malas em nossos aposentos se precisar chegar antes.
 >
 > Duas coisas que ajudam antes de subir para São Jorge: não há caixa
 > eletrônico na vila, então vale trazer algum dinheiro, e o último posto de

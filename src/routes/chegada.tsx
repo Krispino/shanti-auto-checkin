@@ -218,11 +218,9 @@ function Chegada() {
               Chegando antes das 14h?
             </div>
             <p className="mt-1.5 text-sm" style={{ color: "oklch(0.35 0.08 50)" }}>
-              O check-in é sempre a partir das 14h — é o horário que a equipe
-              usa pra preparar a acomodação. Se você chegar antes, pode deixar
-              suas coisas na cozinha externa enquanto aguarda. Se realmente
-              precisar entrar antes das 14h, avise a gente por aqui antes de
-              chegar:{" "}
+              O check-in é a partir das 14h. Não trabalhamos com check-in
+              antecipado, mas é possível deixar as malas em nossos aposentos se
+              precisar chegar antes. Fale com a gente para mais orientações:{" "}
               <a
                 href={`https://wa.me/${WHATSAPP_SHANTI}?text=${encodeURIComponent(`Olá! Sou ${firstName}, hóspede ${reserva.room.article === "a" ? "da" : "do"} ${reserva.room.label}. Vou chegar antes das 14h, preciso avisar sobre o horário.`)}`}
                 target="_blank"

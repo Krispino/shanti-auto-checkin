@@ -112,6 +112,9 @@ aparelho. Tem um "sair deste aparelho" na tela para limpar o acesso local.
 
 - `docs/apps-script-agenda.md` — código completo do `doPost`/Apps Script:
   criação de evento na agenda com cor por quarto, e o e-mail de aviso.
+- `docs/apps-script-reservas.md` — leitura dos e-mails do Innotel
+  (`suporte@taranis.com.br`) para criar o evento na agenda no momento da
+  reserva, antes do formulário; o formulário depois atualiza o mesmo evento.
 - `docs/mensagens.md` — arquivo único com TODO o texto de atendimento:
   respostas rápidas do WhatsApp, mensagens automáticas das OTAs, vouchers,
   políticas e conhecimento do bot. Cada mensagem traz o tom Fabio e o tom

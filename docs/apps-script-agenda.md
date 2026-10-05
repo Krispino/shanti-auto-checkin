@@ -20,15 +20,16 @@ disso. Com o evento vindo do formulário, o padrão passa a ser um só.
 var AGENDA_ID = 'shantipousada@gmail.com';
 
 // Cada acomodação tem sua cor na agenda. Mapeamento levantado dos eventos
-// lançados à mão até ago/2026 — o Canindé não tem cor própria, fica na cor
-// padrão do calendário.
+// lançados à mão até ago/2026 — o Canindé usava a cor padrão do calendário
+// (azul claro); agora tem Mirtilo (BLUE), distinto do padrão, para não
+// confundir com evento sem cor e para poder voltar do cinza.
 var CORES_QUARTO = {
   caliandra: CalendarApp.EventColor.RED,        // Tomate
   mangaba:   CalendarApp.EventColor.GREEN,      // Manjericão
   seriema:   CalendarApp.EventColor.ORANGE,     // Tangerina
   maytreia:  CalendarApp.EventColor.YELLOW,     // Banana
   mantra:    CalendarApp.EventColor.MAUVE,      // Uva
-  caninde:   null                               // sem cor (padrão)
+  caninde:   CalendarApp.EventColor.BLUE        // Mirtilo (azul escuro, distinto do padrão)
 };
 
 // "2026-09-15" -> Date local (evita o deslocamento de fuso do new Date(string))
@@ -102,7 +103,7 @@ function criarEventoAgenda(data) {
   // Sem acomodação informada (hóspede marcou "Não sei / não lembro"), o
   // evento sai cinza — sinal visual pra Genilda de que esse cadastro precisa
   // ser conferido na plataforma antes de tudo. Com acomodação informada, usa
-  // a cor do quarto (ou sem cor, no caso do Canindé, que não tem cor própria).
+  // a cor do quarto.
   var quartoInformado = String(data.quarto || '').trim();
   var cor = quartoInformado
     ? CORES_QUARTO[String(data.quartoKey || '').toLowerCase()]
@@ -196,13 +197,12 @@ essa sobreposição não aparecia na agenda.
 | Seriema | Tangerina (laranja) | `ORANGE` |
 | Maytreia | Banana (amarelo) | `YELLOW` |
 | Mantra | Uva (roxo) | `MAUVE` |
-| Canindé | sem cor (padrão do calendário) | — |
+| Canindé | Mirtilo (azul escuro, diferente do padrão do calendário) | `BLUE` |
 | *(acomodação não informada)* | Cinza (Graphite) | `GRAY` |
 
 O mapeamento foi levantado dos eventos lançados à mão entre maio e agosto de
 2026 e é consistente ao longo de todos eles. Quando o hóspede não informa a
-acomodação, o evento fica cinza — diferente do Canindé, que também não tem
-cor própria mas fica sem cor nenhuma (padrão do calendário). O cinza, junto
+acomodação, o evento fica cinza — cor reservada só pra isso. O cinza, junto
 com o `QUARTO A CONFIRMAR` no título, é o sinal de que falta conferir a
 acomodação na plataforma.
 

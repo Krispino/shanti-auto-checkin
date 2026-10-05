@@ -22,7 +22,9 @@ manda e-mail a cada reserva, em dois formatos:
 | Reserva direta (motor do Innotel) | `Agente de IA — Nova Reserva — Pendente\|Confirmada — LOCALIZADOR` | datas `dd/mm/aaaa`, hóspede em "Hóspede", quarto em "Tipo de Quarto" |
 | Airbnb e Booking.com | `Reservation Update – Airbnb\|Booking.com – REFERÊNCIA / LOCALIZADOR – confirmed\|modified` | datas ISO, hóspede em "Guest Name", quarto em "Room Name" |
 
-Cada reserva costuma gerar dois e-mails idênticos — o evento é identificado
+Cada reserva costuma gerar dois e-mails (o do Airbnb às vezes vem com o
+nome em branco; o que vem sem nome nunca sobrescreve um evento já nomeado).
+O evento é identificado
 pela referência (tag `reserva` no evento), então o segundo só confirma o
 primeiro. Um e-mail `modified` atualiza as datas do mesmo evento. Um status com
 "cancel" marca o evento como CANCELADA e deixa cinza; nada é apagado.
@@ -84,7 +86,7 @@ function htmlParaLinhas_(html) {
 
 function campo_(linhas, rotulo) {
   for (var i = 0; i < linhas.length - 1; i++) {
-    if (rotulo.test(linhas[i])) return linhas[i + 1];
+    if (rotulo.test(linhas[i])) return /:$/.test(linhas[i + 1]) ? '' : linhas[i + 1];
   }
   return '';
 }
@@ -133,11 +135,15 @@ function interpretarEmail_(assunto, html) {
     };
     var hospedes = /(\d+)\s*Adults?/i.exec(linhas.join('\n'));
     if (hospedes) r.adultos = hospedes[1];
+    if (!r.nome) {
+      var lista = /^(.*?)\s*\d+\s*Adults?/i.exec(campo_(linhas, /^Guest\(s\):?$/i));
+      if (lista) r.nome = lista[1].trim();
+    }
   } else {
     return null;
   }
 
-  if (!r.nome || !r.checkin || !r.checkout) return null;
+  if (!r.checkin || !r.checkout) return null;
   r.quarto = reconhecerQuarto_(r.quartoOriginal);
   return r;
 }
@@ -155,7 +161,7 @@ function acharEventoPorReserva_(cal, referencia) {
 
 function tituloReserva_(r) {
   return [
-    r.nome.split(' ')[0],
+    r.nome.split(' ')[0] || 'Hóspede sem nome',
     r.quarto ? r.quarto.rotulo : 'QUARTO A CONFIRMAR',
     r.plataforma
   ].join(' · ');
@@ -163,7 +169,7 @@ function tituloReserva_(r) {
 
 function descricaoReserva_(r) {
   var linhas = [
-    'Hóspede: ' + r.nome,
+    'Hóspede: ' + (r.nome || '—'),
     'Acomodação: ' + (r.quarto ? r.quarto.rotulo : 'NÃO RECONHECIDA — conferir no Innotel'),
     'Nome no Innotel: ' + r.quartoOriginal,
     'Plataforma: ' + r.plataforma,
@@ -199,7 +205,7 @@ function aplicarReserva_(r) {
 
   if (evento) {
     evento.setAllDayDates(inicio, fim);
-    if (evento.getTag('origem') === 'email') {
+    if (evento.getTag('origem') === 'email' && r.nome) {
       evento.setTitle(tituloReserva_(r));
       evento.setDescription(descricaoReserva_(r));
     }

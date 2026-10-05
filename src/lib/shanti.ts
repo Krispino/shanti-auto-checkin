@@ -105,6 +105,8 @@ export interface ReservaParams {
   quartoKeyUrl: RoomKey | null;
   checkinUrl: string | null;
   checkoutUrl: string | null;
+  emailUrl: string | null;
+  documentoUrl: string | null;
 }
 
 function parseDateLocal(s: string | null | undefined, fallback: Date): Date {
@@ -158,6 +160,8 @@ export function getReservaFromSearch(search: URLSearchParams): ReservaParams {
     quartoKeyUrl,
     checkinUrl: dateParam(search, "checkin"),
     checkoutUrl: dateParam(search, "checkout"),
+    emailUrl: search.get("email"),
+    documentoUrl: search.get("cpf") || search.get("documento"),
   };
 }
 

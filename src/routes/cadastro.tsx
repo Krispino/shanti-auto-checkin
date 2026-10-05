@@ -73,6 +73,8 @@ function Cadastro() {
     if (reserva.checkinUrl) setDataEntrada(reserva.checkinUrl);
     if (reserva.checkoutUrl) setDataSaida(reserva.checkoutUrl);
     if (reserva.quartoKeyUrl) setAcomodacaoNome(reserva.quartoKeyUrl);
+    if (reserva.emailUrl) setEmail(reserva.emailUrl);
+    if (reserva.documentoUrl) setDoc(reserva.documentoUrl);
   }, [reserva]);
 
   const ondeUsar = "Quem vai usar a acomodação";

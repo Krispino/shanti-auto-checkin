@@ -19,8 +19,8 @@ manda e-mail a cada reserva, em dois formatos:
 
 | Origem | Assunto | Observação |
 |---|---|---|
-| Reserva direta (motor do Innotel) | `Agente de IA — Nova Reserva — Pendente\|Confirmada — LOCALIZADOR` | datas `dd/mm/aaaa`, hóspede em "Hóspede", quarto em "Tipo de Quarto" |
-| Airbnb e Booking.com | `Reservation Update – Airbnb\|Booking.com – REFERÊNCIA / LOCALIZADOR – confirmed\|modified` | datas ISO, hóspede em "Guest Name", quarto em "Room Name" |
+| Innotel (reserva direta, Airbnb e Booking.com) | `Agente de IA\|Airbnb\|Booking.com — Nova Reserva — Pendente\|Confirmada — LOCALIZADOR` e `… — Reserva Modificada\|Reserva Cancelada — LOCALIZADOR` | datas `dd/mm/aaaa`, hóspede em "Hóspede" (vem `N/A` quando o canal ainda não passou o nome), quarto em "Tipo de Quarto"; a plataforma sai do início do assunto |
+| Airbnb e Booking.com (formato antigo) | `Reservation Update – Airbnb\|Booking.com – REFERÊNCIA / LOCALIZADOR – confirmed\|modified` | datas ISO, hóspede em "Guest Name", quarto em "Room Name" |
 
 Cada reserva costuma gerar dois e-mails (o do Airbnb às vezes vem com o
 nome em branco; o que vem sem nome nunca sobrescreve um evento já nomeado).
@@ -42,6 +42,10 @@ reescrito com o título completo (`Nome · Configuração · Quarto · Plataform
 a descrição com os dados do cadastro e **a cor do quarto**. O quarto vindo do
 e-mail é mantido se o hóspede marcar "Não sei" (nesse caso o evento fica
 colorido pelo quarto do e-mail).
+
+Se o hóspede já tiver feito o cadastro antes do e-mail ser lido (o gatilho roda
+a cada 5 minutos), o script não cria um segundo evento: ele adota o evento do
+formulário para o mesmo quarto e dia de check-in, só marcando a referência.
 
 Quarto que o script não reconhece sai como `QUARTO A CONFIRMAR`, com o nome
 original do Innotel na descrição.
@@ -107,15 +111,16 @@ function reconhecerQuarto_(textoQuarto) {
 
 function interpretarEmail_(assunto, html) {
   var linhas = htmlParaLinhas_(html);
-  var direta = /Nova Reserva\s+[—–-]\s+(Pendente|Confirmada)\s+[—–-]\s+(\S+)/i.exec(assunto);
+  var innotel = /(Airbnb|Booking(?:\.com)?|Agente de IA)\s+[—–-]\s+(Nova Reserva|Reserva Modificada|Reserva Cancelada)(?:\s+[—–-]\s+(Pendente|Confirmada|Cancelada))?\s+[—–-]\s+(\S+)/i.exec(assunto);
   var ota = /Reservation Update\s+[—–-]\s+(.+?)\s+[—–-]\s+(\S+)\s*\/\s*(\S+)\s+[—–-]\s+(\w+)/i.exec(assunto);
   var r;
 
-  if (direta) {
+  if (innotel) {
+    var tipo = innotel[2] + ' ' + (innotel[3] || '');
     r = {
-      referencia: direta[2],
-      plataforma: 'Reserva direta',
-      status: /pendente/i.test(direta[1]) ? 'pendente' : 'confirmada',
+      referencia: innotel[4],
+      plataforma: /airbnb/i.test(innotel[1]) ? 'Airbnb' : /booking/i.test(innotel[1]) ? 'Booking.com' : 'Reserva direta',
+      status: /cancel/i.test(tipo) ? 'cancelada' : /pendente/i.test(tipo) ? 'pendente' : /modific/i.test(tipo) ? 'modificada' : 'confirmada',
       nome: campo_(linhas, /^h(&oacute;|ó)spede$/i),
       quartoOriginal: campo_(linhas, /^Tipo de Quarto$/i),
       checkin: dataIso_(campo_(linhas, /^Check-in$/i)),
@@ -143,6 +148,7 @@ function interpretarEmail_(assunto, html) {
     return null;
   }
 
+  if (/^n\/?a$/i.test(r.nome)) r.nome = '';
   if (!r.checkin || !r.checkout) return null;
   r.quarto = reconhecerQuarto_(r.quartoOriginal);
   return r;
@@ -183,6 +189,22 @@ function descricaoReserva_(r) {
   return linhas.join('\n');
 }
 
+function adotarEventoDoFormulario_(cal, inicio, r) {
+  if (!r.quarto) return null;
+  var doDia = cal.getEventsForDay(inicio);
+  for (var i = 0; i < doDia.length; i++) {
+    var e = doDia[i];
+    var comecaHoje = e.getAllDayStartDate().getTime() === inicio.getTime();
+    if (comecaHoje && e.getTag('origem') === 'formulario' && !e.getTag('reserva') &&
+        semAcento_(e.getTitle()).indexOf(semAcento_(r.quarto.rotulo)) !== -1) {
+      e.setTag('reserva', r.referencia);
+      e.setTag('quarto', r.quarto.chave);
+      return e;
+    }
+  }
+  return null;
+}
+
 function aplicarReserva_(r) {
   var inicio = dataLocal_(r.checkin);
   var checkout = dataLocal_(r.checkout);
@@ -191,7 +213,7 @@ function aplicarReserva_(r) {
 
   var cal = CalendarApp.getCalendarById(AGENDA_ID);
   if (!cal) return;
-  var evento = acharEventoPorReserva_(cal, r.referencia);
+  var evento = acharEventoPorReserva_(cal, r.referencia) || adotarEventoDoFormulario_(cal, inicio, r);
 
   if (r.status === 'cancelada') {
     if (evento && evento.getTitle().indexOf('CANCELADA') !== 0) {

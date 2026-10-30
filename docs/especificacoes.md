@@ -34,7 +34,7 @@ Ao submeter:
 ### /chegada — Página de Chegada
 Parâmetros: ?quarto=&checkin=&checkout=&nome=&reserva=
 Seções: header, countdown, aviso pagamento (se reserva=direta), códigos, vídeo, confirmar chegada, PDF, estadia, antes de ir, suporte
-Regra: libera 24h antes do checkin
+Regra: libera às 14h do dia do checkin
 
 ### /admin — Ferramenta de Chegada
 Senha: 20shanti22
@@ -80,7 +80,7 @@ Calendar: shantipousada@gmail.com
 
 ## Regras de Negócio
 
-- Códigos liberam 24h antes do checkin
+- Códigos liberam às 14h do dia do checkin
 - Check-in: a partir das 14h
 - Check-out: até 12h — atraso sujeito a multa
 - Reserva direta: 50% antecipado + 50% na chegada

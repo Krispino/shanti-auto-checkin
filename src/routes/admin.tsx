@@ -185,13 +185,13 @@ function Admin() {
     return `https://checkin.shantipousada.com.br/chegada?quarto=${quarto}`;
   }
 
-  // Já passou do meio-dia do dia da chegada? Nesse caso os códigos já aparecem
+  // Já passou das 14h do dia da chegada? Nesse caso os códigos já aparecem
   // na página, e a mensagem muda de "vai liberar" para "está tudo aí".
   function codigosJaLiberados(): boolean {
     if (!checkin) return false;
     const [a, m, d] = checkin.split("-").map(Number);
     if (!a || !m || !d) return false;
-    return Date.now() >= new Date(a, m - 1, d, 12, 0, 0).getTime();
+    return Date.now() >= new Date(a, m - 1, d, 14, 0, 0).getTime();
   }
 
   // Usada tanto pelo botão de enviar quanto pelo de copiar — as duas vias
@@ -225,7 +225,7 @@ function Admin() {
           "Esta é a sua página de chegada:",
           link,
           "",
-          `Nela você encontra o endereço, o vídeo do caminho até ${room.article === "a" ? "a" : "o"} ${room.label} e as orientações da casa. Por segurança, o código do portão e o do cofrinho com a chave aparecem nessa mesma página a partir do meio-dia do dia da sua chegada. O check-in é a partir das 14h.`,
+          `Nela você encontra o endereço, o vídeo do caminho até ${room.article === "a" ? "a" : "o"} ${room.label} e as orientações da casa. Por segurança, o código do portão e o do cofrinho com a chave aparecem nessa mesma página a partir das 14h do dia da sua chegada, que é também o horário do check-in.`,
           "",
           lembreteBotao,
           "",

@@ -33,9 +33,11 @@ App de auto check-in para hóspedes da Shanti Pousada.
 - `/confirmado` — confirmação, com card de roteiros do site (`noindex`)
 - `/chegada` — códigos de acesso e vídeo (`noindex` — mostra segredos)
 - `/admin` — ferramenta interna (`noindex`, prévia própria sem foto de marketing)
-- `/api/buscar`, `/api/login`, `/api/checar-duplicata` — endpoints do Worker
-  (`src/server.ts`), protegidos por `ADMIN_SENHA` exceto o de duplicata, que só
-  devolve `{existe: boolean}` e nunca dado de hóspede
+- `/api/buscar`, `/api/login`, `/api/checar-duplicata`, `/api/quarto-reserva` —
+  endpoints do Worker (`src/server.ts`), protegidos por `ADMIN_SENHA` exceto os
+  dois públicos: o de duplicata só devolve `{existe: boolean}` e o de
+  quarto-reserva só devolve `{quartoKey}` (achado na agenda por nome + data de
+  entrada); nenhum devolve dado de hóspede
 - `robots.txt` bloqueia `/chegada`, `/admin`, `/confirmado` e `/api/`
 
 ## Sessão do admin
@@ -49,7 +51,11 @@ aparelho. Tem um "sair deste aparelho" na tela para limpar o acesso local.
 1. Hóspede reserva numa OTA ou direto.
 2. Recebe o link de `/cadastro` (idealmente pré-preenchido via query string:
    `?nome=...&quarto=...&checkin=...&checkout=...` — o formulário usa esses
-   valores só se vierem de fato na URL, nunca inventa padrão).
+   valores só se vierem de fato na URL, nunca inventa padrão). Sem `quarto` na
+   URL (link genérico da mensagem automática da OTA), o formulário descobre o
+   quarto sozinho: ao digitar nome + data de entrada, consulta
+   `/api/quarto-reserva`, que procura o evento criado pelo e-mail do Innotel.
+   Se não achar, o hóspede escolhe na lista — não existe mais "Não sei".
 3. Ao enviar, o Apps Script (`doPost`, ver `docs/apps-script-agenda.md`):
    grava na planilha, cria/atualiza o evento no Google Agenda (cor por
    acomodação, título `Nome · Quarto · Plataforma`) e manda e-mail para o
@@ -63,11 +69,19 @@ aparelho. Tem um "sair deste aparelho" na tela para limpar o acesso local.
    WhatsApp — a mensagem muda de texto conforme falte mais ou menos de 24h
    pra chegada (`docs/mensagens.md` tem os textos de referência,
    incluindo a mensagem automática das OTAs).
-6. Em `/chegada`, liberado 24h antes: códigos do portão/cofrinho e vídeo.
+6. Em `/chegada`, liberado às 14h do dia da chegada (horário do check-in): códigos
+   do portão/cofrinho e vídeo. Link sem `?quarto=` válido mostra "Não
+   identificamos a sua acomodação" — nunca assume um quarto.
    Confirmar chegada abre WhatsApp e mostra um card convidando pros
    roteiros do site (`shantipousada.com.br/chapada-dos-veadeiros/`).
 
 ## Regras invioláveis
+
+0. Nenhuma página mostra vídeo, código ou nome de quarto sem saber de fato qual
+   é o quarto (vindo da URL ou da agenda). Nunca cair em "caliandra" por
+   padrão — já mostrou o vídeo errado para hóspedes do Mantra. O `<video>` de
+   `/chegada` usa `key` + `src` por quarto: trocar só um `<source>` filho não
+   recarrega o vídeo.
 
 1. O formulário `/cadastro` é UMA página única com scroll. Nunca multi-step.
 2. No app, conteúdo voltado a hóspedes não traz nome próprio: os contatos são

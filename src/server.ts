@@ -160,6 +160,30 @@ async function handleChecarDuplicata(
   }
 }
 
+async function handleQuartoReserva(
+  request: Request,
+  env: Record<string, unknown>,
+): Promise<Response> {
+  const url = new URL(request.url);
+  const nome = url.searchParams.get("nome");
+  const checkin = url.searchParams.get("checkin");
+  if (!nome || !checkin) return json({ quartoKey: "" });
+
+  try {
+    const token = typeof env.SHEETS_TOKEN === "string" ? env.SHEETS_TOKEN : "";
+    const upstream = new URL(SHEETS_ENDPOINT);
+    upstream.searchParams.set("token", token);
+    upstream.searchParams.set("acao", "quarto");
+    upstream.searchParams.set("nome", nome);
+    upstream.searchParams.set("checkin", checkin);
+    const res = await fetch(upstream.toString());
+    const data = (await res.json()) as { quartoKey?: string };
+    return json({ quartoKey: typeof data.quartoKey === "string" ? data.quartoKey : "" });
+  } catch {
+    return json({ quartoKey: "" });
+  }
+}
+
 function handleLogin(request: Request, env: Record<string, unknown>): Response {
   return senhaConfere(request, env)
     ? json({ ok: true })
@@ -201,6 +225,9 @@ export default {
       }
       if (url.pathname === "/api/checar-duplicata") {
         return await handleChecarDuplicata(request, environment);
+      }
+      if (url.pathname === "/api/quarto-reserva") {
+        return await handleQuartoReserva(request, environment);
       }
       if (url.pathname === "/api/login") {
         return handleLogin(request, environment);

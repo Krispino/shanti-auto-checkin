@@ -166,8 +166,8 @@ por extenso, com a contagem de pessoas: `Casal + 1 solteiro (3 pessoas)`,
 `2 solteiros (2 pessoas)`, `Solteiro — uso individual (1 pessoa)`. No
 formulário do hóspede (app) não muda nada — sempre por extenso lá.
 
-Quando o hóspede marca "Não sei / não lembro" na acomodação, o app envia o
-quarto vazio e o título sai como
+Quando o quarto não chega (cadastros antigos, que ainda tinham "Não sei / não
+lembro"), o app envia o quarto vazio e o título sai como
 `Primeiro nome · Configuração · QUARTO A CONFIRMAR · Plataforma` —
 o "QUARTO A CONFIRMAR" propositalmente chamativo, para aparecer na agenda
 como pendência. O evento também sai **cinza** (Graphite) nesse caso,
@@ -261,6 +261,61 @@ function avisarChegada_(nome, quarto, plataforma) {
 `TOKEN_SECRETO` é o nome que o script já usa internamente para comparar com o
 token que o Worker manda — ajustar para o nome real da variável no seu
 `doGet` atual.
+
+---
+
+# Quarto preenchido sozinho no cadastro
+
+O formulário não oferece mais "Não sei / não lembro". Quem abre o link genérico
+(mensagem automática da OTA) não traz o quarto na URL, então o app pergunta ao
+Apps Script: `/api/quarto-reserva?nome=...&checkin=...` chama
+`?acao=quarto&nome=...&checkin=...`, que procura na agenda o evento de
+dia inteiro que **começa** na data de entrada, com o título abrindo pelo
+primeiro nome, e devolve só `{"quartoKey": "mangaba"}`. Se não achar, ou se
+houver dois quartos diferentes para o mesmo primeiro nome no dia, devolve
+`""` e o hóspede escolhe na lista. Nunca devolve dado do hóspede.
+
+Depende de `QUARTOS_EMAIL` (definido em `apps-script-reservas.md`) e de o
+evento já existir — por isso a reserva entrar na agenda pelo e-mail do Innotel
+é o que faz isso funcionar.
+
+## Código
+
+Novo ramo no `doGet`, ao lado do `acao === 'chegada'`:
+
+```javascript
+  if (e.parameter.acao === 'quarto') {
+    return ContentService.createTextOutput(JSON.stringify({
+      quartoKey: acharQuartoDaReserva_(e.parameter.nome, e.parameter.checkin)
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+```
+
+```javascript
+function acharQuartoDaReserva_(nome, checkin) {
+  var dia = dataLocal_(checkin);
+  var primeiro = semAcento_(nome).trim().split(' ')[0];
+  if (!dia || !primeiro) return '';
+  var cal = CalendarApp.getCalendarById(AGENDA_ID);
+  if (!cal) return '';
+
+  var achados = {};
+  cal.getEventsForDay(dia).forEach(function (ev) {
+    var inicio = ev.getAllDayStartDate();
+    if (inicio.getTime() !== dia.getTime()) return;
+    var titulo = ev.getTitle();
+    if (semAcento_(titulo).indexOf(primeiro) !== 0) return;
+    QUARTOS_EMAIL.forEach(function (q) {
+      if (q.padrao.test(titulo)) achados[q.chave] = true;
+    });
+  });
+  var chaves = Object.keys(achados);
+  return chaves.length === 1 ? chaves[0] : '';
+}
+```
+
+`semAcento_` já existe no script (usada em `acharEventoDoCadastro_`) — não
+redefinir. Republicar como **nova versão**.
 
 ---
 

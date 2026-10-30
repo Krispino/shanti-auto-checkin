@@ -79,6 +79,32 @@ function Cadastro() {
 
   const ondeUsar = "Quem vai usar a acomodação";
 
+  // Hóspede que abre o link genérico (mensagem automática da OTA) não traz o
+  // quarto na URL. A reserva já está na agenda desde o e-mail do Innotel, então
+  // o quarto é achado por nome + data de entrada e só preenche se o hóspede
+  // ainda não escolheu nada. Se não achar, ele escolhe na lista.
+  useEffect(() => {
+    if (reserva.quartoKeyUrl || acomodacaoNome) return;
+    if (nome.trim().length < 3 || !dataEntrada) return;
+    const ctrl = new AbortController();
+    const id = setTimeout(async () => {
+      try {
+        const res = await fetch(
+          `/api/quarto-reserva?nome=${encodeURIComponent(nome.trim())}&checkin=${encodeURIComponent(dataEntrada)}`,
+          { signal: ctrl.signal },
+        );
+        const data = await res.json();
+        if (isRoomKey(data.quartoKey)) {
+          setAcomodacaoNome((atual) => atual || data.quartoKey);
+        }
+      } catch {}
+    }, 600);
+    return () => {
+      clearTimeout(id);
+      ctrl.abort();
+    };
+  }, [nome, dataEntrada, acomodacaoNome, reserva.quartoKeyUrl]);
+
   // Quarto efetivo: o que o hóspede selecionou, senão o que veio no link.
   // Fica null enquanto nenhum dos dois é conhecido — não cair no padrão
   // "caliandra", que mostraria as opções de um quarto que não é o dele.
@@ -115,9 +141,7 @@ function Cadastro() {
     setSubmitting(true);
 
     try {
-      // Quarto desconhecido grava vazio — o /admin sinaliza "não identificado".
-      // Nunca cair no padrão "caliandra", que gravaria o quarto errado em silêncio.
-      const payloadKey = acomodacaoNome === "nao-sei" ? "" : (quartoEfetivoKey ?? "");
+      const payloadKey = quartoEfetivoKey ?? "";
       const payload = {
         nome,
         documento: doc,
@@ -150,7 +174,7 @@ function Cadastro() {
 
       const linhas = [
         `Olá, aqui é ${nome}.`,
-        acomodacaoNome && acomodacaoNome ? `• Acomodação: ${acomodacaoNome === "nao-sei" ? "Não sei / não lembro" : acomodacaoNome}` : null,
+        quartoEfetivo ? `• Acomodação: ${quartoEfetivo.label}` : null,
         dataEntrada ? `• Data de entrada: ${dataEntrada.split("-").reverse().join("/")}` : null,
         dataSaida ? `• Data de saída: ${dataSaida.split("-").reverse().join("/")}` : null,
         horario ? `• Horário: ${horario}` : null,
@@ -407,7 +431,6 @@ function Cadastro() {
                   className={inputCls}
                 >
                   <option value="">Selecione</option>
-                  <option value="nao-sei">Não sei / não lembro</option>
                   {plataforma === "Booking.com" ? (
                     <>
                 <option value="caliandra">Quarto Duplo Deluxe com Varanda (Caliandra)</option>

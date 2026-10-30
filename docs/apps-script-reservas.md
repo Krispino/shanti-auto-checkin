@@ -40,8 +40,10 @@ hóspede ainda não fez o cadastro". Sem configuração de cama (o e-mail não
 traz). Quando o hóspede enviar o formulário, o evento é encontrado e
 reescrito com o título completo (`Nome · Configuração · Quarto · Plataforma`),
 a descrição com os dados do cadastro e **a cor do quarto**. O quarto vindo do
-e-mail é mantido se o hóspede marcar "Não sei" (nesse caso o evento fica
-colorido pelo quarto do e-mail).
+e-mail é mantido quando o cadastro chega sem quarto (cadastros antigos que
+marcaram "Não sei"; o formulário não oferece mais essa opção). O mesmo evento
+alimenta o preenchimento automático do quarto no formulário — ver
+`apps-script-agenda.md`, seção "Quarto preenchido sozinho no cadastro".
 
 Se o hóspede já tiver feito o cadastro antes do e-mail ser lido (o gatilho roda
 a cada 5 minutos), o script não cria um segundo evento: ele adota o evento do

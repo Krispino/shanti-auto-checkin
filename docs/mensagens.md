@@ -245,8 +245,8 @@ aqui mesmo." (sem 🙏).
 
 ## 2.4 Lembrete de quem não preencheu `/contatoLembrete`
 
-Mandar no dia anterior à chegada. Uma vez só. (Os códigos só aparecem ao
-meio-dia do dia da chegada — este lembrete é sobre o pré-check-in.)
+Mandar no dia anterior à chegada. Uma vez só. (Os códigos só aparecem às
+14h do dia da chegada — este lembrete é sobre o pré-check-in.)
 
 **Tom Fabio:**
 
@@ -272,11 +272,11 @@ meio-dia do dia da chegada — este lembrete é sobre o pré-check-in.)
 
 O `/admin` já monta esta mensagem nos botões "Copiar mensagem" e "Enviar para
 hóspede no WhatsApp" — os dois geram o mesmo texto, com o link certo e
-ajustado conforme já tenha passado ou não o meio-dia do dia da chegada
+ajustado conforme já tenham passado ou não as 14h do dia da chegada
 (quando os códigos liberam). O texto abaixo é o mesmo,
 caso precise mandar à mão.
 
-### Antes do meio-dia do dia da chegada
+### Antes das 14h do dia da chegada
 
 **Tom Fabio:**
 
@@ -287,8 +287,8 @@ caso precise mandar à mão.
 >
 > Nela você encontra o endereço, o vídeo do caminho até [o Quarto] e as
 > orientações da casa. Por segurança, o código do portão e o do cofrinho com
-> a chave aparecem nessa mesma página ao meio-dia do dia da sua chegada. O
-> check-in é a partir das 14h.
+> a chave aparecem nessa mesma página a partir das 14h do dia da sua chegada,
+> que é também o horário do check-in.
 >
 > Assim que chegar, não esquece de tocar em "Confirmar minha chegada" na
 > página, ok? É o que fecha o processo e avisa a plataforma de reservas
@@ -305,15 +305,15 @@ caso precise mandar à mão.
 >
 > Nela você encontra o endereço, o vídeo do caminho até [o Quarto] e as
 > orientações da casa. Por segurança, o código do portão e o do cofrinho com
-> a chave aparecem nessa mesma página a partir do meio-dia do dia da sua
-> chegada. O check-in é a partir das 14h.
+> a chave aparecem nessa mesma página a partir das 14h do dia da sua
+> chegada, que é também o horário do check-in.
 >
 > Assim que chegar, não esqueça de tocar em "Confirmar minha chegada" na
 > página — é o que fecha o processo e avisa a plataforma de reservas (Booking, Airbnb) de sua chegada.
 >
 > Qualquer dúvida até lá, é só chamar por aqui.
 
-### Depois do meio-dia do dia da chegada
+### Depois das 14h do dia da chegada
 
 **Tom Fabio:**
 
@@ -375,19 +375,19 @@ pessoa precisa é entrar.
 
 ---
 
-## 3.3 "Cadê os códigos?" antes do meio-dia `/chegadaCodigos`
+## 3.3 "Cadê os códigos?" antes das 14h `/chegadaCodigos`
 
 **Tom Fabio:**
 
-> [Nome], os códigos aparecem na sua página de chegada ao meio-dia do dia
+> [Nome], os códigos aparecem na sua página de chegada às 14h do dia
 > da chegada — é uma segurança para todo mundo que se hospeda aqui, pra que
 > o código do portão não fique circulando antes da hora, ok?
 >
 > A página é esta, e pode guardar: [link]
 >
-> No dia da chegada, ao meio-dia, o código do portão e o do cofrinho com a
-> chave já vão estar lá, junto com o vídeo do caminho. O check-in é a
-> partir das 14h.
+> No dia da chegada, às 14h, o código do portão e o do cofrinho com a
+> chave já vão estar lá, junto com o vídeo do caminho. É o mesmo horário
+> do check-in.
 
 **Tom formal** — igual, sem "ok?" e "para que" em vez de "pra que".
 
@@ -402,8 +402,7 @@ Opcional, mas é onde aparecem os pedidos que evitam problema na chegada.
 > [Nome], tudo pronto para amanhã por aqui!
 >
 > Sua página de chegada: [link] — os códigos e o vídeo do caminho aparecem
-> lá amanhã, a partir do meio-dia. O check-in é a
-> partir das 14h.
+> lá amanhã, a partir das 14h, que é também o horário do check-in.
 >
 > Duas coisas que ajudam antes de subir para São Jorge: não há caixa
 > eletrônico na vila, então vale trazer algum dinheiro, e o último posto de
@@ -1155,7 +1154,7 @@ o link para a página completa no site.
 # 9. O que não escrever
 
 Não prometer os códigos "em seguida" quando falta mais de um dia: eles só
-só aparecem ao meio-dia do dia da chegada, e a promessa gera cobrança.
+só aparecem às 14h do dia da chegada, e a promessa gera cobrança.
 
 Não pedir avaliação junto com o voucher de retorno, nem na mesma conversa. As
 plataformas tratam isso como troca de benefício por avaliação, e o risco é

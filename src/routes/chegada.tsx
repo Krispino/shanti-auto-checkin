@@ -54,17 +54,14 @@ export const Route = createFileRoute("/chegada")({
   component: Chegada,
 });
 
-// Códigos liberam ao meio-dia do próprio dia da chegada — não na véspera.
-// Antes disso o hóspede já aparecia com o código de madrugada/manhã e não
-// respeitava o check-in das 14h; ao meio-dia ainda sobra tempo de reação
-// (a pessoa vê que está bloqueado e pode avisar a gente) sem dar acesso
-// full antes da hora.
+// Códigos liberam às 14h do próprio dia da chegada, o horário do check-in —
+// não na véspera nem de manhã.
 function getLiberaEm(checkin: Date): Date {
   return new Date(
     checkin.getFullYear(),
     checkin.getMonth(),
     checkin.getDate(),
-    12,
+    14,
     0,
     0,
   );
@@ -93,10 +90,12 @@ function Chegada() {
   const [reservaDireta, setReservaDireta] = useState(false);
   const [valorPendente, setValorPendente] = useState("");
   const [chegadaConfirmada, setChegadaConfirmada] = useState(false);
+  const [urlLida, setUrlLida] = useState(false);
 
   useEffect(() => {
     const sp = new URLSearchParams(window.location.search);
     setReserva(getReservaFromSearch(sp));
+    setUrlLida(true);
     setReservaDireta(sp.get("reserva") === "direta");
     setValorPendente(sp.get("valor") || "");
     const id = setInterval(() => setTick((t) => t + 1), 60_000);
@@ -123,6 +122,32 @@ function Chegada() {
   const isTomorrow =
     reserva.checkin.toDateString() === tomorrow.toDateString();
   const hojeAmanha = isToday ? "hoje" : isTomorrow ? "amanhã" : "em breve";
+
+  if (!urlLida || !reserva.quartoKeyUrl) {
+    return (
+      <main className="min-h-screen bg-background text-foreground">
+        <div className="mx-auto px-5 py-10 md:py-14" style={{ maxWidth: 760 }}>
+          <ShantiLogo />
+          {urlLida && (
+            <div className="mt-6 rounded-lg border border-border bg-card p-6 text-center">
+              <h1 className="text-xl font-medium">Não identificamos a sua acomodação</h1>
+              <p className="mt-3 text-sm text-muted-foreground">
+                Este link está incompleto. Por segurança, não mostramos códigos nem vídeo sem saber qual é o seu quarto.
+                Chame a gente no WhatsApp que enviamos o link certo.
+              </p>
+              <a
+                href={`https://wa.me/${WHATSAPP_SHANTI}`}
+                className="mt-5 inline-block rounded-md px-5 py-3 text-sm font-medium"
+                style={{ backgroundColor: "var(--terracota)", color: "#fff" }}
+              >
+                Falar no WhatsApp
+              </a>
+            </div>
+          )}
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -196,7 +221,7 @@ function Chegada() {
               </div>
               <p className="mt-3 text-sm text-muted-foreground max-w-md mx-auto">
                 Por segurança, os códigos do portão e do quarto aparecem aqui
-                a partir do meio-dia do dia da sua chegada.
+                a partir das 14h do dia da sua chegada.
               </p>
             </>
           )}
@@ -267,14 +292,14 @@ function Chegada() {
               }}
             >
               <video
+                key={reserva.quartoKey}
                 controls
                 preload="metadata"
                 className="w-full h-full"
                 poster=""
+                src={`/arquivos/CHECKIN.${reserva.quartoKey.toUpperCase()}.MP4`}
                 onLoadedMetadata={(e) => setVideoDuration(Math.round(e.currentTarget.duration))}
-              >
-                <source src={`/arquivos/CHECKIN.${reserva.quartoKey.toUpperCase()}.MP4`} type="video/mp4" />
-              </video>
+              />
             </div>
             <div className="p-5">
               <div className="text-xs text-muted-foreground">
@@ -298,7 +323,7 @@ function Chegada() {
           >
             <div style={{ fontSize: 40 }}>🔒</div>
             <div className="mt-3 font-medium">
-              Vídeo de acesso libera 24h antes
+              Vídeo de acesso libera às 14h do dia da chegada
             </div>
             <div className="mt-3 text-sm text-muted-foreground max-w-md mx-auto">
               <div className="font-medium text-foreground">

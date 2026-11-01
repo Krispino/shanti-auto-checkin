@@ -26,8 +26,8 @@ App de auto check-in para hóspedes da Shanti Pousada.
   `shantipousada@gmail.com`). Os `.md` em `docs/apps-script-*.md` guardam só os
   trechos (agenda, leitor do Innotel, consulta de quarto); o `doPost` e a
   gravação na planilha não estão aqui. O script tem o token escrito no código,
-  então nunca copiar o arquivo inteiro para o repo. Última versão publicada: 29
-  (30/10/2026, adicionou `acao=quarto`).
+  então nunca copiar o arquivo inteiro para o repo. Última versão publicada: 31
+  (01/11/2026, e-mails de aviso passam pra Joelice; a 29 adicionou `acao=quarto`).
 - Segredos no Worker (via `wrangler secret put`): `SHEETS_TOKEN` (token do Apps
   Script) e `ADMIN_SENHA` (senha do /admin, com fallback em `src/server.ts`).
   Trocar `ADMIN_SENHA` derruba a sessão salva no navegador de todo mundo

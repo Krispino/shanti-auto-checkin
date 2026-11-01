@@ -7,7 +7,7 @@ vale.
 
 ## Por que
 
-A Genilda se baseia na agenda para revisar a limpeza do quarto antes da
+O apoio local se baseia na agenda para revisar a limpeza do quarto antes da
 chegada. Hoje o evento só nasce quando o hóspede envia o formulário, e muitos
 só preenchem na hora do check-in. A reserva precisa estar na agenda desde o
 momento em que é feita.

@@ -66,7 +66,7 @@ aparelho. Tem um "sair deste aparelho" na tela para limpar o acesso local.
 3. Ao enviar, o Apps Script (`doPost`, ver `docs/apps-script-agenda.md`):
    grava na planilha, cria/atualiza o evento no Google Agenda (cor por
    acomodação, título `Nome · Quarto · Plataforma`) e manda e-mail para o
-   Fabio **e** a Genilda. Isso não depende de o hóspede tocar em "Enviar" no
+   Fabio **e** o apoio local. Isso não depende de o hóspede tocar em "Enviar" no
    WhatsApp — o aviso por e-mail é o que garante que o Fabio saiba do
    cadastro mesmo se o hóspede fechar a conversa sem enviar.
 4. Se o hóspede já tinha cadastro para a mesma data, aparece a pergunta
@@ -93,7 +93,7 @@ aparelho. Tem um "sair deste aparelho" na tela para limpar o acesso local.
 1. O formulário `/cadastro` é UMA página única com scroll. Nunca multi-step.
 2. No app, conteúdo voltado a hóspedes não traz nome próprio: os contatos são
    `WHATSAPP_SHANTI` (reservas — hoje é o Fabio, a Paula e a Ekko saíram em
-   set/2026) e `WHATSAPP_GENILDA` (apoio local). A regra vale para o produto,
+   set/2026) e `WHATSAPP_JOELICE` (apoio local — Joelice, (62) 99369-8085, cobrindo licença-maternidade até ~mar/2027). A regra vale para o produto,
    não para as conversas — nelas o Fabio se identifica pelo nome, e deve:
    número desconhecido mandando link é o que mais parece golpe.
 3. Toda mudança no código do Google Apps Script exige REPUBLICAR como nova

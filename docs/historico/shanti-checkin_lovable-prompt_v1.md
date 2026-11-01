@@ -95,7 +95,7 @@ Hero centralizado com:
 Abaixo do hero, grid de 3 info-cards lado a lado (single column no mobile):
 1. **Sua reserva** — Quarto (do `rooms[quarto].label`) · {noites} noites · Check-in {data} a partir das 14h · Check-out {data+noites} até 12h
 2. **Onde fica** — Rua dos Ipês, lote 1 · Vila de São Jorge, Alto Paraíso de Goiás
-3. **Como funciona** — Auto check-in (sem recepção). Genilda no espaço para apoio presencial.
+3. **Como funciona** — Auto check-in (sem recepção). Joelice no espaço para apoio presencial.
 
 ## Página 2 — Formulário (`/cadastro`)
 
@@ -195,7 +195,7 @@ Se bloqueado:
 Se liberado:
 - Label: "Sua chegada é {hoje/amanhã}"
 - Tempo grande em verde: "Liberado para auto check-in ✓"
-- Texto muted abaixo: "Check-in disponível a partir das 14h. Genilda está no espaço caso precise."
+- Texto muted abaixo: "Check-in disponível a partir das 14h. Joelice está no espaço caso precise."
 
 **Card "Códigos de acesso":**
 
@@ -247,7 +247,7 @@ Se liberado (frame escuro com play):
 
 **Card de suporte (sempre visível, no rodapé):**
 - "Dúvidas, informações? Fale com a Paula: [WhatsApp (21) 96407-7224](https://wa.me/5521964077224)"
-- "Apoio presencial na pousada: Genilda — [(62) 99854-6284](https://wa.me/5562998546284)"
+- "Apoio presencial na pousada: Joelice — [(62) 99369-8085](https://wa.me/5562993698085)"
 
 ## Restrições importantes
 

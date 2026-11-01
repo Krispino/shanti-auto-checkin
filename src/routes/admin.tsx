@@ -10,7 +10,7 @@ const LOGIN_ENDPOINT = "/api/login";
 // Mantém a sessão entre visitas: sem isto a senha era pedida a cada abertura do
 // link. Fica no navegador do próprio aparelho e é reenviada em cada busca.
 const CHAVE_SENHA = "shanti_admin_senha";
-const WHATSAPP_GENILDA = "5562998546284";
+const WHATSAPP_JOELICE = "5562993698085";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -197,7 +197,7 @@ function Admin() {
   // Usada tanto pelo botão de enviar quanto pelo de copiar — as duas vias
   // precisam do texto completo, não só do link puro, e do lembrete de
   // apertar "Confirmar minha chegada" ao chegar, que é o que fecha o
-  // processo (libera as dicas e o contato da Genilda pro hóspede).
+  // processo (libera as dicas e o contato da Joelice pro hóspede).
   function mensagemChegada(): string {
     const link = linkGerado || gerarLink();
     if (!link || !quarto) return "";
@@ -255,7 +255,7 @@ function Admin() {
     window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${encodeURIComponent(detailsRaw)}&src=shantipousada%40gmail.com`, "_blank");
   }
 
-  function enviarGenilda() {
+  function enviarJoelice() {
     if (!quarto) return;
     const link = linkGerado;
     const room = rooms[quarto];
@@ -289,7 +289,7 @@ Link do hóspede:
 ${link}` : null,
       `\nSalvar no Calendar:\n${calLink}`,
     ].filter(Boolean).join("\n");
-    window.open(`https://wa.me/${WHATSAPP_GENILDA}?text=${encodeURIComponent(linhasMsg)}`, "_blank");
+    window.open(`https://wa.me/${WHATSAPP_JOELICE}?text=${encodeURIComponent(linhasMsg)}`, "_blank");
   }
 
   if (verificandoSessao) {
@@ -505,7 +505,7 @@ ${link}` : null,
                 </button>
                 <button
                   type="button"
-                  onClick={enviarGenilda}
+                  onClick={enviarJoelice}
                   className="w-full rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-accent transition-colors"
                 >
                   Avisar funcionária(o) no WhatsApp

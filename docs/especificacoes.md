@@ -38,7 +38,7 @@ Regra: libera às 14h do dia do checkin
 
 ### /admin — Ferramenta de Chegada
 Senha: 20shanti22
-Fluxo: busca hóspede → confirma dados → gera link → envia hóspede + Genilda + Calendar
+Fluxo: busca hóspede → confirma dados → gera link → envia hóspede + apoio local + Calendar
 
 ## Quartos
 
@@ -56,11 +56,11 @@ Código do portão: 002
 ## Integrações
 
 Google Sheets endpoint: https://script.google.com/macros/s/AKfycbyzkbdi8IU7lD3jYk3D9sc8E90YKwGKWiW_-IDGlE2vPY1AczZ5Er4zFc1sHlAw37Vd/exec
-- POST: salva cadastro + envia email para Genilda
+- POST: salva cadastro + envia email para o apoio local
 - GET: busca por nome, data ou quarto+data
 
 Paula WhatsApp: 5521964077224
-Genilda WhatsApp: 5562998546284
+Apoio local WhatsApp (Joelice, substituta em licença-maternidade da titular): 5562993698085
 Calendar: shantipousada@gmail.com
 
 ## Fluxos
@@ -71,9 +71,9 @@ Calendar: shantipousada@gmail.com
 
 ### Paula
 1. Recebe WA do hóspede → acessa /admin
-2. Busca nome → confirma dados → gera link → envia hóspede + Genilda
+2. Busca nome → confirma dados → gera link → envia hóspede + apoio local
 
-### Genilda
+### Apoio local
 1. Recebe email automático do cadastro
 2. Recebe WA da Paula com dados + link do Calendar
 3. Salva evento no calendário Shanti Pousada

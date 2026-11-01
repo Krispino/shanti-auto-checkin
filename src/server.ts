@@ -190,7 +190,7 @@ function handleLogin(request: Request, env: Record<string, unknown>): Response {
     : json({ ok: false }, 401);
 }
 
-// Avisa a Genilda por e-mail que o hóspede apertou "Confirmar minha chegada"
+// Avisa a Joelice por e-mail que o hóspede apertou "Confirmar minha chegada"
 // em /chegada — o WhatsApp que o botão abre em seguida vai para o Fabio, que
 // continua sendo quem atende. Não depende de o hóspede tocar em Enviar lá: o
 // e-mail sai do servidor mesmo que ele feche a aba antes.

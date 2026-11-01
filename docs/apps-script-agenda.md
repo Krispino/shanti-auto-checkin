@@ -77,7 +77,7 @@ function criarEventoAgenda(data) {
   // evento aparecer pintado até o dia do check-out (inclusive), a data que se
   // passa pra API precisa ser check-out + 1. Isso é proposital: se o evento de
   // quem sai e o de quem entra pintam o MESMO dia, é sinal visual de que a
-  // Genilda precisa limpar o quarto correndo, porque tem gente chegando na
+  // limpeza precisa ser feita correndo, porque tem gente chegando na
   // hora que outro hóspede está de saída.
   var fim = new Date(checkout.getFullYear(), checkout.getMonth(), checkout.getDate() + 1);
 
@@ -88,7 +88,7 @@ function criarEventoAgenda(data) {
   var primeiroNome = nome.split(' ')[0] || '';
   // No título só o primeiro nome — a agenda é vista em cards pequenos, e o
   // nome completo (que fica na descrição) não cabe nem ajuda ali. Configuração
-  // logo em seguida: é a informação que a Genilda mais precisa ao olhar a
+  // logo em seguida: é a informação que o apoio local mais precisa ao olhar a
   // agenda — casal, solteiro, quantas pessoas — para preparar a cama certa
   // antes da chegada. "Casal (2 pessoas)" vira só "Casal" no título — é óbvio
   // que casal são duas pessoas, e o espaço no card é curto; a contagem
@@ -101,7 +101,7 @@ function criarEventoAgenda(data) {
   ].filter(String).join(' · ');
 
   // Sem acomodação informada (hóspede marcou "Não sei / não lembro"), o
-  // evento sai cinza — sinal visual pra Genilda de que esse cadastro precisa
+  // evento sai cinza — sinal visual pro apoio local de que esse cadastro precisa
   // ser conferido na plataforma antes de tudo. Com acomodação informada, usa
   // a cor do quarto.
   var quartoInformado = String(data.quarto || '').trim();
@@ -157,8 +157,8 @@ Mariana · Casal + 1 solteiro (3 pessoas) · Duplex Seriema · Booking.com
 
 Só o primeiro nome — o nome completo fica na descrição do evento, não no
 título, que a agenda mostra em cards pequenos. A configuração vem logo em
-seguida de propósito: é a primeira coisa que a Genilda vê ao abrir o evento, e
-é o que ela precisa saber para montar a cama certa antes da chegada.
+seguida de propósito: é a primeira coisa que o apoio local vê ao abrir o evento, e
+é o que precisa saber para montar a cama certa antes da chegada.
 
 Quando a configuração é `Casal (2 pessoas)`, o título mostra só `Casal` — duas
 pessoas é óbvio, e sobra espaço pro resto. As outras configurações continuam
@@ -171,7 +171,7 @@ lembro"), o app envia o quarto vazio e o título sai como
 `Primeiro nome · Configuração · QUARTO A CONFIRMAR · Plataforma` —
 o "QUARTO A CONFIRMAR" propositalmente chamativo, para aparecer na agenda
 como pendência. O evento também sai **cinza** (Graphite) nesse caso,
-independente do quarto — cor reservada só pra isso, pra Genilda bater o olho
+independente do quarto — cor reservada só pra isso, pro apoio local bater o olho
 e saber que aquele cadastro precisa ser conferido na plataforma antes de
 qualquer outra coisa.
 
@@ -184,7 +184,7 @@ que só pintava as noites dormidas.
 
 O motivo é operacional: se o evento de quem está saindo e o de um hóspede
 novo entrando pintam o **mesmo dia**, é o sinal visual de que há troca no
-mesmo dia naquele quarto — a Genilda precisa limpar correndo, porque tem
+mesmo dia naquele quarto — a limpeza precisa ser feita correndo, porque tem
 gente chegando na saída do outro. Com o padrão antigo (parar um dia antes),
 essa sobreposição não aparecia na agenda.
 
@@ -216,7 +216,7 @@ Na página `/chegada` tem um botão "Confirmar minha chegada". Ele abre o
 WhatsApp do Fabio com uma mensagem pronta — e o hóspede raramente toca em
 Enviar lá. Sem esse toque, ninguém fica sabendo que ele chegou. O app agora
 chama `/api/avisar-chegada` no momento do clique (antes de abrir o WhatsApp),
-que cai aqui no Apps Script e manda um e-mail pra Genilda, como aviso de
+que cai aqui no Apps Script e manda um e-mail pro apoio local, como aviso de
 bastidor — quem segue a conversa com o hóspede continua sendo o Fabio, pelo
 WhatsApp. Não depende do hóspede completar nada lá.
 
@@ -252,9 +252,9 @@ function avisarChegada_(nome, quarto, plataforma) {
     '',
     'Confirmado em ' + new Date().toLocaleString('pt-BR')
   ].join('\n');
-  // Só a Genilda — o e-mail é o aviso de bastidor pra ela, o WhatsApp que o
+  // Só o apoio local — o e-mail é o aviso de bastidor pra ele, o WhatsApp que o
   // botão abre (com o Fabio) continua sendo o canal de atendimento.
-  MailApp.sendEmail('genildinhapopozuda@gmail.com', assunto, corpo);
+  MailApp.sendEmail('souzadossantosjoelice@gmail.com', assunto, corpo);
 }
 ```
 
@@ -326,7 +326,7 @@ Este é um problema separado da agenda, mas se resolve na mesma edição.
 ## Por que
 
 O `doPost` já manda um e-mail a cada cadastro, mas só para
-`genildinhapopozuda@gmail.com`. O Fabio só fica sabendo se o hóspede tocar em
+`souzadossantosjoelice@gmail.com`. O Fabio só fica sabendo se o hóspede tocar em
 Enviar na conversa do WhatsApp que o app abre — e isso falha na prática: em
 02/09 dois hóspedes preencheram e nenhum aviso chegou. Um fechou a aba antes de
 enviar; a outra caiu na checagem de duplicata, que na época não abria o
@@ -340,7 +340,7 @@ e-mail sai do servidor e não depende de ninguém.
 Procure no `doPost` a linha:
 
 ```javascript
-MailApp.sendEmail("genildinhapopozuda@gmail.com", assunto, corpo);
+MailApp.sendEmail("souzadossantosjoelice@gmail.com", assunto, corpo);
 ```
 
 E troque por:
@@ -348,7 +348,7 @@ E troque por:
 ```javascript
 // Vírgula separa os destinatários. O aviso precisa chegar a quem cuida das
 // reservas — não pode depender de o hóspede enviar a mensagem no WhatsApp.
-MailApp.sendEmail("shantipousada@gmail.com,genildinhapopozuda@gmail.com", assunto, corpo);
+MailApp.sendEmail("shantipousada@gmail.com,souzadossantosjoelice@gmail.com", assunto, corpo);
 ```
 
 Trocar `shantipousada@gmail.com` pelo endereço em que você realmente lê e-mail,

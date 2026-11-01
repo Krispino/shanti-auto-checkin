@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
   CODIGO_PORTAO,
-  WHATSAPP_GENILDA,
+  WHATSAPP_JOELICE,
   WHATSAPP_SHANTI,
   formatDateShort,
   getReservaFromSearch,
@@ -393,15 +393,15 @@ function Chegada() {
                 </div>
                 <p className="mt-4 text-sm opacity-90">
                   Durante a sua estadia, qualquer coisa no dia a dia é com a
-                  Genilda, que está na pousada:
+                  Joelice, que está na pousada:
                 </p>
                 <a
-                  href={`https://wa.me/${WHATSAPP_GENILDA}?text=${encodeURIComponent(`Olá Genilda! Sou ${firstName}, hóspede ${reserva.room.article === "a" ? "da" : "do"} ${reserva.room.label}.`)}`}
+                  href={`https://wa.me/${WHATSAPP_JOELICE}?text=${encodeURIComponent(`Olá Joelice! Sou ${firstName}, hóspede ${reserva.room.article === "a" ? "da" : "do"} ${reserva.room.label}.`)}`}
                   target="_blank"
                   rel="noreferrer"
                   className="mt-2 inline-block rounded-md bg-card text-foreground font-medium px-5 py-2.5 text-sm hover:bg-background transition-colors"
                 >
-                  Falar com a Genilda
+                  Falar com a Joelice
                 </a>
               </>
             ) : (
@@ -541,14 +541,14 @@ function Chegada() {
             </a>
           </div>
           <div className="mt-2">
-            Apoio presencial na pousada: Genilda —{" "}
+            Apoio presencial na pousada: Joelice —{" "}
             <a
-              href={`https://wa.me/${WHATSAPP_GENILDA}?text=${encodeURIComponent(`Olá Genilda! Sou ${firstName}, hóspede ${reserva.room.article === "a" ? "da" : "do"} ${reserva.room.label}. Preciso de ajuda.`)}`}
+              href={`https://wa.me/${WHATSAPP_JOELICE}?text=${encodeURIComponent(`Olá Joelice! Sou ${firstName}, hóspede ${reserva.room.article === "a" ? "da" : "do"} ${reserva.room.label}. Preciso de ajuda.`)}`}
               target="_blank"
               rel="noreferrer"
               className="text-primary hover:underline"
             >
-              (62) 99854-6284
+              (62) 99369-8085
             </a>
           </div>
         </div>

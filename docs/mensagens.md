@@ -418,7 +418,7 @@ Opcional, mas é onde aparecem os pedidos que evitam problema na chegada.
 
 ## 3.5 Já chegou, mas não apertou o botão `/chegadaAindanaochegou`
 
-Mandar quando o Fabio já sabe que o hóspede chegou (viu, a Genilda avisou)
+Mandar quando o Fabio já sabe que o hóspede chegou (viu, a Joelice avisou)
 mas ele não apertou "Confirmar minha chegada" nem mandou "cheguei" por conta
 própria. É a única mensagem que **pede** para apertar o botão — a 3.6 abaixo
 só responde depois que ele já avisou de algum jeito.
@@ -456,8 +456,8 @@ essencial mesmo que não volte para a página depois.
 > 🏞️ Trilhas e cachoeiras: https://shantipousada.com.br/chapada-dos-veadeiros/?v=7#parque
 >
 > Qualquer coisa que precisar durante a estadia, quem cuida do dia a dia
-> aqui é a Genilda, é só chamar ela direto por aqui:
-> https://wa.me/5562998546284
+> aqui é a Joelice, é só chamar ela direto por aqui:
+> https://wa.me/5562993698085
 >
 > Boa estadia! ✌️🙏
 
@@ -908,7 +908,7 @@ sóbrio, nunca mais de 1x por gatilho sazonal. Nunca urgência artificial tipo
 Só vale para a **Suíte Mangaba** (pode ser casal ou 2 solteiros) e o
 **Chalé Maytreia** (pode adicionar uma cama de solteiro extra além da de
 casal). A informação de preferência deve estar clara já no formulário de
-cadastro — o mais importante é que a Genilda já veja no calendário a
+cadastro — o mais importante é que a Joelice já veja no calendário a
 configuração o quanto antes. Esta mensagem só é enviada se o hóspede não
 indicou a preferência no cadastro.
 

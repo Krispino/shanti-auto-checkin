@@ -19,7 +19,7 @@ manda e-mail a cada reserva, em dois formatos:
 
 | Origem | Assunto | Observação |
 |---|---|---|
-| Innotel (reserva direta, Airbnb e Booking.com) | `Agente de IA\|Airbnb\|Booking.com — Nova Reserva — Pendente\|Confirmada — LOCALIZADOR` e `… — Reserva Modificada\|Reserva Cancelada — LOCALIZADOR` | datas `dd/mm/aaaa`, hóspede em "Hóspede" (vem `N/A` quando o canal ainda não passou o nome), quarto em "Tipo de Quarto"; a plataforma sai do início do assunto |
+| Innotel (reserva direta, Airbnb e Booking.com) | `Motor de reservas\|Agente de IA\|Airbnb\|Booking.com — Nova Reserva — Pendente\|Confirmada — LOCALIZADOR` e `… — Reserva Modificada\|Reserva Cancelada — LOCALIZADOR` | datas `dd/mm/aaaa`, hóspede em "Hóspede" (vem `N/A` quando o canal ainda não passou o nome), quarto em "Tipo de Quarto"; a plataforma sai do início do assunto |
 | Airbnb e Booking.com (formato antigo) | `Reservation Update – Airbnb\|Booking.com – REFERÊNCIA / LOCALIZADOR – confirmed\|modified` | datas ISO, hóspede em "Guest Name", quarto em "Room Name" |
 
 Cada reserva costuma gerar dois e-mails (o do Airbnb às vezes vem com o
@@ -113,7 +113,7 @@ function reconhecerQuarto_(textoQuarto) {
 
 function interpretarEmail_(assunto, html) {
   var linhas = htmlParaLinhas_(html);
-  var innotel = /(Airbnb|Booking(?:\.com)?|Agente de IA)\s+[—–-]\s+(Nova Reserva|Reserva Modificada|Reserva Cancelada)(?:\s+[—–-]\s+(Pendente|Confirmada|Cancelada))?\s+[—–-]\s+(\S+)/i.exec(assunto);
+  var innotel = /(Airbnb|Booking(?:\.com)?|Agente de IA|Motor de reservas)\s+[—–-]\s+(Nova Reserva|Reserva Modificada|Reserva Cancelada)(?:\s+[—–-]\s+(Pendente|Confirmada|Cancelada))?\s+[—–-]\s+(\S+)/i.exec(assunto);
   var ota = /Reservation Update\s+[—–-]\s+(.+?)\s+[—–-]\s+(\S+)\s*\/\s*(\S+)\s+[—–-]\s+(\w+)/i.exec(assunto);
   var r;
 
@@ -244,6 +244,17 @@ function aplicarReserva_(r) {
   if (r.quarto) evento.setTag('quarto', r.quarto.chave);
 }
 
+function avisarNaoReconhecido_(assunto) {
+  console.warn('E-mail do Innotel não reconhecido: ' + assunto);
+  if (!/Nova Reserva|Reserva (Modificada|Cancelada)|Reservation Update/i.test(assunto)) return;
+  MailApp.sendEmail(
+    'shantipousada@gmail.com',
+    'Reserva NÃO entrou na agenda',
+    'O script não reconheceu este e-mail do Innotel e a reserva não foi para a agenda.\n' +
+    'Lance à mão e avise para ajustar o script.\n\nAssunto: ' + assunto
+  );
+}
+
 function sincronizarReservasInnotel() {
   var props = PropertiesService.getScriptProperties();
   var vistos = JSON.parse(props.getProperty('reservas_processadas') || '[]');
@@ -256,7 +267,7 @@ function sincronizarReservasInnotel() {
       try {
         var r = interpretarEmail_(msg.getSubject(), msg.getBody());
         if (r) aplicarReserva_(r);
-        else console.warn('E-mail do Innotel não reconhecido: ' + msg.getSubject());
+        else avisarNaoReconhecido_(msg.getSubject());
       } catch (err) {
         console.error('Falha em ' + msg.getSubject() + ': ' + err);
         return;
@@ -336,5 +347,8 @@ casa com o próprio nome da chave.
    e-mails dos últimos 3 dias entram de uma vez.
 3. Os eventos antigos do Canindé seguem na cor padrão (azul claro); só os
    novos saem em Mirtilo (azul escuro). Se quiser, recolorir os antigos à mão.
-4. Conferir nos logs (Execuções) se aparece "E-mail do Innotel não
-   reconhecido" — significa formato novo de e-mail.
+4. E-mail de reserva que o script não reconhece agora chega por aviso em
+   `shantipousada@gmail.com` ("Reserva NÃO entrou na agenda"). E-mails de
+   pagamento do Innotel são ignorados em silêncio. Atenção: e-mail não
+   reconhecido é marcado como visto e não é reprocessado depois que o script
+   for corrigido — nesse caso lance o evento à mão.

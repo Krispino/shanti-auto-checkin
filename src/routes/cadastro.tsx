@@ -4,6 +4,7 @@ import {
   WHATSAPP_SHANTI,
   getReservaFromSearch,
   isRoomKey,
+  dataEstadiaValida,
   rooms,
   toISODate,
 } from "@/lib/shanti";
@@ -205,6 +206,13 @@ function Cadastro() {
       alert("É necessário aceitar as regras da casa para continuar.");
       return;
     }
+    if (
+      (dataEntrada && !dataEstadiaValida(dataEntrada)) ||
+      (dataSaida && !dataEstadiaValida(dataSaida))
+    ) {
+      alert("Confira o ano das datas da estadia.");
+      return;
+    }
     if (dataEntrada && dataSaida && dataSaida <= dataEntrada) {
       alert("A data de saída deve ser depois da data de entrada.");
       return;
@@ -384,8 +392,10 @@ function Cadastro() {
                   onChange={(e) => {
                     setDataEntrada(e.target.value);
                     // Já abre o seletor da saída, para o hóspede não precisar
-                    // fechar um e abrir o outro.
-                    if (e.target.value && !dataSaida) {
+                    // fechar um e abrir o outro. Só com o ano completo: digitando
+                    // "2026" o campo passa por "0002" e o seletor roubava o foco,
+                    // deixando o ano errado.
+                    if (dataEstadiaValida(e.target.value) && !dataSaida) {
                       requestAnimationFrame(() => saidaRef.current?.showPicker?.());
                     }
                   }}

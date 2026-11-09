@@ -36,7 +36,12 @@ var CORES_QUARTO = {
 function dataLocal_(s) {
   var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s || ''));
   if (!m) return null;
-  return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+  // Ano fora da faixa vira null: new Date(2, ...) vira 1902 em silêncio e o
+  // evento nascia com 124 anos (cadastro de 09/11/2026 com ano "0002").
+  var ano = Number(m[1]);
+  var anoAtual = new Date().getFullYear();
+  if (ano < anoAtual - 1 || ano > anoAtual + 2) return null;
+  return new Date(ano, Number(m[2]) - 1, Number(m[3]));
 }
 
 // Versão curta da configuração, só para o título do evento na agenda — o

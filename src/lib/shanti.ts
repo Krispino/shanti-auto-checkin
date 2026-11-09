@@ -125,6 +125,14 @@ export function toISODate(d: Date): string {
   return `${d.getFullYear()}-${mes}-${dia}`;
 }
 
+export function dataEstadiaValida(s: string): boolean {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s);
+  if (!m) return false;
+  const anoAtual = new Date().getFullYear();
+  const ano = Number(m[1]);
+  return ano >= anoAtual - 1 && ano <= anoAtual + 2;
+}
+
 // Data da URL normalizada como YYYY-MM-DD, ou null se ausente/inválida.
 function dateParam(search: URLSearchParams, chave: string): string | null {
   const v = search.get(chave);
